@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="description" content="Internet Safety — be smart, kind, and safe online. Bilingual tech lesson for kids." />
+  <meta name="theme-color" content="#B91C1C" />
+  <link rel="canonical" href="https://bayhaqy.my.id/kids/tech/internet-safety/" />
+  <link rel="icon" type="image/png" href="/kids/icons/logo.png" />
+  <title>Internet Safety — Bayhaqy Kids</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <script>(function(){try{var s=localStorage.getItem('bayhaqy-kids-theme');if(s==='dark'||s==='light'){document.documentElement.setAttribute('data-theme',s);}else{var d=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches;document.documentElement.setAttribute('data-theme',d?'dark':'light');}}catch(e){}})();</script>
+  <link rel="stylesheet" href="/kids/assets/theme.css?v=20260811a" />
+  <style>
+    .rule-card {
+      background: var(--paper);
+      border: 2px solid var(--line);
+      border-radius: var(--radius-lg);
+      padding: 1.25rem;
+      margin: 1rem 0;
+      display: flex; gap: 1rem; align-items: flex-start;
+      transition: border-color .2s, transform .2s;
+    }
+    .rule-card:hover { border-color: var(--tech); transform: translateX(4px); }
+    .rule-card .emoji {
+      font-size: 2.5rem;
+      flex-shrink: 0;
+    }
+    .rule-card .body h3 {
+      font-family: var(--font-display);
+      font-size: var(--fs-lg);
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 0.3rem;
+    }
+    .rule-card .body p {
+      color: var(--ink-soft);
+      font-size: var(--fs-sm);
+    }
+    .scenario {
+      background: var(--tech-soft);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+      margin: 1rem 0;
+    }
+    .scenario h3 {
+      font-family: var(--font-display);
+      color: var(--tech);
+      font-size: var(--fs-lg);
+      margin-bottom: 0.5rem;
+    }
+    .scenario .choices { display: flex; flex-direction: column; gap: 0.5rem; margin-top: 0.75rem; }
+    .scenario .choice {
+      padding: 0.75rem 1rem;
+      background: var(--paper);
+      border: 2px solid var(--line);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: all .15s;
+      font-weight: 600;
+      color: var(--ink);
+      text-align: left;
+    }
+    .scenario .choice:hover { border-color: var(--tech); }
+    .scenario .choice.correct { background: var(--science); color: #fff; border-color: var(--science); }
+    .scenario .choice.wrong { background: var(--games); color: #fff; border-color: var(--games); }
+  </style>
+</head>
+<body data-app-name="Internet Safety" data-subject="tech" class="subject-page">
+  <script src="/kids/assets/i18n.js"></script>
+  <script src="/kids/assets/app-shell.js"></script>
+
+  <main class="app-main">
+    <div class="breadcrumbs">
+      <a href="/kids/">Bayhaqy Kids</a>
+      <span class="sep">›</span>
+      <a href="/kids/tech/">Tech</a>
+      <span class="sep">›</span>
+      <span>Internet Safety</span>
+    </div>
+
+    <header class="app-hero">
+      <span class="app-eyebrow">Grade 3 · Lesson</span>
+      <h1 class="app-title">Internet <span class="accent">Safety</span></h1>
+      <p class="app-subtitle">The internet is amazing — here are 6 rules to stay smart, kind, and safe online.</p>
+    </header>
+
+    <section class="rule-card"><div class="emoji">🤫</div><div class="body"><h3>1. Keep your personal info private</h3><p>Never share your full name, home address, phone number, school name, or passwords with strangers online. Even photos can give away where you live.</p></div></section>
+    <section class="rule-card"><div class="emoji">👋</div><div class="body"><h3>2. Tell a grown-up if something feels wrong</h3><p>If a message, picture, or website makes you feel uncomfortable, scared, or confused — tell a parent, teacher, or trusted adult right away. You won't get in trouble.</p></div></section>
+    <section class="rule-card"><div class="emoji">🤝</div><div class="body"><h3>3. Be kind online</h3><p>Words on a screen can hurt just as much as words spoken out loud. Don't say anything online that you wouldn't say to someone's face. If you see bullying, don't join in — tell an adult.</p></div></section>
+    <section class="rule-card"><div class="emoji">🔒</div><div class="body"><h3>4. Use strong passwords</h3><p>A good password is at least 8 characters long and has letters, numbers, and symbols. Don't use your name or birthday. Never share passwords — not even with your best friend.</p></div></section>
+    <section class="rule-card"><div class="emoji">🤔</div><div class="body"><h3>5. Not everything online is true</h3><p>Anyone can post anything on the internet. If a story sounds weird, too good to be true, or scary — check with a trusted adult or a reliable source before believing or sharing it.</p></div></section>
+    <section class="rule-card"><div class="emoji">⏰</div><div class="body"><h3>6. Take screen breaks</h3><p>Staring at screens too long hurts your eyes and body. Follow the 20-20-20 rule: every 20 minutes, look at something 20 feet away for 20 seconds. Go outside and play!</p></div></section>
+
+    <h2 style="font-family: var(--font-display); font-size: var(--fs-xl); margin: 2rem 0 1rem;">What would you do?</h2>
+
+    <section class="scenario" id="scen1">
+      <h3>🤔 Scenario 1</h3>
+      <p>A stranger in a game chat says: "You're a great player! Send me your address and I'll send you a gift."</p>
+      <div class="choices">
+        <button class="choice" data-correct="false">Give them your address — free gift!</button>
+        <button class="choice" data-correct="true">Don't share your address. Tell an adult.</button>
+        <button class="choice" data-correct="false">Give them a fake address to get the gift.</button>
+      </div>
+      <p id="scen1-fb" style="margin-top:0.75rem; font-weight:700;"></p>
+    </section>
+
+    <section class="scenario" id="scen2">
+      <h3>🤔 Scenario 2</h3>
+      <p>Your friend shows you a mean meme about a classmate and asks you to share it.</p>
+      <div class="choices">
+        <button class="choice" data-correct="false">Share it — it's funny.</button>
+        <button class="choice" data-correct="false">Share it but only with close friends.</button>
+        <button class="choice" data-correct="true">Don't share it. Tell your friend it's not nice.</button>
+      </div>
+      <p id="scen2-fb" style="margin-top:0.75rem; font-weight:700;"></p>
+    </section>
+
+    <section class="scenario" id="scen3">
+      <h3>🤔 Scenario 3</h3>
+      <p>A pop-up says: "CONGRATULATIONS! You won a new phone! Click here to claim!"</p>
+      <div class="choices">
+        <button class="choice" data-correct="true">Don't click. Close the pop-up.</button>
+        <button class="choice" data-correct="false">Click — you won!</button>
+        <button class="choice" data-correct="false">Click but don't enter any info.</button>
+      </div>
+      <p id="scen3-fb" style="margin-top:0.75rem; font-weight:700;"></p>
+    </section>
+  </main>
+
+  <script>
+    document.querySelectorAll('.scenario').forEach(function (sc) {
+      var id = sc.id;
+      var fb = document.getElementById(id + '-fb');
+      sc.querySelectorAll('.choice').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var correct = btn.getAttribute('data-correct') === 'true';
+          if (correct) {
+            btn.classList.add('correct');
+            fb.textContent = '✓ Correct!';
+            fb.style.color = 'var(--science)';
+          } else {
+            btn.classList.add('wrong');
+            fb.textContent = '✗ Not quite. Try another.';
+            fb.style.color = 'var(--games)';
+            setTimeout(function () { btn.classList.remove('wrong'); }, 800);
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>
