@@ -11,6 +11,9 @@ window.I18N = {
     nav_tech: 'Tech',
     nav_history: 'History',
     nav_games: 'Games',
+    nav_art: 'Art & Music',
+    nav_geography: 'Geography',
+    nav_social: 'Social Studies',
 
     // Hero (landing)
     hero_eyebrow: 'For curious minds · Kindergarten to Grade 9',
@@ -35,6 +38,9 @@ window.I18N = {
     subject_tech_desc: 'Computers, coding, the internet, digital citizenship — understand the tools of tomorrow.',
     subject_history_desc: 'Indonesia, the world, key events and figures — see how the present was shaped.',
     subject_games_desc: 'Practice what you learned through fun, interactive games.',
+    subject_art_desc: 'Colors, drawing, music, rhythm — express creativity through art and sound.',
+    subject_geography_desc: 'Continents, oceans, mountains, maps — discover planet Earth.',
+    subject_social_desc: 'Family, community, country, world — understand people and society.',
 
     // Explore section
     explore_subject_1: 'Explore by ',
@@ -147,6 +153,9 @@ window.I18N = {
     nav_tech: 'Teknologi',
     nav_history: 'Sejarah',
     nav_games: 'Permainan',
+    nav_art: 'Seni & Musik',
+    nav_geography: 'Geografi',
+    nav_social: 'IPS',
 
     // Hero
     hero_eyebrow: 'Untuk pikiran penasaran · TK sampai Kelas 9',
@@ -171,6 +180,9 @@ window.I18N = {
     subject_tech_desc: 'Komputer, pemrograman, internet, kewarganegaraan digital — pahami alat masa depan.',
     subject_history_desc: 'Indonesia, dunia, peristiwa dan tokoh penting — lihat bagaimana masa kini terbentuk.',
     subject_games_desc: 'Asah yang sudah dipelajari lewat permainan seru.',
+    subject_art_desc: 'Warna, menggambar, musik, irama — berekspresi lewat seni dan suara.',
+    subject_geography_desc: 'Benua, samudra, gunung, peta — jelajahi planet Bumi.',
+    subject_social_desc: 'Keluarga, masyarakat, negara, dunia — pahami manusia dan masyarakat.',
 
     // Explore section
     explore_subject_1: 'Jelajahi berdasarkan ',
