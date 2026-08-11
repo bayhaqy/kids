@@ -1,0 +1,25 @@
+{
+  "name": "Bayhaqy Kids — Bilingual Learning Platform K-9",
+  "short_name": "Bayhaqy Kids",
+  "description": "Free bilingual (English & Indonesian) learning platform for kids K-9. Math, Language, Science, Tech, History.",
+  "start_url": "/kids/",
+  "scope": "/kids/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#FFFFFF",
+  "theme_color": "#B91C1C",
+  "lang": "en",
+  "dir": "ltr",
+  "categories": ["education", "kids", "learning"],
+  "icons": [
+    { "src": "/kids/icons/logo.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/kids/icons/logo.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/kids/icons/logo.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable" },
+    { "src": "/kids/icons/logo.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    { "name": "Math", "short_name": "Math", "url": "/kids/math/", "icons": [{ "src": "/kids/icons/logo.png", "sizes": "96x96" }] },
+    { "name": "Science", "short_name": "Science", "url": "/kids/science/", "icons": [{ "src": "/kids/icons/logo.png", "sizes": "96x96" }] },
+    { "name": "Games", "short_name": "Games", "url": "/kids/games/", "icons": [{ "src": "/kids/icons/logo.png", "sizes": "96x96" }] }
+  ]
+}
