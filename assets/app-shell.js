@@ -1,5 +1,7 @@
 /* =================================================================
-   Bayhaqy Kids — Shared shell (header + footer + theme + i18n)
+   Bayhaqy Kids — Shared shell (header + footer + theme + i18n + TTS)
+   v2 — Logo image header (matches apps/games/portfolio),
+        language-aware natural TTS, kid-friendly design.
    ================================================================= */
 (function () {
   'use strict';
@@ -34,9 +36,15 @@
       var val = window.I18N && window.I18N[currentLang] && window.I18N[currentLang][key];
       if (val) el.textContent = val;
     });
-    document.documentElement.setAttribute('lang', currentLang);
+    document.documentElement.setAttribute('lang', currentLang === 'id' ? 'id' : 'en');
     var toggle = document.getElementById('langToggle');
     if (toggle) toggle.textContent = currentLang === 'en' ? 'ID' : 'EN';
+    // Update speak buttons' labels
+    document.querySelectorAll('.speak-btn[data-i18n-label]').forEach(function (btn) {
+      var key = btn.getAttribute('data-i18n-label');
+      var val = window.I18N && window.I18N[currentLang] && window.I18N[currentLang][key];
+      if (val) btn.setAttribute('aria-label', val);
+    });
   }
 
   window.setLang = function (l) {
@@ -59,20 +67,154 @@
     } else { fn(); }
   }
 
-  /* ---------- 3. Build header + footer ---------- */
+  /* ---------- 3. Text-to-Speech with natural, language-aware voices ---------- */
+  // Voice selection: prefer neural/natural voices for the active language.
+  // Browsers (Chrome/Edge/Safari) expose both standard and "natural"/"Google"/"Microsoft" voices.
+  // We rank them so kids hear the most human-sounding voice available.
+
+  var voiceCache = { en: null, id: null };
+  var voicesLoaded = false;
+
+  function rankVoice(voice, lang) {
+    var name = (voice.name || '').toLowerCase();
+    var score = 0;
+    // Prefer natural/neural/premium voices
+    if (name.indexOf('natural') !== -1) score += 100;
+    if (name.indexOf('neural') !== -1) score += 100;
+    if (name.indexOf('premium') !== -1) score += 80;
+    if (name.indexOf('enhanced') !== -1) score += 60;
+    // Google voices tend to sound natural
+    if (name.indexOf('google') !== -1) score += 50;
+    // Microsoft Online voices (Safari/Edge on macOS/iOS) are neural
+    if (name.indexOf('microsoft') !== -1 && name.indexOf('online') !== -1) score += 90;
+    // Apple voices
+    if (name.indexOf('samantha') !== -1) score += 40; // high-quality EN
+    if (name.indexOf('daniel') !== -1) score += 30;  // high-quality EN-GB
+    if (name.indexOf('damayanti') !== -1) score += 60; // Apple ID voice
+    // Default voice gets small bonus (likely tuned by OS)
+    if (voice.default) score += 5;
+    // Local voices load instantly; online voices may need network but sound better.
+    // We don't penalize either; let the rank decide.
+    return score;
+  }
+
+  function pickVoiceForLang(lang) {
+    if (!('speechSynthesis' in window)) return null;
+    var voices = window.speechSynthesis.getVoices();
+    if (!voices || !voices.length) return null;
+    var langCode = lang === 'id' ? 'id' : 'en';
+    var candidates = voices.filter(function (v) {
+      var vl = (v.lang || '').toLowerCase();
+      return vl.indexOf(langCode) === 0;
+    });
+    if (!candidates.length) {
+      // Fallback: try any voice (better than silence)
+      candidates = voices;
+    }
+    candidates.sort(function (a, b) { return rankVoice(b, lang) - rankVoice(a, lang); });
+    return candidates[0];
+  }
+
+  function loadVoices() {
+    if (voicesLoaded) return;
+    voiceCache.en = pickVoiceForLang('en');
+    voiceCache.id = pickVoiceForLang('id');
+    voicesLoaded = true;
+  }
+
+  if ('speechSynthesis' in window) {
+    // Some browsers load voices asynchronously
+    window.speechSynthesis.onvoiceschanged = function () {
+      voicesLoaded = false;
+      loadVoices();
+    };
+    // Try initial load
+    setTimeout(loadVoices, 100);
+    setTimeout(loadVoices, 500);
+  }
+
+  /**
+   * speak(text, opts?) — Natural-sounding TTS for kids.
+   * - Automatically picks the best voice for the active language.
+   * - Uses slower rate for younger learners (K-3) by default.
+   * - Adds slight pitch variation to sound less robotic.
+   * - Falls back gracefully if speechSynthesis unavailable.
+   */
+  window.speak = function (text, opts) {
+    opts = opts || {};
+    if (!('speechSynthesis' in window)) {
+      if (window.showToast) window.showToast(window.t ? window.t('speech_unsupported') : 'Speech not supported');
+      return;
+    }
+    if (!text || !text.trim()) return;
+    // Cancel any in-flight speech so rapid taps don't queue up.
+    window.speechSynthesis.cancel();
+
+    var lang = opts.lang || window.getLang();
+    if (!voiceCache[lang]) loadVoices();
+    var voice = voiceCache[lang] || pickVoiceForLang(lang);
+
+    var u = new SpeechSynthesisUtterance(text);
+    if (voice) {
+      u.voice = voice;
+      u.lang = voice.lang;
+    } else {
+      u.lang = lang === 'id' ? 'id-ID' : 'en-US';
+    }
+    // Kid-friendly defaults: slightly slower, natural pitch, friendly rate.
+    // For young learners (K-3), slow down a bit more.
+    var grade = opts.grade || '';
+    var isYoung = grade === 'K' || grade === '1' || grade === '2' || grade === '3';
+    u.rate = opts.rate != null ? opts.rate : (isYoung ? 0.88 : 0.95);
+    u.pitch = opts.pitch != null ? opts.pitch : 1.05; // slightly higher = friendlier
+    u.volume = opts.volume != null ? opts.volume : 1;
+
+    // Visually mark the speaking element if provided
+    var target = opts.target;
+    if (target) target.classList.add('speaking');
+    u.onend = function () {
+      if (target) target.classList.remove('speaking');
+    };
+    u.onerror = function () {
+      if (target) target.classList.remove('speaking');
+    };
+
+    // Small delay helps Chrome cancel cleanly
+    setTimeout(function () {
+      window.speechSynthesis.speak(u);
+    }, 50);
+  };
+
+  /** speakElement(el) — Speaks all text content of an element, in order. */
+  window.speakElement = function (el, opts) {
+    if (!el) return;
+    var text = '';
+    el.querySelectorAll('h1, h2, h3, h4, p, li, .speakable').forEach(function (node) {
+      var t = node.textContent.trim();
+      if (t) text += t + '. ';
+    });
+    if (!text) text = el.textContent.trim();
+    window.speak(text, opts);
+  };
+
+  /** stopSpeaking() — Stops any in-flight speech. */
+  window.stopSpeaking = function () {
+    if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+  };
+
+  /* ---------- 4. Build header + footer ---------- */
   ready(function () {
     var appName = document.body.getAttribute('data-app-name') || '';
     var subject = document.body.getAttribute('data-subject') || '';
 
-    // Header
+    // Header — logo image + nav + lang toggle + theme toggle (matches apps format)
     var header = document.createElement('header');
     header.className = 'kids-header';
     header.id = 'kidsHeader';
     header.innerHTML =
       '<div class="kids-header-inner">' +
         '<a class="kids-brand" href="/kids/" aria-label="Bayhaqy Kids home">' +
-          '<span class="kids-brand-logo">B</span>' +
-          '<span class="kids-brand-name">Bayhaqy <span class="accent">Kids</span></span>' +
+          '<img src="/kids/icons/logo.png" alt="Bayhaqy" class="kids-brand-logo" />' +
         '</a>' +
         '<button class="menu-toggle" id="menuToggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>' +
         '<nav class="kids-nav" id="kidsNav" aria-label="Primary">' +
@@ -91,17 +233,15 @@
       '</div>';
     document.body.insertBefore(header, document.body.firstChild);
 
-    // Footer
+    // Footer — logo + standardized copyright text (matches apps/games format)
     var footer = document.createElement('footer');
     footer.className = 'kids-footer';
-    var year = new Date().getFullYear();
     footer.innerHTML =
       '<div class="kids-footer-inner">' +
         '<a class="brand-mini" href="/kids/" aria-label="Bayhaqy Kids home">' +
-          '<span class="logo">B</span>' +
-          '<span>Bayhaqy Kids</span>' +
+          '<img src="/kids/icons/logo.png" alt="Bayhaqy" />' +
         '</a>' +
-        '<span>© ' + year + ' Achmad Bayhaqy · <a href="https://bayhaqy.my.id/">bayhaqy.my.id</a></span>' +
+        '<span class="copy">© 2026 Achmad Bayhaqy. All rights reserved.</span>' +
         '<span class="footer-links">' +
           '<a href="https://bayhaqy.my.id/">Portfolio</a>' +
           '<a href="https://bayhaqy.my.id/apps/">Apps</a>' +
@@ -163,7 +303,7 @@
     initHelpers();
   });
 
-  /* ---------- 4. Global helpers ---------- */
+  /* ---------- 5. Global helpers ---------- */
   function initHelpers() {
     if (!window.showToast) {
       var toastEl = document.createElement('div');
@@ -206,5 +346,20 @@
         return a;
       };
     }
+
+    // Auto-wire any element with [data-speak] to speak its text on click
+    document.addEventListener('click', function (e) {
+      var target = e.target.closest('[data-speak]');
+      if (target) {
+        var text = target.getAttribute('data-speak') || target.textContent;
+        var grade = target.getAttribute('data-grade') || '';
+        window.speak(text, { target: target, grade: grade });
+      }
+    });
+
+    // Stop speech when navigating away
+    window.addEventListener('beforeunload', function () {
+      if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+    });
   }
 })();
