@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="description" content="The Alphabet — A to Z, names and sounds. Bilingual kindergarten lesson." />
+  <meta name="theme-color" content="#B91C1C" />
+  <link rel="canonical" href="https://bayhaqy.my.id/kids/language/alphabet/" />
+  <link rel="icon" type="image/png" href="/kids/icons/logo.png" />
+  <title>Alphabet — Bayhaqy Kids</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <script>(function(){try{var s=localStorage.getItem('bayhaqy-kids-theme');if(s==='dark'||s==='light'){document.documentElement.setAttribute('data-theme',s);}else{var d=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches;document.documentElement.setAttribute('data-theme',d?'dark':'light');}}catch(e){}})();</script>
+  <link rel="stylesheet" href="/kids/assets/theme.css?v=20260811a" />
+  <style>
+    .alpha-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+      gap: 0.5rem;
+      margin: 1rem 0;
+    }
+    .alpha-card {
+      aspect-ratio: 1;
+      background: var(--paper);
+      border: 3px solid var(--line);
+      border-radius: var(--radius);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      cursor: pointer;
+      transition: all .15s var(--ease);
+      position: relative;
+      overflow: hidden;
+    }
+    .alpha-card:hover {
+      border-color: var(--language);
+      transform: scale(1.05);
+      box-shadow: var(--shadow);
+    }
+    .alpha-card .letter {
+      font-family: var(--font-display);
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: var(--language);
+      line-height: 1;
+    }
+    .alpha-card .emoji {
+      font-size: 1.5rem;
+      margin-top: 0.2rem;
+    }
+    .alpha-card .word {
+      font-size: 0.65rem;
+      color: var(--ink-mute);
+      font-weight: 700;
+      margin-top: 0.15rem;
+    }
+    .alpha-card.active {
+      background: var(--language);
+      border-color: var(--language);
+    }
+    .alpha-card.active .letter,
+    .alpha-card.active .word { color: #fff; }
+
+    .speak-area {
+      background: var(--lang-soft);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      text-align: center;
+      margin: 1rem 0;
+    }
+    .speak-area .big-letter {
+      font-family: var(--font-display);
+      font-size: 6rem;
+      font-weight: 800;
+      color: var(--language);
+      line-height: 1;
+    }
+    .speak-area .word-display {
+      font-size: var(--fs-xl);
+      color: var(--ink);
+      font-weight: 700;
+      margin-top: 0.5rem;
+    }
+    .speak-area .emoji-display {
+      font-size: 3rem;
+      margin: 0.5rem 0;
+    }
+  </style>
+</head>
+<body data-app-name="Alphabet" data-subject="language" class="subject-page">
+  <script src="/kids/assets/i18n.js"></script>
+  <script src="/kids/assets/app-shell.js"></script>
+
+  <main class="app-main">
+    <div class="breadcrumbs">
+      <a href="/kids/">Bayhaqy Kids</a>
+      <span class="sep">›</span>
+      <a href="/kids/language/">Language</a>
+      <span class="sep">›</span>
+      <span>Alphabet</span>
+    </div>
+
+    <header class="app-hero">
+      <span class="app-eyebrow">Kindergarten · Lesson</span>
+      <h1 class="app-title">The <span class="accent">Alphabet</span></h1>
+      <p class="app-subtitle">Tap any letter to hear it and see a word that starts with it.</p>
+    </header>
+
+    <section class="speak-area">
+      <div class="big-letter" id="bigLetter">A</div>
+      <div class="emoji-display" id="emojiDisplay">🍎</div>
+      <div class="word-display" id="wordDisplay">Apple</div>
+      <button class="btn btn-primary" id="speakBtn" style="margin-top:0.75rem;">🔊 Say it!</button>
+    </section>
+
+    <section class="card">
+      <h2 class="card-title">All 26 letters</h2>
+      <div class="alpha-grid" id="alphaGrid"></div>
+    </section>
+  </main>
+
+  <script>
+    var letters = [
+      { l: 'A', en: 'Apple',     id: 'Apel',        e: '🍎' },
+      { l: 'B', en: 'Ball',      id: 'Bola',        e: '⚽' },
+      { l: 'C', en: 'Cat',       id: 'Kucing',      e: '🐱' },
+      { l: 'D', en: 'Dog',       id: 'Anjing',      e: '🐶' },
+      { l: 'E', en: 'Egg',       id: 'Telur',       e: '🥚' },
+      { l: 'F', en: 'Fish',      id: 'Ikan',        e: '🐟' },
+      { l: 'G', en: 'Goat',      id: 'Kambing',     e: '🐐' },
+      { l: 'H', en: 'Hat',       id: 'Topi',        e: '🎩' },
+      { l: 'I', en: 'Ice',       id: 'Es',          e: '🧊' },
+      { l: 'J', en: 'Juice',     id: 'Jus',         e: '🧃' },
+      { l: 'K', en: 'Kite',      id: 'Layang',      e: '🪁' },
+      { l: 'L', en: 'Lion',      id: 'Singa',       e: '🦁' },
+      { l: 'M', en: 'Moon',      id: 'Bulan',       e: '🌙' },
+      { l: 'N', en: 'Nest',      id: 'Sarang',      e: '🪺' },
+      { l: 'O', en: 'Orange',    id: 'Jeruk',       e: '🍊' },
+      { l: 'P', en: 'Penguin',   id: 'Pinguin',     e: '🐧' },
+      { l: 'Q', en: 'Queen',     id: 'Ratu',        e: '👑' },
+      { l: 'R', en: 'Rabbit',    id: 'Kelinci',     e: '🐰' },
+      { l: 'S', en: 'Sun',       id: 'Matahari',    e: '☀️' },
+      { l: 'T', en: 'Tree',      id: 'Pohon',       e: '🌳' },
+      { l: 'U', en: 'Umbrella',  id: 'Payung',      e: '☂️' },
+      { l: 'V', en: 'Violin',    id: 'Biola',       e: '🎻' },
+      { l: 'W', en: 'Whale',     id: 'Paus',        e: '🐳' },
+      { l: 'X', en: 'Fox',       id: 'Rubah',       e: '🦊' },
+      { l: 'Y', en: 'Yarn',      id: 'Benang',      e: '🧶' },
+      { l: 'Z', en: 'Zebra',     id: 'Zebra',       e: '🦓' }
+    ];
+
+    var bigLetter = document.getElementById('bigLetter');
+    var emojiDisplay = document.getElementById('emojiDisplay');
+    var wordDisplay = document.getElementById('wordDisplay');
+    var speakBtn = document.getElementById('speakBtn');
+    var grid = document.getElementById('alphaGrid');
+    var current = letters[0];
+
+    function selectLetter(l) {
+      current = l;
+      bigLetter.textContent = l.l;
+      emojiDisplay.textContent = l.e;
+      var lang = window.getLang();
+      wordDisplay.textContent = lang === 'id' ? l.id : l.en;
+      // Highlight
+      grid.querySelectorAll('.alpha-card').forEach(function (c) { c.classList.remove('active'); });
+      var idx = letters.indexOf(l);
+      var card = grid.children[idx];
+      if (card) card.classList.add('active');
+      speak();
+    }
+
+    function speak() {
+      if (!('speechSynthesis' in window)) return;
+      var lang = window.getLang();
+      var u = new SpeechSynthesisUtterance(current.l + ' for ' + (lang === 'id' ? current.id : current.en));
+      u.lang = lang === 'id' ? 'id-ID' : 'en-US';
+      u.rate = 0.7;
+      speechSynthesis.speak(u);
+    }
+
+    speakBtn.addEventListener('click', speak);
+
+    letters.forEach(function (l) {
+      var card = document.createElement('div');
+      card.className = 'alpha-card';
+      card.innerHTML = '<div class="letter">' + l.l + '</div><div class="emoji">' + l.e + '</div>';
+      card.addEventListener('click', function () { selectLetter(l); });
+      grid.appendChild(card);
+    });
+
+    document.addEventListener('langchange', function () {
+      var lang = window.getLang();
+      wordDisplay.textContent = lang === 'id' ? current.id : current.en;
+    });
+
+    selectLetter(letters[0]);
+  </script>
+</body>
+</html>
