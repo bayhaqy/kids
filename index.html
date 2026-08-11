@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="description" content="Bayhaqy Kids — bilingual (English & Indonesian) learning platform for kids from Kindergarten to Grade 9. Math, Language, Science, Tech, History with interactive lessons, simulations, and games." />
+  <meta name="keywords" content="Bayhaqy Kids, kids learning, K-9, kindergarten, elementary, junior high, math, language, science, tech, history, belajar anak, TK, SD, SMP" />
+  <meta name="author" content="Achmad Bayhaqy" />
+  <meta name="robots" content="index, follow, max-image-preview:large" />
+  <meta name="theme-color" content="#B91C1C" />
+  <link rel="canonical" href="https://bayhaqy.my.id/kids/" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Bayhaqy Kids — Bilingual Learning Platform for K-9" />
+  <meta property="og:description" content="Free interactive lessons, simulations, and games for kids K-9. Math, Language, Science, Tech, History in English & Indonesian." />
+  <meta property="og:url" content="https://bayhaqy.my.id/kids/" />
+  <meta property="og:image" content="https://bayhaqy.my.id/kids/icons/og-image.png" />
+  <meta property="og:site_name" content="Bayhaqy Kids" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:locale:alternate" content="id_ID" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Bayhaqy Kids — Bilingual Learning Platform for K-9" />
+  <meta name="twitter:description" content="Free interactive lessons, simulations, and games for kids K-9. Math, Language, Science, Tech, History." />
+  <meta name="twitter:image" content="https://bayhaqy.my.id/kids/icons/og-image.png" />
+
+  <link rel="icon" type="image/png" href="/kids/icons/logo.png" />
+  <link rel="apple-touch-icon" href="/kids/icons/logo.png" />
+  <link rel="manifest" href="/kids/manifest.json" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&family=Nunito:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+
+  <title>Bayhaqy Kids — Bilingual Learning Platform for K-9</title>
+
+  <!-- Prevent theme flash -->
+  <script>
+    (function() {
+      try {
+        var saved = localStorage.getItem('bayhaqy-kids-theme');
+        if (saved === 'dark' || saved === 'light') {
+          document.documentElement.setAttribute('data-theme', saved);
+        } else {
+          var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+          document.documentElement.setAttribute('data-theme', prefersDark ? 'dark' : 'light');
+        }
+      } catch (e) {}
+    })();
+  </script>
+
+  <link rel="stylesheet" href="/kids/assets/theme.css?v=20260811a" />
+  <style>
+    /* Hero-specific styling */
+    .kids-landing-hero {
+      position: relative;
+      padding: clamp(2rem, 6vw, 4rem) 1.25rem clamp(2rem, 4vw, 3rem);
+      border-bottom: 1px solid var(--line);
+      overflow: hidden;
+      background: linear-gradient(180deg, var(--paper-warm) 0%, var(--paper) 100%);
+    }
+    .kids-landing-hero::before {
+      content: '';
+      position: absolute;
+      top: -100px; right: -100px;
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, var(--red-50) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-inner {
+      max-width: var(--container);
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+    .hero-inner .eyebrow {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      background: var(--red-50);
+      color: var(--red-700);
+      padding: 0.4rem 0.95rem;
+      border-radius: 999px;
+      font-size: var(--fs-xs);
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.4rem, 7vw, var(--fs-4xl));
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.05;
+      color: var(--ink);
+      margin-bottom: 1rem;
+    }
+    .hero-title .accent { color: var(--red-700); }
+    .hero-sub {
+      font-size: var(--fs-lg);
+      color: var(--ink-soft);
+      max-width: 680px;
+      margin-bottom: 1.5rem;
+    }
+    .hero-actions {
+      display: flex; gap: 0.75rem; flex-wrap: wrap;
+      margin-bottom: 2rem;
+    }
+    .hero-stats {
+      display: flex; gap: 2rem; flex-wrap: wrap;
+      list-style: none;
+      padding: 1rem 0;
+      border-top: 1px solid var(--line);
+    }
+    .hero-stats .stat {
+      display: flex; flex-direction: column; gap: 0.1rem;
+    }
+    .hero-stats .num {
+      font-family: var(--font-display);
+      font-size: var(--fs-2xl);
+      font-weight: 800;
+      color: var(--red-700);
+      line-height: 1;
+    }
+    .hero-stats .lbl {
+      font-size: var(--fs-xs);
+      color: var(--ink-mute);
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    /* About section */
+    .about-section {
+      max-width: var(--container);
+      margin: 0 auto;
+      padding: 3rem 1.25rem;
+    }
+    .about-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+    }
+    .feature {
+      padding: 1.25rem;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+    }
+    .feature .feat-icon {
+      width: 44px; height: 44px;
+      background: var(--red-50);
+      color: var(--red-700);
+      border-radius: var(--radius-sm);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 0.75rem;
+    }
+    .feature .feat-icon svg { width: 24px; height: 24px; }
+    .feature h3 {
+      font-family: var(--font-display);
+      font-size: var(--fs-lg);
+      font-weight: 700;
+      margin-bottom: 0.4rem;
+      color: var(--ink);
+    }
+    .feature p {
+      font-size: var(--fs-sm);
+      color: var(--ink-soft);
+    }
+
+    /* Grade band */
+    .grade-section {
+      background: var(--paper-alt);
+      padding: 3rem 1.25rem;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+    .grade-section .inner {
+      max-width: var(--container);
+      margin: 0 auto;
+    }
+    .grade-section h2 {
+      font-family: var(--font-display);
+      font-size: var(--fs-2xl);
+      font-weight: 800;
+      text-align: center;
+      margin-bottom: 0.5rem;
+    }
+    .grade-section .lead {
+      text-align: center;
+      color: var(--ink-soft);
+      margin-bottom: 2rem;
+      max-width: 600px;
+      margin-left: auto; margin-right: auto;
+    }
+    .grade-bands {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+    }
+    .grade-band {
+      background: var(--paper);
+      border: 2px solid var(--line);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      text-align: center;
+      transition: transform .2s var(--ease), box-shadow .2s;
+    }
+    .grade-band:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow);
+    }
+    .grade-band .icon {
+      width: 56px; height: 56px;
+      border-radius: 50%;
+      background: var(--red-50);
+      color: var(--red-700);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 0.85rem;
+      font-size: 1.5rem;
+    }
+    .grade-band h4 {
+      font-family: var(--font-display);
+      font-size: var(--fs-lg);
+      font-weight: 700;
+      margin-bottom: 0.3rem;
+    }
+    .grade-band p {
+      font-size: var(--fs-sm);
+      color: var(--ink-soft);
+    }
+
+    /* Parents section */
+    .parents-section {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 3rem 1.25rem;
+    }
+    .parents-section h2 {
+      font-family: var(--font-display);
+      font-size: var(--fs-2xl);
+      font-weight: 800;
+      margin-bottom: 1rem;
+    }
+    .parents-section ul {
+      list-style: none;
+      padding: 0;
+    }
+    .parents-section li {
+      padding: 0.6rem 0 0.6rem 2rem;
+      position: relative;
+      color: var(--ink-soft);
+      border-bottom: 1px solid var(--line);
+    }
+    .parents-section li::before {
+      content: '✓';
+      position: absolute;
+      left: 0; top: 0.6rem;
+      color: var(--science);
+      font-weight: 800;
+    }
+    .parents-section li:last-child { border-bottom: none; }
+  </style>
+</head>
+<body data-app-name="" data-subject="">
+  <script src="/kids/assets/i18n.js"></script>
+  <script src="/kids/assets/app-shell.js"></script>
+
+  <main>
+    <!-- Hero -->
+    <section class="kids-landing-hero">
+      <div class="hero-inner">
+        <span class="eyebrow">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px"><path d="M12 2L15 8L22 9L17 14L18 21L12 18L6 21L7 14L2 9L9 8L12 2Z"/></svg>
+          <span data-i18n="hero_eyebrow">For curious minds · Kindergarten to Grade 9</span>
+        </span>
+        <h1 class="hero-title">
+          <span data-i18n="hero_title_1">Learn, play, and grow with </span><span class="accent" data-i18n="hero_title_2">Bayhaqy Kids</span>
+        </h1>
+        <p class="hero-sub" data-i18n="hero_sub">A bilingual (English & Indonesian) learning platform with interactive lessons, simulations, and games across Math, Language, Science, Tech, and History. 100% free, 100% kid-safe, runs entirely in your browser.</p>
+
+        <div class="hero-actions">
+          <a href="#subjects" class="btn btn-primary btn-big">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:20px;height:20px"><polyline points="6 9 12 15 18 9"/></svg>
+            Start exploring
+          </a>
+          <a href="/kids/games/" class="btn btn-ghost btn-big">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:20px;height:20px"><rect x="2" y="6" width="20" height="12" rx="2"/><line x1="6" y1="12" x2="10" y2="12"/><line x1="8" y1="10" x2="8" y2="14"/><circle cx="15" cy="11" r="1"/><circle cx="18" cy="13" r="1"/></svg>
+            Play games
+          </a>
+        </div>
+
+        <ul class="hero-stats">
+          <li class="stat"><span class="num">6</span><span class="lbl">Subjects</span></li>
+          <li class="stat"><span class="num">30+</span><span class="lbl">Lessons</span></li>
+          <li class="stat"><span class="num">2</span><span class="lbl">Languages</span></li>
+          <li class="stat"><span class="num">K–9</span><span class="lbl">Grade range</span></li>
+          <li class="stat"><span class="num">0</span><span class="lbl">Sign-ups</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Subjects -->
+    <section id="subjects">
+      <div class="kids-hero" style="text-align: center; max-width: 720px;">
+        <h1>Explore by <span class="accent">subject</span></h1>
+        <p>Pick a subject and dive in. Every lesson is bilingual and adapts to your grade level.</p>
+      </div>
+      <div class="subjects-grid">
+        <a href="/kids/math/" class="subject-card" data-subject="math">
+          <div class="icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="7" y1="8" x2="17" y2="8"/><line x1="7" y1="12" x2="10" y2="12"/><line x1="14" y1="12" x2="17" y2="12"/><line x1="7" y1="16" x2="10" y2="16"/><line x1="14" y1="16" x2="17" y2="16"/></svg>
+          </div>
+          <h3 data-i18n="nav_math">Math</h3>
+          <p data-i18n="subject_math_desc">Counting, arithmetic, fractions, geometry, algebra — from counting to algebra, built up step by step.</p>
+          <div class="meta">
+            <span class="pill">Counting</span>
+            <span class="pill">Fractions</span>
+            <span class="pill">Algebra</span>
+          </div>
+        </a>
+
+        <a href="/kids/language/" class="subject-card" data-subject="language">
+          <div class="icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+          </div>
+          <h3 data-i18n="nav_language">Language</h3>
+          <p data-i18n="subject_language_desc">Reading, writing, grammar, vocabulary in English and Bahasa Indonesia.</p>
+          <div class="meta">
+            <span class="pill">Reading</span>
+            <span class="pill">Grammar</span>
+            <span class="pill">Vocabulary</span>
+          </div>
+        </a>
+
+        <a href="/kids/science/" class="subject-card" data-subject="science">
+          <div class="icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2v7.5l-5.5 9.5a2 2 0 0 0 1.7 3h11.6a2 2 0 0 0 1.7-3L14 9.5V2"/><line x1="8" y1="2" x2="16" y2="2"/></svg>
+          </div>
+          <h3 data-i18n="nav_science">Science</h3>
+          <p data-i18n="subject_science_desc">Biology, physics, chemistry, earth science — explore the natural world.</p>
+          <div class="meta">
+            <span class="pill">Biology</span>
+            <span class="pill">Physics</span>
+            <span class="pill">Earth</span>
+          </div>
+        </a>
+
+        <a href="/kids/tech/" class="subject-card" data-subject="tech">
+          <div class="icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+          </div>
+          <h3 data-i18n="nav_tech">Tech</h3>
+          <p data-i18n="subject_tech_desc">Computers, coding, the internet, digital citizenship — understand the tools of tomorrow.</p>
+          <div class="meta">
+            <span class="pill">Coding</span>
+            <span class="pill">Internet</span>
+            <span class="pill">Safety</span>
+          </div>
+        </a>
+
+        <a href="/kids/history/" class="subject-card" data-subject="history">
+          <div class="icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          <h3 data-i18n="nav_history">History</h3>
+          <p data-i18n="subject_history_desc">Indonesia, the world, key events and figures — see how the present was shaped.</p>
+          <div class="meta">
+            <span class="pill">Indonesia</span>
+            <span class="pill">World</span>
+            <span class="pill">Figures</span>
+          </div>
+        </a>
+
+        <a href="/kids/games/" class="subject-card" data-subject="games">
+          <div class="icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="2"/><line x1="6" y1="12" x2="10" y2="12"/><line x1="8" y1="10" x2="8" y2="14"/><circle cx="15" cy="11" r="1"/><circle cx="18" cy="13" r="1"/></svg>
+          </div>
+          <h3 data-i18n="nav_games">Games</h3>
+          <p data-i18n="subject_games_desc">Practice what you learned through fun, interactive games.</p>
+          <div class="meta">
+            <span class="pill">Quiz</span>
+            <span class="pill">Memory</span>
+            <span class="pill">Puzzle</span>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- About / Features -->
+    <section class="about-section">
+      <h2 style="font-family: var(--font-display); font-size: var(--fs-2xl); font-weight: 800; text-align: center; margin-bottom: 0.5rem;">
+        Why kids (and parents) <span class="text-red">love it</span>
+      </h2>
+      <p style="text-align: center; color: var(--ink-soft); max-width: 600px; margin: 0 auto 1.5rem;">
+        Every lesson is built with kid-friendly design, gradual difficulty, and immediate feedback.
+      </p>
+      <div class="about-grid">
+        <div class="feature">
+          <div class="feat-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <h3>100% Safe</h3>
+          <p>No ads, no sign-ups, no tracking, no chat. Everything runs in your browser — nothing leaves the device.</p>
+        </div>
+        <div class="feature">
+          <div class="feat-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          </div>
+          <h3>Bilingual</h3>
+          <p>Toggle between English and Bahasa Indonesia anytime. Same lesson, two languages.</p>
+        </div>
+        <div class="feature">
+          <div class="feat-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+          </div>
+          <h3>Grade-aware</h3>
+          <p>From Kindergarten counting to Grade 9 algebra — pick your level and the content adapts.</p>
+        </div>
+        <div class="feature">
+          <div class="feat-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11.75A2.25 2.25 0 0 1 11.25 14v0a2.25 2.25 0 0 1-2.25 2.25h-3v-4.5z"/><path d="M9 11.75v-2A2.25 2.25 0 0 1 11.25 7.5h0a2.25 2.25 0 0 1 2.25 2.25v2"/><path d="M15 6.5h3a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2h-3"/></svg>
+          </div>
+          <h3>Interactive</h3>
+          <p>Drag, draw, type, click — every lesson invites kids to DO, not just read. Simulations make abstract ideas visible.</p>
+        </div>
+        <div class="feature">
+          <div class="feat-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          <h3>Self-paced</h3>
+          <p>No timers, no pressure. Kids learn at their own speed, retry as much as they want, and celebrate every win.</p>
+        </div>
+        <div class="feature">
+          <div class="feat-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          </div>
+          <h3>Offline OK</h3>
+          <p>After the first load, kids can keep learning without an internet connection. Perfect for travel and classrooms.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Grade bands -->
+    <section class="grade-section">
+      <div class="inner">
+        <h2>Made for every <span class="text-red">age</span></h2>
+        <p class="lead">Content adapts across three broad grade bands — pick what fits your learner.</p>
+        <div class="grade-bands">
+          <div class="grade-band">
+            <div class="icon">🌱</div>
+            <h4>Kindergarten</h4>
+            <p>Ages 4–6 · Pre-reading, counting, colors, shapes, first words.</p>
+          </div>
+          <div class="grade-band">
+            <div class="icon">🌿</div>
+            <h4>Grades 1–6</h4>
+            <p>Ages 6–12 · Elementary: arithmetic, reading, science basics, history stories.</p>
+          </div>
+          <div class="grade-band">
+            <div class="icon">🌳</div>
+            <h4>Grades 7–9</h4>
+            <p>Ages 12–15 · Junior high: algebra, essays, lab science, coding, civics.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Parents section -->
+    <section class="parents-section">
+      <h2>For <span class="text-red">parents &amp; teachers</span></h2>
+      <ul>
+        <li>No accounts, no data collection — kids just open the page and learn.</li>
+        <li>Works on any device with a browser — phone, tablet, laptop, Chromebook.</li>
+        <li>Installable as an app (PWA) — add to home screen for full-screen offline use.</li>
+        <li>Aligned with Indonesia's Kurikulum Merdeka themes and international K-8 standards.</li>
+        <li>Open source — every lesson's code is on GitHub for transparency and contribution.</li>
+        <li>Built by Achmad Bayhaqy — IT leader, parent, and education advocate.</li>
+      </ul>
+    </section>
+  </main>
+
+  <script>
+    // Re-apply i18n after I18N loads
+    document.addEventListener('DOMContentLoaded', function () {
+      if (window.applyI18n) window.applyI18n();
+    });
+  </script>
+</body>
+</html>
