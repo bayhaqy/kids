@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="description" content="How plants make food from sunlight. — Bilingual lesson for kids. Bayhaqy Kids." />
+  <meta name="theme-color" content="#B91C1C" />
+  <link rel="canonical" href="https://bayhaqy.my.id/kids/science/photosynthesis/" />
+  <link rel="icon" type="image/png" href="/kids/icons/logo.png" />
+  <title>Photosynthesis — Bayhaqy Kids</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <script>(function(){try{var s=localStorage.getItem('bayhaqy-kids-theme');if(s==='dark'||s==='light'){document.documentElement.setAttribute('data-theme',s);}else{var d=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches;document.documentElement.setAttribute('data-theme',d?'dark':'light');}}catch(e){}})();</script>
+  <link rel="stylesheet" href="/kids/assets/theme.css?v=20260812a" />
+  <style>
+    .lesson-block {
+      background: var(--paper);
+      border: 2px solid var(--line);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      margin: 1rem 0;
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      transition: transform .2s var(--ease), border-color .2s, box-shadow .2s;
+    }
+    .lesson-block:hover {
+      transform: translateY(-2px);
+      border-color: var(--science);
+      box-shadow: var(--shadow);
+    }
+    .lesson-block .emoji {
+      font-size: 3rem;
+      line-height: 1;
+      flex-shrink: 0;
+      animation: wiggle 2s ease-in-out infinite;
+      animation-play-state: paused;
+    }
+    .lesson-block:hover .emoji {
+      animation-play-state: running;
+    }
+    @keyframes wiggle {
+      0%, 100% { transform: rotate(-3deg); }
+      50% { transform: rotate(3deg); }
+    }
+    .lesson-block .content {
+      flex: 1;
+    }
+    .lesson-block .text {
+      font-size: var(--fs-md);
+      line-height: 1.6;
+      color: var(--ink);
+      margin: 0 0 0.5rem;
+    }
+    .speak-row {
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+      margin-top: 0.5rem;
+    }
+    .quiz-box {
+      background: var(--science-soft);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      margin: 1.5rem 0;
+    }
+    .quiz-box .q-text {
+      font-family: var(--font-display);
+      font-size: var(--fs-xl);
+      font-weight: 700;
+      color: var(--ink);
+      margin: 0 0 1rem;
+      text-align: center;
+    }
+    .quiz-box .choices {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 0.75rem;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .quiz-box .choice {
+      padding: 1rem;
+      background: var(--paper);
+      border: 3px solid var(--line);
+      border-radius: var(--radius);
+      font-family: var(--font-display);
+      font-size: var(--fs-lg);
+      font-weight: 700;
+      color: var(--ink);
+      cursor: pointer;
+      transition: all .15s var(--ease);
+      text-align: center;
+    }
+    .quiz-box .choice:hover {
+      border-color: var(--science);
+      transform: scale(1.05);
+    }
+    .quiz-box .choice.correct {
+      background: #16a34a;
+      color: #fff;
+      border-color: #16a34a;
+      animation: pop .3s;
+    }
+    .quiz-box .choice.wrong {
+      background: #dc2626;
+      color: #fff;
+      border-color: #dc2626;
+      animation: shake .3s;
+    }
+    .feedback {
+      text-align: center;
+      margin-top: 1rem;
+      font-weight: 700;
+      font-size: var(--fs-lg);
+      min-height: 1.5em;
+    }
+    .score-row {
+      text-align: center;
+      margin-top: 0.5rem;
+      font-size: var(--fs-sm);
+      color: var(--ink-mute);
+    }
+    .lesson-hero-icon {
+      font-size: 5rem;
+      text-align: center;
+      animation: bounce 2s ease-in-out infinite;
+      display: block;
+      margin: 0 auto 0.5rem;
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+    @keyframes pop {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+      100% { transform: scale(1); }
+    }
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-5px); }
+      75% { transform: translateX(5px); }
+    }
+    .next-btn {
+      display: block;
+      margin: 1rem auto 0;
+    }
+    @media (max-width: 640px) {
+      .lesson-block {
+        flex-direction: column;
+        padding: 1rem;
+      }
+      .lesson-block .emoji {
+        font-size: 2.5rem;
+        text-align: center;
+      }
+      .lesson-hero-icon { font-size: 4rem; }
+    }
+  </style>
+</head>
+<body data-app-name="Photosynthesis" data-subject="science" class="subject-page">
+  <script src="/kids/assets/i18n.js"></script>
+  <script src="/kids/assets/app-shell.js"></script>
+
+  <main class="app-main">
+    <div class="breadcrumbs">
+      <a href="/kids/">Bayhaqy Kids</a>
+      <span class="sep">›</span>
+      <a href="/kids/science/">Science</a>
+      <span class="sep">›</span>
+      <span>Photosynthesis</span>
+    </div>
+
+    <header class="app-hero">
+      <span class="lesson-hero-icon">☀️</span>
+      <span class="app-eyebrow">Grade 6 · Lesson</span>
+      <h1 class="app-title"><span class="accent">Photosynthesis</span></h1>
+      <p class="app-subtitle">How plants make food from sunlight.</p>
+    </header>
+
+    <section class="card">
+      <h2 class="card-title">📚 <span data-i18n="lessons_title">Lessons</span></h2>
+      <div class="lesson-block">
+        <div class="emoji">☀️</div>
+        <div class="content">
+          <p class="text" data-en="Plants make their own food using sunlight. This is called photosynthesis." data-id="Tumbuhan membuat makanan sendiri pakai cahaya matahari. Ini disebut fotosintesis.">Plants make their own food using sunlight. This is called photosynthesis.</p>
+          <div class="speak-row">
+            <button class="btn btn-ghost btn-sm" data-speak-idx="0" data-i18n-label="listen">🔊 <span data-i18n="listen">Listen</span></button>
+          </div>
+        </div>
+      </div>
+      <div class="lesson-block">
+        <div class="emoji">🍃</div>
+        <div class="content">
+          <p class="text" data-en="Leaves have tiny parts called chloroplasts. They catch sunlight like solar panels." data-id="Daun punya bagian kecil bernama kloroplas. Menangkap cahaya seperti panel surya.">Leaves have tiny parts called chloroplasts. They catch sunlight like solar panels.</p>
+          <div class="speak-row">
+            <button class="btn btn-ghost btn-sm" data-speak-idx="1" data-i18n-label="listen">🔊 <span data-i18n="listen">Listen</span></button>
+          </div>
+        </div>
+      </div>
+      <div class="lesson-block">
+        <div class="emoji">💧</div>
+        <div class="content">
+          <p class="text" data-en="Roots drink water from soil. Water goes up the stem to the leaves." data-id="Akar minum air dari tanah. Air naik melalui batang ke daun.">Roots drink water from soil. Water goes up the stem to the leaves.</p>
+          <div class="speak-row">
+            <button class="btn btn-ghost btn-sm" data-speak-idx="2" data-i18n-label="listen">🔊 <span data-i18n="listen">Listen</span></button>
+          </div>
+        </div>
+      </div>
+      <div class="lesson-block">
+        <div class="emoji">💨</div>
+        <div class="content">
+          <p class="text" data-en="Leaves breathe in carbon dioxide from the air. They use it to make sugar (food)." data-id="Daun menghirup karbon dioksida dari udara. Menggunakannya untuk membuat gula (makanan).">Leaves breathe in carbon dioxide from the air. They use it to make sugar (food).</p>
+          <div class="speak-row">
+            <button class="btn btn-ghost btn-sm" data-speak-idx="3" data-i18n-label="listen">🔊 <span data-i18n="listen">Listen</span></button>
+          </div>
+        </div>
+      </div>
+      <div class="lesson-block">
+        <div class="emoji">🌳</div>
+        <div class="content">
+          <p class="text" data-en="Plants give out oxygen — the gas we breathe. Thank a plant for every breath!" data-id="Tumbuhan mengeluarkan oksigen — gas yang kita hirup. Berterima kasihlah ke tumbuhan!">Plants give out oxygen — the gas we breathe. Thank a plant for every breath!</p>
+          <div class="speak-row">
+            <button class="btn btn-ghost btn-sm" data-speak-idx="4" data-i18n-label="listen">🔊 <span data-i18n="listen">Listen</span></button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="quiz-box">
+      <p class="q-text" id="qText"></p>
+      <div class="choices" id="choices"></div>
+      <p class="feedback" id="feedback"></p>
+      <p class="score-row">
+        <span data-i18n="score">Score</span>: <strong id="score">0</strong> ·
+        <span data-i18n="question">Question</span> <span id="qNum">1</span>
+      </p>
+      <button class="btn btn-primary next-btn" id="nextQ" style="display:none;" data-i18n="next_question">Next question</button>
+    </section>
+
+    <p style="text-align:center; margin-top:2rem;">
+      <button class="btn btn-ghost" id="listenAll" data-i18n="listen">Listen</button>
+      <button class="btn btn-ghost" id="stopAll" data-i18n="stop">Stop</button>
+    </p>
+  </main>
+
+  <script>
+    // Lesson content for speak
+    var LESSON_CONTENT = [{"emoji": "\u2600\ufe0f", "en": "Plants make their own food using sunlight. This is called photosynthesis.", "id": "Tumbuhan membuat makanan sendiri pakai cahaya matahari. Ini disebut fotosintesis."}, {"emoji": "\ud83c\udf43", "en": "Leaves have tiny parts called chloroplasts. They catch sunlight like solar panels.", "id": "Daun punya bagian kecil bernama kloroplas. Menangkap cahaya seperti panel surya."}, {"emoji": "\ud83d\udca7", "en": "Roots drink water from soil. Water goes up the stem to the leaves.", "id": "Akar minum air dari tanah. Air naik melalui batang ke daun."}, {"emoji": "\ud83d\udca8", "en": "Leaves breathe in carbon dioxide from the air. They use it to make sugar (food).", "id": "Daun menghirup karbon dioksida dari udara. Menggunakannya untuk membuat gula (makanan)."}, {"emoji": "\ud83c\udf33", "en": "Plants give out oxygen \u2014 the gas we breathe. Thank a plant for every breath!", "id": "Tumbuhan mengeluarkan oksigen \u2014 gas yang kita hirup. Berterima kasihlah ke tumbuhan!"}];
+
+    // Quiz
+    var QUIZ = [{"q_en": "What do plants use to make food?", "q_id": "Apa yang dipakai tumbuhan untuk membuat makanan?", "choices": ["Moonlight", "Sunlight", "Fire", "Wind"], "answer_idx": 1}, {"q_en": "What gas do plants give out?", "q_id": "Gas apa yang dikeluarkan tumbuhan?", "choices": ["Carbon dioxide", "Oxygen", "Smoke", "Nitrogen"], "answer_idx": 1}, {"q_en": "What catches sunlight in leaves?", "q_id": "Apa yang menangkap cahaya di daun?", "choices": ["Roots", "Chloroplasts", "Flowers", "Stem"], "answer_idx": 1}, {"q_en": "What gas do plants take in?", "q_id": "Gas apa yang diambil tumbuhan?", "choices": ["Oxygen", "Carbon dioxide", "Helium", "Smoke"], "answer_idx": 1}];
+    var qIdx = 0, score = 0;
+    var qText = document.getElementById('qText');
+    var choicesEl = document.getElementById('choices');
+    var feedback = document.getElementById('feedback');
+    var scoreEl = document.getElementById('score');
+    var qNumEl = document.getElementById('qNum');
+    var nextBtn = document.getElementById('nextQ');
+
+    function loadQ() {
+      feedback.textContent = '';
+      feedback.style.color = '';
+      nextBtn.style.display = 'none';
+      var q = QUIZ[qIdx];
+      var lang = window.getLang ? window.getLang() : 'en';
+      qText.textContent = lang === 'id' ? q.q_id : q.q_en;
+      choicesEl.innerHTML = '';
+      q.choices.forEach(function (c, i) {
+        var btn = document.createElement('button');
+        btn.className = 'choice';
+        btn.textContent = c;
+        btn.addEventListener('click', function () {
+          if (i === q.answer_idx) {
+            btn.classList.add('correct');
+            feedback.textContent = window.t ? window.t('correct') : 'Correct!';
+            feedback.style.color = '#16a34a';
+            score++;
+            scoreEl.textContent = score;
+          } else {
+            btn.classList.add('wrong');
+            feedback.textContent = window.t ? window.t('incorrect') : 'Try again!';
+            feedback.style.color = '#dc2626';
+            choicesEl.querySelectorAll('.choice').forEach(function (b, j) {
+              if (j === q.answer_idx) b.classList.add('correct');
+            });
+          }
+          choicesEl.querySelectorAll('.choice').forEach(function (b) { b.style.pointerEvents = 'none'; });
+          nextBtn.style.display = 'block';
+        });
+        choicesEl.appendChild(btn);
+      });
+    }
+
+    nextBtn.addEventListener('click', function () {
+      qIdx = (qIdx + 1) % QUIZ.length;
+      qNumEl.textContent = qIdx + 1;
+      loadQ();
+    });
+    loadQ();
+
+    // Listen all button
+    document.getElementById('listenAll').addEventListener('click', function () {
+      var lang = window.getLang ? window.getLang() : 'en';
+      var text = LESSON_CONTENT.map(function (b) { return lang === 'id' ? b.id : b.en; }).join(' ');
+      if (window.speak) window.speak(text);
+    });
+    document.getElementById('stopAll').addEventListener('click', function () {
+      if (window.stopSpeaking) window.stopSpeaking();
+    });
+
+    // Per-block speak buttons
+    document.querySelectorAll('[data-speak-idx]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var idx = parseInt(btn.getAttribute('data-speak-idx'));
+        var lang = window.getLang ? window.getLang() : 'en';
+        var text = lang === 'id' ? LESSON_CONTENT[idx].id : LESSON_CONTENT[idx].en;
+        if (window.speak) window.speak(text);
+      });
+    });
+
+    // Update quiz language on lang change
+    document.addEventListener('langchange', function () {
+      loadQ();
+    });
+  </script>
+</body>
+</html>
