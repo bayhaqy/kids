@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="description" content="Multiplication Table — interactive times table. Click any cell to see the answer. Bilingual math simulation." />
+  <meta name="theme-color" content="#B91C1C" />
+  <link rel="canonical" href="https://bayhaqy.my.id/kids/math/multiplication-table/" />
+  <link rel="icon" type="image/png" href="/kids/icons/logo.png" />
+  <title>Multiplication Table — Bayhaqy Kids</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <script>(function(){try{var s=localStorage.getItem('bayhaqy-kids-theme');if(s==='dark'||s==='light'){document.documentElement.setAttribute('data-theme',s);}else{var d=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches;document.documentElement.setAttribute('data-theme',d?'dark':'light');}}catch(e){}})();</script>
+  <link rel="stylesheet" href="/kids/assets/theme.css?v=20260811a" />
+  <style>
+    .mult-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-family: var(--font-display);
+      font-weight: 700;
+      max-width: 720px;
+      margin: 1rem auto;
+    }
+    .mult-table th, .mult-table td {
+      border: 1px solid var(--line);
+      width: 9%;
+      aspect-ratio: 1;
+      text-align: center;
+      vertical-align: middle;
+      font-size: var(--fs-md);
+      color: var(--ink);
+      position: relative;
+    }
+    .mult-table th {
+      background: var(--math);
+      color: #fff;
+      font-weight: 800;
+    }
+    .mult-table td.cell {
+      background: var(--paper);
+      cursor: pointer;
+      transition: all .15s;
+    }
+    .mult-table td.cell:hover {
+      background: var(--math-soft);
+      transform: scale(1.1);
+      z-index: 5;
+    }
+    .mult-table td.cell.highlighted {
+      background: var(--math);
+      color: #fff;
+    }
+    .mult-table td.cell.row-col {
+      background: var(--math-soft);
+      color: var(--math);
+      font-weight: 800;
+    }
+    @media (max-width: 640px) {
+      .mult-table th, .mult-table td { font-size: var(--fs-xs); }
+    }
+    .info-bar {
+      background: var(--math-soft);
+      border-radius: var(--radius);
+      padding: 1rem 1.25rem;
+      margin: 1rem auto;
+      max-width: 720px;
+      text-align: center;
+      font-family: var(--font-display);
+      font-size: var(--fs-xl);
+      font-weight: 800;
+      color: var(--math);
+    }
+  </style>
+</head>
+<body data-app-name="Multiplication Table" data-subject="math" class="subject-page">
+  <script src="/kids/assets/i18n.js"></script>
+  <script src="/kids/assets/app-shell.js"></script>
+
+  <main class="app-main">
+    <div class="breadcrumbs">
+      <a href="/kids/">Bayhaqy Kids</a>
+      <span class="sep">›</span>
+      <a href="/kids/math/">Math</a>
+      <span class="sep">›</span>
+      <span>Multiplication Table</span>
+    </div>
+
+    <header class="app-hero">
+      <span class="app-eyebrow">Grade 3 · Simulation</span>
+      <h1 class="app-title">Multiplication <span class="accent">Table</span></h1>
+      <p class="app-subtitle">Hover or tap any cell to see the multiplication. Notice the patterns — like the diagonal of squares (1, 4, 9, 16, 25…).</p>
+    </header>
+
+    <div class="info-bar" id="infoBar">👆 Tap a cell</div>
+
+    <table class="mult-table" id="multTable"></table>
+
+    <section class="card">
+      <h2 class="card-title">Cool patterns to discover</h2>
+      <ul style="margin-left: 1.25rem; color: var(--ink-soft);">
+        <li><strong>Diagonal:</strong> 1×1, 2×2, 3×3, 4×4... gives square numbers (1, 4, 9, 16, 25, 36...).</li>
+        <li><strong>2× row:</strong> doubles each number — 2, 4, 6, 8, 10, 12...</li>
+        <li><strong>5× row:</strong> ends in 0 or 5 — 5, 10, 15, 20, 25...</li>
+        <li><strong>10× row:</strong> just add a zero — 10, 20, 30, 40...</li>
+        <li><strong>9× row:</strong> the digits add up to 9 — 9, 18 (1+8=9), 27 (2+7=9)...</li>
+        <li><strong>Symmetry:</strong> 3×4 = 4×3 = 12. The table is a mirror!</li>
+      </ul>
+    </section>
+  </main>
+
+  <script>
+    var table = document.getElementById('multTable');
+    var infoBar = document.getElementById('infoBar');
+    var N = 10;
+
+    var html = '<thead><tr><th>×</th>';
+    for (var j = 1; j <= N; j++) html += '<th>' + j + '</th>';
+    html += '</tr></thead><tbody>';
+    for (var i = 1; i <= N; i++) {
+      html += '<tr><th>' + i + '</th>';
+      for (var k = 1; k <= N; k++) {
+        html += '<td class="cell" data-row="' + i + '" data-col="' + k + '" data-val="' + (i*k) + '">' + (i*k) + '</td>';
+      }
+      html += '</tr>';
+    }
+    html += '</tbody>';
+    table.innerHTML = html;
+
+    table.querySelectorAll('.cell').forEach(function (cell) {
+      cell.addEventListener('mouseenter', function () { highlight(cell); });
+      cell.addEventListener('click', function () { highlight(cell); speakIt(cell); });
+    });
+
+    function highlight(cell) {
+      // Clear previous highlights
+      table.querySelectorAll('.cell').forEach(function (c) {
+        c.classList.remove('highlighted', 'row-col');
+      });
+      var r = parseInt(cell.getAttribute('data-row'));
+      var c = parseInt(cell.getAttribute('data-col'));
+      var v = cell.getAttribute('data-val');
+      // Highlight row + col
+      table.querySelectorAll('tr:nth-child(' + (r+1) + ') .cell').forEach(function (x) { x.classList.add('row-col'); });
+      table.querySelectorAll('tr .cell:nth-child(' + c + ')').forEach(function (x) { x.classList.add('row-col'); });
+      cell.classList.remove('row-col');
+      cell.classList.add('highlighted');
+      infoBar.textContent = r + ' × ' + c + ' = ' + v;
+    }
+
+    function speakIt(cell) {
+      if (!('speechSynthesis' in window)) return;
+      var r = cell.getAttribute('data-row');
+      var c = cell.getAttribute('data-col');
+      var v = cell.getAttribute('data-val');
+      var lang = window.getLang();
+      var txt = lang === 'id' ? (r + ' kali ' + c + ' sama dengan ' + v) : (r + ' times ' + c + ' equals ' + v);
+      var u = new SpeechSynthesisUtterance(txt);
+      u.lang = lang === 'id' ? 'id-ID' : 'en-US';
+      u.rate = 0.85;
+      speechSynthesis.speak(u);
+    }
+  </script>
+</body>
+</html>
