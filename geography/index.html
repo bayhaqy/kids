@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="description" content="Geography lessons for kids K-9. Bilingual (English & Indonesian), interactive, 100% free. Bayhaqy Kids." />
+  <meta name="theme-color" content="#B91C1C" />
+  <meta property="og:title" content="Geography — Bayhaqy Kids" />
+  <meta property="og:description" content="Bilingual Geography lessons for kids K-9." />
+  <meta property="og:url" content="https://bayhaqy.my.id/kids/geography/" />
+  <link rel="canonical" href="https://bayhaqy.my.id/kids/geography/" />
+  <link rel="icon" type="image/png" href="/kids/icons/logo.png" />
+  <title>Geography — Bayhaqy Kids</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&family=Nunito:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+  <script>(function(){try{var s=localStorage.getItem('bayhaqy-kids-theme');if(s==='dark'||s==='light'){document.documentElement.setAttribute('data-theme',s);}else{var d=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches;document.documentElement.setAttribute('data-theme',d?'dark':'light');}}catch(e){}})();</script>
+  <link rel="stylesheet" href="/kids/assets/theme.css?v=20260812a" />
+</head>
+<body data-app-name="Geography" data-subject="geography" class="subject-page">
+  <script src="/kids/assets/i18n.js"></script>
+  <script src="/kids/assets/app-shell.js"></script>
+
+  <main class="app-main">
+    <div class="breadcrumbs">
+      <a href="/kids/" data-i18n="back_to_kids">Bayhaqy Kids</a>
+      <span class="sep">›</span>
+      <span data-i18n="nav_geography">Geography</span>
+    </div>
+
+    <header class="app-hero">
+      <div class="subject-icon-big" style="font-size:5rem; line-height:1;">🌍</div>
+      <span class="app-eyebrow" data-i18n="nav_geography">Geography</span>
+      <h1 class="app-title">Discover <span class="accent">planet Earth</span></h1>
+      <p class="app-subtitle" data-i18n="subject_geography_desc">Geography lessons for kids K-9.</p>
+    </header>
+
+    <section class="card">
+      <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:0.75rem;">
+        <div>
+          <strong style="font-family: var(--font-display);" data-i18n="grade_label">Grade level</strong>
+          <div style="font-size: var(--fs-xs); color: var(--ink-mute);" data-i18n="lessons_sub">Pick a topic to start learning.</div>
+        </div>
+        <div class="grade-selector" id="gradeSelector" style="flex-wrap:wrap;">
+          <button class="grade-btn active" data-grade="all" data-i18n="grade_all">All</button>
+          <button class="grade-btn" data-grade="K">K</button>
+          <button class="grade-btn" data-grade="1">G1</button>
+          <button class="grade-btn" data-grade="2">G2</button>
+          <button class="grade-btn" data-grade="3">G3</button>
+          <button class="grade-btn" data-grade="4">G4</button>
+          <button class="grade-btn" data-grade="5">G5</button>
+          <button class="grade-btn" data-grade="6">G6</button>
+          <button class="grade-btn" data-grade="7">G7</button>
+          <button class="grade-btn" data-grade="8">G8</button>
+          <button class="grade-btn" data-grade="9">G9</button>
+        </div>
+      </div>
+    </section>
+
+    <h2 style="font-family: var(--font-display); font-size: var(--fs-xl); margin: 1.5rem 0 0.5rem;" data-i18n="lessons_title">Lessons</h2>
+    <div class="lesson-list" id="lessonList"></div>
+  </main>
+
+  <script src="/kids/assets/lessons.js?v=20260812a"></script>
+  <script>
+    var list = document.getElementById('lessonList');
+    var gradeBtns = document.querySelectorAll('#gradeSelector .grade-btn');
+    var currentGrade = 'all';
+    function rerender() { window.renderLessons(list, 'geography', currentGrade, 'all'); }
+    gradeBtns.forEach(function (b) {
+      b.addEventListener('click', function () {
+        gradeBtns.forEach(function (x) { x.classList.remove('active'); });
+        b.classList.add('active');
+        currentGrade = b.getAttribute('data-grade');
+        rerender();
+      });
+    });
+    document.addEventListener('langchange', rerender);
+    rerender();
+  </script>
+</body>
+</html>
