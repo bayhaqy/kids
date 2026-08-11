@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="description" content="Counting 1 to 10 — first math lesson for kindergarten. Bilingual English & Indonesian." />
+  <meta name="theme-color" content="#B91C1C" />
+  <link rel="canonical" href="https://bayhaqy.my.id/kids/math/counting-1-10/" />
+  <link rel="icon" type="image/png" href="/kids/icons/logo.png" />
+  <title>Counting 1 to 10 — Bayhaqy Kids</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <script>(function(){try{var s=localStorage.getItem('bayhaqy-kids-theme');if(s==='dark'||s==='light'){document.documentElement.setAttribute('data-theme',s);}else{var d=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches;document.documentElement.setAttribute('data-theme',d?'dark':'light');}}catch(e){}})();</script>
+  <link rel="stylesheet" href="/kids/assets/theme.css?v=20260811a" />
+  <style>
+    .count-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 1rem;
+      margin: 1.5rem 0;
+    }
+    .count-card {
+      background: var(--paper);
+      border: 3px solid var(--line);
+      border-radius: var(--radius-lg);
+      padding: 1.25rem;
+      text-align: center;
+      cursor: pointer;
+      transition: transform .2s var(--ease), border-color .2s, box-shadow .2s;
+      position: relative;
+    }
+    .count-card:hover {
+      transform: translateY(-3px);
+      border-color: var(--math);
+      box-shadow: var(--shadow);
+    }
+    .count-card .num {
+      font-family: var(--font-display);
+      font-size: 3.5rem;
+      font-weight: 800;
+      color: var(--math);
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+    .count-card .dots {
+      display: flex; gap: 4px; justify-content: center; flex-wrap: wrap;
+      min-height: 24px;
+    }
+    .count-card .dot {
+      width: 12px; height: 12px;
+      border-radius: 50%;
+      background: var(--math);
+      display: inline-block;
+    }
+    .count-card .word {
+      font-size: var(--fs-xs);
+      color: var(--ink-mute);
+      margin-top: 0.4rem;
+      font-weight: 600;
+    }
+    .count-card.celebrate {
+      animation: pop .4s var(--ease);
+      border-color: var(--science);
+    }
+
+    .practice-box {
+      background: var(--math-soft);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      margin: 1.5rem 0;
+      text-align: center;
+    }
+    .practice-box .q-num {
+      font-family: var(--font-display);
+      font-size: 5rem;
+      font-weight: 800;
+      color: var(--math);
+      line-height: 1;
+      margin: 0.5rem 0;
+    }
+    .practice-box .q-prompt {
+      font-size: var(--fs-lg);
+      color: var(--ink-soft);
+    }
+    .practice-box .choices {
+      display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap;
+      margin-top: 1rem;
+    }
+    .practice-box .choice {
+      min-width: 80px;
+      padding: 0.85rem 1.25rem;
+      background: var(--paper);
+      border: 3px solid var(--line);
+      border-radius: var(--radius);
+      font-family: var(--font-display);
+      font-size: var(--fs-xl);
+      font-weight: 800;
+      color: var(--ink);
+      cursor: pointer;
+      transition: all .15s var(--ease);
+    }
+    .practice-box .choice:hover {
+      border-color: var(--math);
+      transform: scale(1.05);
+    }
+    .practice-box .choice.correct {
+      background: var(--science);
+      color: #fff;
+      border-color: var(--science);
+      animation: pop .3s;
+    }
+    .practice-box .choice.wrong {
+      background: var(--games);
+      color: #fff;
+      border-color: var(--games);
+      animation: shake .3s;
+    }
+  </style>
+</head>
+<body data-app-name="Counting 1 to 10" data-subject="math" class="subject-page" data-subject="math">
+  <script src="/kids/assets/i18n.js"></script>
+  <script src="/kids/assets/app-shell.js"></script>
+
+  <main class="app-main">
+    <div class="breadcrumbs">
+      <a href="/kids/">Bayhaqy Kids</a>
+      <span class="sep">›</span>
+      <a href="/kids/math/">Math</a>
+      <span class="sep">›</span>
+      <span>Counting 1 to 10</span>
+    </div>
+
+    <header class="app-hero">
+      <span class="app-eyebrow">Kindergarten · Lesson</span>
+      <h1 class="app-title">Counting <span class="accent">1 to 10</span></h1>
+      <p class="app-subtitle">Tap each number to hear it. Then practice — pick the right number for the dots.</p>
+    </header>
+
+    <section class="card">
+      <h2 class="card-title">Meet the numbers</h2>
+      <div class="count-grid" id="countGrid"></div>
+    </section>
+
+    <section class="practice-box">
+      <p class="q-prompt">How many dots?</p>
+      <div class="q-num" id="dotsDisplay"></div>
+      <div class="choices" id="choicesRow"></div>
+      <p id="feedback" style="margin-top:1rem; font-weight:700; font-size: var(--fs-lg);"></p>
+      <p style="margin-top:0.5rem; font-size: var(--fs-sm); color: var(--ink-mute);">
+        <span data-i18n="score">Score</span>: <strong id="score">0</strong> · <span data-i18n="question">Question</span> <span id="qNum">1</span>
+      </p>
+      <button class="btn btn-ghost" id="nextQ" style="display:none;" data-i18n="next_question">Next question</button>
+    </section>
+  </main>
+
+  <script>
+    // Build number cards 1-10
+    var grid = document.getElementById('countGrid');
+    var words = ['one','two','three','four','five','six','seven','eight','nine','ten'];
+    var kata = ['satu','dua','tiga','empat','lima','enam','tujuh','delapan','sembilan','sepuluh'];
+
+    for (var i = 1; i <= 10; i++) {
+      var card = document.createElement('div');
+      card.className = 'count-card';
+      var dotsHtml = '';
+      for (var d = 0; d < i; d++) dotsHtml += '<span class="dot"></span>';
+      card.innerHTML =
+        '<div class="num">' + i + '</div>' +
+        '<div class="dots">' + dotsHtml + '</div>' +
+        '<div class="word" data-en="' + words[i-1] + '" data-id="' + kata[i-1] + '">' + words[i-1] + '</div>';
+      card.addEventListener('click', function (n, c) {
+        return function () {
+          // Speak the number using Web Speech API
+          if ('speechSynthesis' in window) {
+            var u = new SpeechSynthesisUtterance(String(n));
+            u.lang = window.getLang() === 'id' ? 'id-ID' : 'en-US';
+            u.rate = 0.8;
+            speechSynthesis.speak(u);
+          }
+          c.classList.add('celebrate');
+          setTimeout(function () { c.classList.remove('celebrate'); }, 400);
+        };
+      }(i, card));
+      grid.appendChild(card);
+    }
+
+    // Practice quiz — show N dots, ask "how many?" with 4 choices
+    var score = 0, qNum = 1;
+    var dotsDisplay = document.getElementById('dotsDisplay');
+    var choicesRow = document.getElementById('choicesRow');
+    var feedback = document.getElementById('feedback');
+    var scoreEl = document.getElementById('score');
+    var qNumEl = document.getElementById('qNum');
+    var nextBtn = document.getElementById('nextQ');
+
+    function newQ() {
+      feedback.textContent = '';
+      feedback.style.color = '';
+      nextBtn.style.display = 'none';
+      var answer = window.randInt(1, 10);
+      // Render as dots inside q-num
+      var dotsHtml = '';
+      for (var i = 0; i < answer; i++) dotsHtml += '<span style="display:inline-block; width:18px; height:18px; border-radius:50%; background: var(--math); margin: 4px;"></span>';
+      dotsDisplay.innerHTML = '<div style="line-height:1.4;">' + dotsHtml + '</div>';
+
+      // Generate 4 choices
+      var choices = [answer];
+      while (choices.length < 4) {
+        var n = window.randInt(1, 10);
+        if (choices.indexOf(n) === -1) choices.push(n);
+      }
+      choices = window.shuffle(choices);
+      choicesRow.innerHTML = '';
+      choices.forEach(function (n) {
+        var btn = document.createElement('button');
+        btn.className = 'choice';
+        btn.textContent = n;
+        btn.addEventListener('click', function () {
+          if (n === answer) {
+            btn.classList.add('correct');
+            feedback.textContent = window.t('correct');
+            feedback.style.color = 'var(--science)';
+            score++;
+            scoreEl.textContent = score;
+          } else {
+            btn.classList.add('wrong');
+            feedback.textContent = window.t('incorrect');
+            feedback.style.color = 'var(--games)';
+            // Highlight the correct one
+            choicesRow.querySelectorAll('.choice').forEach(function (c) {
+              if (parseInt(c.textContent) === answer) c.classList.add('correct');
+            });
+          }
+          // Disable all
+          choicesRow.querySelectorAll('.choice').forEach(function (c) { c.style.pointerEvents = 'none'; });
+          nextBtn.style.display = 'inline-flex';
+        });
+        choicesRow.appendChild(btn);
+      });
+      qNum++;
+      qNumEl.textContent = qNum - 1;
+    }
+
+    nextBtn.addEventListener('click', newQ);
+    newQ();
+
+    // Update words on language change
+    function updateLang() {
+      var lang = window.getLang();
+      document.querySelectorAll('.count-card .word').forEach(function (el) {
+        el.textContent = lang === 'id' ? el.getAttribute('data-id') : el.getAttribute('data-en');
+      });
+    }
+    document.addEventListener('langchange', updateLang);
+    updateLang();
+  </script>
+</body>
+</html>
