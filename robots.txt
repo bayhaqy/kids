@@ -1,4 +1,3 @@
-# robots.txt — bayhaqy.my.id/kids
 User-agent: *
 Allow: /
 
