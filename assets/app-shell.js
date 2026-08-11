@@ -223,6 +223,9 @@
           '<a href="/kids/science/" data-i18n="nav_science">Science</a>' +
           '<a href="/kids/tech/" data-i18n="nav_tech">Tech</a>' +
           '<a href="/kids/history/" data-i18n="nav_history">History</a>' +
+          '<a href="/kids/art/" data-i18n="nav_art">Art</a>' +
+          '<a href="/kids/geography/" data-i18n="nav_geography">Geography</a>' +
+          '<a href="/kids/social/" data-i18n="nav_social">Social</a>' +
           '<a href="/kids/games/" data-i18n="nav_games">Games</a>' +
           '<button class="lang-toggle" id="langToggle" type="button" aria-label="Switch language">ID</button>' +
           '<button class="theme-toggle" type="button" aria-label="Toggle dark mode" id="themeToggle">' +
@@ -238,15 +241,7 @@
     footer.className = 'kids-footer';
     footer.innerHTML =
       '<div class="kids-footer-inner">' +
-        '<a class="brand-mini" href="/kids/" aria-label="Bayhaqy Kids home">' +
-          '<img src="/kids/icons/logo.png" alt="Bayhaqy" />' +
-        '</a>' +
         '<span class="copy">© 2026 Achmad Bayhaqy. All rights reserved.</span>' +
-        '<span class="footer-links">' +
-          '<a href="https://bayhaqy.my.id/">Portfolio</a>' +
-          '<a href="https://bayhaqy.my.id/apps/">Apps</a>' +
-          '<a href="https://bayhaqy.my.id/games/">Games</a>' +
-        '</span>' +
       '</div>';
     document.body.appendChild(footer);
 
