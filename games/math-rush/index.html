@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="description" content="Math Rush — 60-second math game. How many sums can you solve? Bilingual game for kids." />
+  <meta name="theme-color" content="#B91C1C" />
+  <link rel="canonical" href="https://bayhaqy.my.id/kids/games/math-rush/" />
+  <link rel="icon" type="image/png" href="/kids/icons/logo.png" />
+  <title>Math Rush — Bayhaqy Kids</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <script>(function(){try{var s=localStorage.getItem('bayhaqy-kids-theme');if(s==='dark'||s==='light'){document.documentElement.setAttribute('data-theme',s);}else{var d=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches;document.documentElement.setAttribute('data-theme',d?'dark':'light');}}catch(e){}})();</script>
+  <link rel="stylesheet" href="/kids/assets/theme.css?v=20260811a" />
+  <style>
+    .rush-stage {
+      background: var(--games-soft);
+      border-radius: var(--radius-lg);
+      padding: 2rem 1.5rem;
+      text-align: center;
+      margin: 1rem 0;
+    }
+    .rush-timer {
+      font-family: var(--font-display);
+      font-size: 3rem;
+      font-weight: 800;
+      color: var(--games);
+      line-height: 1;
+    }
+    .rush-score {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--ink-soft);
+      margin-top: 0.5rem;
+    }
+    .rush-question {
+      font-family: var(--font-display);
+      font-size: clamp(3rem, 10vw, 5rem);
+      font-weight: 800;
+      color: var(--ink);
+      margin: 1.5rem 0;
+      letter-spacing: 0.02em;
+    }
+    .rush-choices {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.75rem;
+      max-width: 480px;
+      margin: 1rem auto;
+    }
+    .rush-choice {
+      padding: 1.5rem;
+      background: var(--paper);
+      border: 3px solid var(--line);
+      border-radius: var(--radius);
+      font-family: var(--font-display);
+      font-size: var(--fs-2xl);
+      font-weight: 800;
+      cursor: pointer;
+      transition: all .12s var(--ease);
+      color: var(--ink);
+    }
+    .rush-choice:hover { border-color: var(--games); transform: scale(1.02); }
+    .rush-choice.correct { background: var(--science); color: #fff; border-color: var(--science); animation: pop .25s; }
+    .rush-choice.wrong { background: var(--games); color: #fff; border-color: var(--games); animation: shake .25s; }
+    .rush-start-overlay {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(255,255,255,0.95);
+      border-radius: var(--radius-lg);
+      display: flex; align-items: center; justify-content: center;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    [data-theme="dark"] .rush-start-overlay { background: rgba(15,23,42,0.95); }
+    .stage-wrap { position: relative; }
+    .countdown {
+      font-family: var(--font-display);
+      font-size: 8rem;
+      font-weight: 800;
+      color: var(--games);
+      animation: pop .5s;
+    }
+    .result-screen h2 {
+      font-family: var(--font-display);
+      font-size: 2.5rem;
+      color: var(--games);
+      margin-bottom: 0.5rem;
+    }
+    .result-screen .final-score {
+      font-family: var(--font-display);
+      font-size: 5rem;
+      font-weight: 800;
+      color: var(--ink);
+      line-height: 1;
+    }
+  </style>
+</head>
+<body data-app-name="Math Rush" data-subject="games" class="subject-page">
+  <script src="/kids/assets/i18n.js"></script>
+  <script src="/kids/assets/app-shell.js"></script>
+
+  <main class="app-main">
+    <div class="breadcrumbs">
+      <a href="/kids/">Bayhaqy Kids</a>
+      <span class="sep">›</span>
+      <a href="/kids/games/">Games</a>
+      <span class="sep">›</span>
+      <span>Math Rush</span>
+    </div>
+
+    <header class="app-hero">
+      <span class="app-eyebrow">Grade 2+ · Game</span>
+      <h1 class="app-title">Math <span class="accent">Rush</span></h1>
+      <p class="app-subtitle">You have 60 seconds. Solve as many sums as you can. Tap the right answer fast!</p>
+    </header>
+
+    <section class="rush-stage stage-wrap">
+      <div id="gameContent">
+        <div class="rush-timer" id="timer">60</div>
+        <div class="rush-score" id="score">Score: 0</div>
+        <div class="rush-question" id="question">2 + 3</div>
+        <div class="rush-choices" id="choices"></div>
+      </div>
+      <div class="rush-start-overlay" id="startOverlay">
+        <h2 style="font-family: var(--font-display); font-size: 2.5rem; color: var(--games);">Ready?</h2>
+        <p style="color: var(--ink-soft); max-width: 380px; text-align: center;">
+          You'll get 60 seconds. Tap the correct answer as fast as you can. Each correct answer = +1 point.
+        </p>
+        <button class="btn btn-primary btn-big" id="startBtn">Start!</button>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    var timerEl = document.getElementById('timer');
+    var scoreEl = document.getElementById('score');
+    var questionEl = document.getElementById('question');
+    var choicesEl = document.getElementById('choices');
+    var startOverlay = document.getElementById('startOverlay');
+    var startBtn = document.getElementById('startBtn');
+    var gameContent = document.getElementById('gameContent');
+
+    var score = 0, timeLeft = 60, currentAnswer = 0, playing = false, timerHandle = null;
+
+    function newQ() {
+      // Mix of +, -, × for grades 2-3
+      var ops = ['+', '-', '×'];
+      var op = ops[window.randInt(0, 2)];
+      var a, b, ans;
+      if (op === '+') {
+        a = window.randInt(1, 20); b = window.randInt(1, 20); ans = a + b;
+      } else if (op === '-') {
+        a = window.randInt(5, 25); b = window.randInt(1, a); ans = a - b;
+      } else {
+        a = window.randInt(1, 9); b = window.randInt(1, 9); ans = a * b;
+      }
+      currentAnswer = ans;
+      questionEl.textContent = a + ' ' + op + ' ' + b;
+
+      // 4 choices
+      var choices = [ans];
+      while (choices.length < 4) {
+        var n = ans + window.randInt(-5, 5);
+        if (n >= 0 && choices.indexOf(n) === -1) choices.push(n);
+      }
+      choices = window.shuffle(choices);
+      choicesEl.innerHTML = '';
+      choices.forEach(function (n) {
+        var btn = document.createElement('button');
+        btn.className = 'rush-choice';
+        btn.textContent = n;
+        btn.addEventListener('click', function () {
+          if (!playing) return;
+          if (n === currentAnswer) {
+            btn.classList.add('correct');
+            score++;
+            scoreEl.textContent = 'Score: ' + score;
+            setTimeout(newQ, 200);
+          } else {
+            btn.classList.add('wrong');
+            // Highlight correct
+            choicesEl.querySelectorAll('.rush-choice').forEach(function (c) {
+              if (parseInt(c.textContent) === currentAnswer) c.classList.add('correct');
+            });
+            setTimeout(newQ, 600);
+          }
+        });
+        choicesEl.appendChild(btn);
+      });
+    }
+
+    function startGame() {
+      // Countdown 3-2-1
+      startOverlay.innerHTML = '<div class="countdown" id="cd">3</div>';
+      var cd = document.getElementById('cd');
+      var n = 3;
+      var cdInt = setInterval(function () {
+        n--;
+        if (n > 0) {
+          cd.textContent = n;
+          cd.style.animation = 'none';
+          setTimeout(function () { cd.style.animation = 'pop .5s'; }, 10);
+        } else {
+          clearInterval(cdInt);
+          startOverlay.style.display = 'none';
+          score = 0; timeLeft = 60; playing = true;
+          scoreEl.textContent = 'Score: 0';
+          timerEl.textContent = '60';
+          newQ();
+          timerHandle = setInterval(function () {
+            timeLeft--;
+            timerEl.textContent = timeLeft;
+            if (timeLeft <= 10) timerEl.style.color = 'var(--games)';
+            if (timeLeft <= 0) endGame();
+          }, 1000);
+        }
+      }, 800);
+    }
+
+    function endGame() {
+      playing = false;
+      clearInterval(timerHandle);
+      timerEl.style.color = '';
+      // Show result
+      var result = document.createElement('div');
+      result.className = 'rush-start-overlay result-screen';
+      var msg;
+      if (score >= 25) msg = 'Amazing! You\'re a math wizard! 🧙';
+      else if (score >= 15) msg = 'Great job! Keep practicing! 🌟';
+      else if (score >= 8)  msg = 'Good effort! Try again to beat your score! 💪';
+      else                  msg = 'Keep practicing — you\'ll get faster! 🌱';
+      result.innerHTML =
+        '<h2>Time\'s up!</h2>' +
+        '<div class="final-score">' + score + '</div>' +
+        '<p style="color: var(--ink-soft); max-width: 320px; text-align: center;">' + msg + '</p>' +
+        '<div style="display:flex; gap:0.75rem;">' +
+          '<button class="btn btn-primary btn-big" id="playAgain">Play again</button>' +
+          '<a href="/kids/games/" class="btn btn-ghost btn-big">More games</a>' +
+        '</div>';
+      document.querySelector('.stage-wrap').appendChild(result);
+      document.getElementById('playAgain').addEventListener('click', function () {
+        result.remove();
+        startOverlay.style.display = '';
+        startOverlay.innerHTML = '<h2 style="font-family: var(--font-display); font-size: 2.5rem; color: var(--games);">Ready?</h2>' +
+          '<p style="color: var(--ink-soft); max-width: 380px; text-align: center;">You\'ll get 60 seconds. Tap the correct answer as fast as you can.</p>' +
+          '<button class="btn btn-primary btn-big" id="startBtn">Start!</button>';
+        document.getElementById('startBtn').addEventListener('click', startGame);
+      });
+    }
+
+    startBtn.addEventListener('click', startGame);
+  </script>
+</body>
+</html>
