@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <meta name="description" content="Science lessons for kids K-9. Bilingual (English & Indonesian), interactive, 100% free. Aligned with Singapore Primary, Cambridge, IB, IPC, Montessori." />
+  <meta name="description" content="Science lessons for kids K-9. Bilingual (English & Indonesian), interactive, 100% free. Bayhaqy Kids." />
   <meta name="theme-color" content="#B91C1C" />
   <meta property="og:title" content="Science — Bayhaqy Kids" />
   <meta property="og:description" content="Bilingual Science lessons for kids K-9." />
@@ -15,7 +15,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&family=Nunito:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
   <script>(function(){try{var s=localStorage.getItem('bayhaqy-kids-theme');if(s==='dark'||s==='light'){document.documentElement.setAttribute('data-theme',s);}else{var d=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches;document.documentElement.setAttribute('data-theme',d?'dark':'light');}}catch(e){}})();</script>
-  <link rel="stylesheet" href="/kids/assets/theme.css?v=20260811b" />
+  <link rel="stylesheet" href="/kids/assets/theme.css?v=20260812a" />
 </head>
 <body data-app-name="Science" data-subject="science" class="subject-page">
   <script src="/kids/assets/i18n.js"></script>
@@ -29,12 +29,10 @@
     </div>
 
     <header class="app-hero">
-      <div class="subject-icon-big">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2v7.5l-5.5 9.5a2 2 0 0 0 1.7 3h11.6a2 2 0 0 0 1.7-3L14 9.5V2"/><line x1="8" y1="2" x2="16" y2="2"/></svg>
-      </div>
+      <div class="subject-icon-big" style="font-size:5rem; line-height:1;">🔬</div>
       <span class="app-eyebrow" data-i18n="nav_science">Science</span>
       <h1 class="app-title">Explore the <span class="accent">natural world</span></h1>
-      <p class="app-subtitle" data-i18n="subject_science_desc">Biology, physics, chemistry, earth science — explore the natural world.</p>
+      <p class="app-subtitle" data-i18n="subject_science_desc">Science lessons for kids K-9.</p>
     </header>
 
     <section class="card">
@@ -59,49 +57,21 @@
       </div>
     </section>
 
-    <section class="card" style="margin-top:0.75rem;">
-      <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:0.75rem;">
-        <div>
-          <strong style="font-family: var(--font-display);" data-i18n="curriculum_label">Curriculum</strong>
-          <div style="font-size: var(--fs-xs); color: var(--ink-mute);">SPC · Cambridge · IB · IPC · Montessori · ID</div>
-        </div>
-        <div class="grade-selector" id="currSelector" style="flex-wrap:wrap;">
-          <button class="grade-btn active" data-curr="all" data-i18n="grade_all">All</button>
-          <button class="grade-btn" data-curr="spc">SPC</button>
-          <button class="grade-btn" data-curr="cambridge">Cambridge</button>
-          <button class="grade-btn" data-curr="ib">IB</button>
-          <button class="grade-btn" data-curr="ipc">IPC</button>
-          <button class="grade-btn" data-curr="montessori">Montessori</button>
-          <button class="grade-btn" data-curr="id">ID</button>
-        </div>
-      </div>
-    </section>
-
     <h2 style="font-family: var(--font-display); font-size: var(--fs-xl); margin: 1.5rem 0 0.5rem;" data-i18n="lessons_title">Lessons</h2>
     <div class="lesson-list" id="lessonList"></div>
   </main>
 
-  <script src="/kids/assets/lessons.js"></script>
+  <script src="/kids/assets/lessons.js?v=20260812a"></script>
   <script>
     var list = document.getElementById('lessonList');
     var gradeBtns = document.querySelectorAll('#gradeSelector .grade-btn');
-    var currBtns = document.querySelectorAll('#currSelector .grade-btn');
     var currentGrade = 'all';
-    var currentCurr = 'all';
-    function rerender() { window.renderLessons(list, 'science', currentGrade, currentCurr); }
+    function rerender() { window.renderLessons(list, 'science', currentGrade, 'all'); }
     gradeBtns.forEach(function (b) {
       b.addEventListener('click', function () {
         gradeBtns.forEach(function (x) { x.classList.remove('active'); });
         b.classList.add('active');
         currentGrade = b.getAttribute('data-grade');
-        rerender();
-      });
-    });
-    currBtns.forEach(function (b) {
-      b.addEventListener('click', function () {
-        currBtns.forEach(function (x) { x.classList.remove('active'); });
-        b.classList.add('active');
-        currentCurr = b.getAttribute('data-curr');
         rerender();
       });
     });
