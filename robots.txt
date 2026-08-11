@@ -1,0 +1,5 @@
+# robots.txt — bayhaqy.my.id/kids
+User-agent: *
+Allow: /
+
+Sitemap: https://bayhaqy.my.id/kids/sitemap.xml
