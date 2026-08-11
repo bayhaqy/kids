@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="description" content="Addition Basics — add two one-digit numbers. Bilingual math lesson for Grade 1." />
+  <meta name="theme-color" content="#B91C1C" />
+  <link rel="canonical" href="https://bayhaqy.my.id/kids/math/addition-basics/" />
+  <link rel="icon" type="image/png" href="/kids/icons/logo.png" />
+  <title>Addition Basics — Bayhaqy Kids</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <script>(function(){try{var s=localStorage.getItem('bayhaqy-kids-theme');if(s==='dark'||s==='light'){document.documentElement.setAttribute('data-theme',s);}else{var d=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches;document.documentElement.setAttribute('data-theme',d?'dark':'light');}}catch(e){}})();</script>
+  <link rel="stylesheet" href="/kids/assets/theme.css?v=20260811a" />
+  <style>
+    .add-stage {
+      background: var(--math-soft);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      text-align: center;
+      margin: 1.5rem 0;
+    }
+    .add-equation {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 7vw, 4rem);
+      font-weight: 800;
+      color: var(--math);
+      margin: 1rem 0;
+      letter-spacing: 0.02em;
+    }
+    .add-equation .plus { color: var(--ink-mute); }
+    .add-equation .equals { color: var(--ink-mute); }
+    .add-equation .answer {
+      display: inline-block;
+      min-width: 1.5em;
+      padding: 0 0.3em;
+      border-bottom: 4px solid var(--math);
+      color: var(--ink);
+    }
+    .add-objects {
+      display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;
+      margin: 1rem 0;
+    }
+    .add-group {
+      background: var(--paper);
+      border: 2px solid var(--line);
+      border-radius: var(--radius);
+      padding: 0.75rem 1rem;
+      min-width: 80px;
+      font-size: 2rem;
+    }
+    .add-group .label {
+      font-family: var(--font-display);
+      font-size: var(--fs-sm);
+      color: var(--ink-mute);
+      margin-top: 0.25rem;
+      font-weight: 600;
+    }
+    .keypad {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 0.5rem;
+      max-width: 500px;
+      margin: 1rem auto;
+    }
+    .key {
+      padding: 1rem;
+      background: var(--paper);
+      border: 2px solid var(--line);
+      border-radius: var(--radius);
+      font-family: var(--font-display);
+      font-size: var(--fs-xl);
+      font-weight: 700;
+      cursor: pointer;
+      transition: all .15s;
+      color: var(--ink);
+    }
+    .key:hover { border-color: var(--math); transform: translateY(-2px); }
+    .key.clear { background: var(--games-soft); color: var(--games); }
+    @media (max-width: 480px) {
+      .keypad { grid-template-columns: repeat(5, 1fr); gap: 0.3rem; }
+      .key { padding: 0.7rem; font-size: var(--fs-lg); }
+    }
+  </style>
+</head>
+<body data-app-name="Addition Basics" data-subject="math" class="subject-page">
+  <script src="/kids/assets/i18n.js"></script>
+  <script src="/kids/assets/app-shell.js"></script>
+
+  <main class="app-main">
+    <div class="breadcrumbs">
+      <a href="/kids/">Bayhaqy Kids</a>
+      <span class="sep">›</span>
+      <a href="/kids/math/">Math</a>
+      <span class="sep">›</span>
+      <span>Addition Basics</span>
+    </div>
+
+    <header class="app-hero">
+      <span class="app-eyebrow">Grade 1 · Lesson</span>
+      <h1 class="app-title">Addition <span class="accent">Basics</span></h1>
+      <p class="app-subtitle">Count the objects in each box, then add them together. Tap the keypad to type your answer.</p>
+    </header>
+
+    <section class="add-stage">
+      <p style="color: var(--ink-soft); margin-bottom: 0.5rem;">How many altogether?</p>
+      <div class="add-objects">
+        <div class="add-group">
+          <div id="groupA"></div>
+          <div class="label">+ A</div>
+        </div>
+        <div class="add-group">
+          <div id="groupB"></div>
+          <div class="label">+ B</div>
+        </div>
+      </div>
+
+      <div class="add-equation">
+        <span id="numA">3</span>
+        <span class="plus"> + </span>
+        <span id="numB">2</span>
+        <span class="equals"> = </span>
+        <span class="answer" id="answer">?</span>
+      </div>
+
+      <div class="keypad" id="keypad"></div>
+
+      <p id="feedback" style="font-weight:700; font-size: var(--fs-lg); min-height: 1.5em;"></p>
+      <p style="font-size: var(--fs-sm); color: var(--ink-mute);">
+        <span data-i18n="score">Score</span>: <strong id="score">0</strong> / <strong id="total">0</strong>
+      </p>
+      <button class="btn btn-primary" id="nextQ" style="display:none;" data-i18n="next_question">Next question</button>
+    </section>
+
+    <section class="card">
+      <h2 class="card-title">How to add</h2>
+      <p>Adding means putting things together. If you have <strong>3 apples</strong> and someone gives you <strong>2 more</strong>, you count all of them: 1, 2, 3, 4, 5. So 3 + 2 = 5.</p>
+      <p style="margin-top: 0.75rem;">Tip: You can add in any order. 3 + 2 is the same as 2 + 3. Both equal 5.</p>
+    </section>
+  </main>
+
+  <script>
+    var fruits = ['🍎','🍌','🍊','🍇','🍓','🍑','🍉','🥝','🍍','🥭'];
+    var numA_el = document.getElementById('numA');
+    var numB_el = document.getElementById('numB');
+    var answer_el = document.getElementById('answer');
+    var groupA = document.getElementById('groupA');
+    var groupB = document.getElementById('groupB');
+    var keypad = document.getElementById('keypad');
+    var feedback = document.getElementById('feedback');
+    var score_el = document.getElementById('score');
+    var total_el = document.getElementById('total');
+    var nextBtn = document.getElementById('nextQ');
+
+    var a, b, correctAnswer, typedAnswer = '';
+    var score = 0, total = 0;
+
+    function newQ() {
+      a = window.randInt(1, 9);
+      b = window.randInt(1, 9);
+      correctAnswer = a + b;
+      typedAnswer = '';
+      var fruitA = fruits[window.randInt(0, fruits.length-1)];
+      var fruitB = fruits[window.randInt(0, fruits.length-1)];
+      groupA.textContent = fruitA.repeat(a);
+      groupB.textContent = fruitB.repeat(b);
+      numA_el.textContent = a;
+      numB_el.textContent = b;
+      answer_el.textContent = '?';
+      feedback.textContent = '';
+      feedback.style.color = '';
+      nextBtn.style.display = 'none';
+      total++;
+      total_el.textContent = total;
+    }
+
+    // Build keypad 0-9 + clear
+    function buildKeypad() {
+      keypad.innerHTML = '';
+      for (var i = 1; i <= 9; i++) {
+        (function (n) {
+          var k = document.createElement('button');
+          k.className = 'key';
+          k.textContent = n;
+          k.addEventListener('click', function () { typeKey(String(n)); });
+          keypad.appendChild(k);
+        })(i);
+      }
+      var zero = document.createElement('button');
+      zero.className = 'key';
+      zero.textContent = '0';
+      zero.addEventListener('click', function () { typeKey('0'); });
+      keypad.appendChild(zero);
+
+      var clr = document.createElement('button');
+      clr.className = 'key clear';
+      clr.textContent = '⌫';
+      clr.addEventListener('click', function () {
+        typedAnswer = typedAnswer.slice(0, -1);
+        answer_el.textContent = typedAnswer || '?';
+      });
+      keypad.appendChild(clr);
+    }
+
+    function typeKey(k) {
+      if (typedAnswer.length >= 2) return;
+      typedAnswer += k;
+      answer_el.textContent = typedAnswer;
+      if (parseInt(typedAnswer) === correctAnswer) {
+        feedback.textContent = window.t('correct');
+        feedback.style.color = 'var(--science)';
+        score++;
+        score_el.textContent = score;
+        nextBtn.style.display = 'inline-flex';
+        // Disable keypad
+        keypad.querySelectorAll('.key').forEach(function (k) { k.style.pointerEvents = 'none'; });
+      } else if (typedAnswer.length === String(correctAnswer).length) {
+        // Wrong answer
+        feedback.textContent = window.t('incorrect') + ' Answer: ' + correctAnswer;
+        feedback.style.color = 'var(--games)';
+        nextBtn.style.display = 'inline-flex';
+        keypad.querySelectorAll('.key').forEach(function (k) { k.style.pointerEvents = 'none'; });
+      }
+    }
+
+    nextBtn.addEventListener('click', function () {
+      buildKeypad();
+      newQ();
+    });
+
+    buildKeypad();
+    newQ();
+  </script>
+</body>
+</html>
