@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="description" content="Memory Cards — flip cards and find matching pairs. Bilingual game for kindergarten and up." />
+  <meta name="theme-color" content="#B91C1C" />
+  <link rel="canonical" href="https://bayhaqy.my.id/kids/games/memory-cards/" />
+  <link rel="icon" type="image/png" href="/kids/icons/logo.png" />
+  <title>Memory Cards — Bayhaqy Kids</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <script>(function(){try{var s=localStorage.getItem('bayhaqy-kids-theme');if(s==='dark'||s==='light'){document.documentElement.setAttribute('data-theme',s);}else{var d=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches;document.documentElement.setAttribute('data-theme',d?'dark':'light');}}catch(e){}})();</script>
+  <link rel="stylesheet" href="/kids/assets/theme.css?v=20260811a" />
+  <style>
+    .mem-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.6rem;
+      max-width: 480px;
+      margin: 1.5rem auto;
+    }
+    @media (max-width: 480px) { .mem-grid { grid-template-columns: repeat(4, 1fr); gap: 0.4rem; } }
+    .mem-card {
+      aspect-ratio: 1;
+      perspective: 600px;
+      cursor: pointer;
+    }
+    .mem-inner {
+      position: relative;
+      width: 100%; height: 100%;
+      transition: transform .4s var(--ease);
+      transform-style: preserve-3d;
+    }
+    .mem-card.flipped .mem-inner,
+    .mem-card.matched .mem-inner { transform: rotateY(180deg); }
+    .mem-face {
+      position: absolute;
+      inset: 0;
+      backface-visibility: hidden;
+      border-radius: var(--radius);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2.5rem;
+    }
+    .mem-front {
+      background: linear-gradient(135deg, var(--games), var(--red-900));
+      color: #fff;
+      font-family: var(--font-display);
+      font-size: 2rem;
+      font-weight: 800;
+    }
+    .mem-back {
+      background: var(--paper);
+      border: 3px solid var(--games);
+      transform: rotateY(180deg);
+    }
+    .mem-card.matched .mem-back {
+      background: var(--sci-soft);
+      border-color: var(--science);
+      animation: pop .3s;
+    }
+    .mem-status {
+      display: flex; gap: 1.5rem; justify-content: center;
+      font-family: var(--font-display);
+      font-size: var(--fs-lg);
+      font-weight: 700;
+      margin: 1rem 0;
+    }
+    .mem-status .label { color: var(--ink-mute); font-size: var(--fs-sm); }
+    .mem-status .val { color: var(--games); }
+  </style>
+</head>
+<body data-app-name="Memory Cards" data-subject="games" class="subject-page">
+  <script src="/kids/assets/i18n.js"></script>
+  <script src="/kids/assets/app-shell.js"></script>
+
+  <main class="app-main">
+    <div class="breadcrumbs">
+      <a href="/kids/">Bayhaqy Kids</a>
+      <span class="sep">›</span>
+      <a href="/kids/games/">Games</a>
+      <span class="sep">›</span>
+      <span>Memory Cards</span>
+    </div>
+
+    <header class="app-hero">
+      <span class="app-eyebrow">Kindergarten · Game</span>
+      <h1 class="app-title">Memory <span class="accent">Cards</span></h1>
+      <p class="app-subtitle">Flip two cards at a time. Find all matching pairs in as few moves as you can!</p>
+    </header>
+
+    <div class="mem-status">
+      <div><div class="label">Moves</div><div class="val" id="moves">0</div></div>
+      <div><div class="label">Pairs found</div><div class="val"><span id="found">0</span>/8</div></div>
+      <div><div class="label">Time</div><div class="val" id="time">0s</div></div>
+    </div>
+
+    <div class="mem-grid" id="memGrid"></div>
+
+    <div style="text-align:center; margin: 1rem 0;">
+      <button class="btn btn-primary btn-big" id="resetBtn">🔄 New game</button>
+    </div>
+  </main>
+
+  <script>
+    var EMOJIS = ['🍎','🍌','🍊','🍇','🍓','🍑','🍉','🥝'];
+    var grid = document.getElementById('memGrid');
+    var movesEl = document.getElementById('moves');
+    var foundEl = document.getElementById('found');
+    var timeEl = document.getElementById('time');
+    var resetBtn = document.getElementById('resetBtn');
+
+    var cards = [], flipped = [], matched = 0, moves = 0, startTime = 0, timerInt = null;
+
+    function init() {
+      cards = []; flipped = []; matched = 0; moves = 0; startTime = Date.now();
+      movesEl.textContent = '0';
+      foundEl.textContent = '0';
+      timeEl.textContent = '0s';
+      if (timerInt) clearInterval(timerInt);
+      timerInt = setInterval(function () {
+        var s = Math.floor((Date.now() - startTime) / 1000);
+        timeEl.textContent = s + 's';
+      }, 1000);
+
+      var deck = EMOJIS.concat(EMOJIS);
+      deck = window.shuffle(deck);
+      grid.innerHTML = '';
+      deck.forEach(function (e, idx) {
+        var card = document.createElement('div');
+        card.className = 'mem-card';
+        card.dataset.emoji = e;
+        card.innerHTML =
+          '<div class="mem-inner">' +
+            '<div class="mem-face mem-front">?</div>' +
+            '<div class="mem-face mem-back">' + e + '</div>' +
+          '</div>';
+        card.addEventListener('click', function () { flip(card); });
+        grid.appendChild(card);
+        cards.push(card);
+      });
+    }
+
+    function flip(card) {
+      if (card.classList.contains('flipped') || card.classList.contains('matched')) return;
+      if (flipped.length >= 2) return;
+      card.classList.add('flipped');
+      flipped.push(card);
+      if (flipped.length === 2) {
+        moves++;
+        movesEl.textContent = moves;
+        var a = flipped[0], b = flipped[1];
+        if (a.dataset.emoji === b.dataset.emoji) {
+          // Match!
+          setTimeout(function () {
+            a.classList.add('matched'); b.classList.add('matched');
+            a.classList.remove('flipped'); b.classList.remove('flipped');
+            flipped = [];
+            matched++;
+            foundEl.textContent = matched;
+            if (matched === EMOJIS.length) {
+              clearInterval(timerInt);
+              var t = Math.floor((Date.now() - startTime) / 1000);
+              setTimeout(function () {
+                window.showToast('🎉 You won in ' + moves + ' moves and ' + t + ' seconds!', 4000);
+              }, 400);
+            }
+          }, 400);
+        } else {
+          setTimeout(function () {
+            a.classList.remove('flipped'); b.classList.remove('flipped');
+            flipped = [];
+          }, 1000);
+        }
+      }
+    }
+
+    resetBtn.addEventListener('click', init);
+    init();
+  </script>
+</body>
+</html>
