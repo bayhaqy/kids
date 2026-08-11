@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <meta name="description" content="History lessons for kids K-9 — Indonesia, the world, key events and figures. Bilingual, interactive, 100% free." />
+  <meta name="description" content="History lessons for kids K-9. Bilingual (English & Indonesian), interactive, 100% free. Aligned with Singapore Primary, Cambridge, IB, IPC, Montessori." />
   <meta name="theme-color" content="#B91C1C" />
   <meta property="og:title" content="History — Bayhaqy Kids" />
-  <meta property="og:description" content="Indonesia, the world, key events and figures." />
+  <meta property="og:description" content="Bilingual History lessons for kids K-9." />
   <meta property="og:url" content="https://bayhaqy.my.id/kids/history/" />
   <link rel="canonical" href="https://bayhaqy.my.id/kids/history/" />
   <link rel="icon" type="image/png" href="/kids/icons/logo.png" />
@@ -15,9 +15,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&family=Nunito:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
   <script>(function(){try{var s=localStorage.getItem('bayhaqy-kids-theme');if(s==='dark'||s==='light'){document.documentElement.setAttribute('data-theme',s);}else{var d=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches;document.documentElement.setAttribute('data-theme',d?'dark':'light');}}catch(e){}})();</script>
-  <link rel="stylesheet" href="/kids/assets/theme.css?v=20260811a" />
+  <link rel="stylesheet" href="/kids/assets/theme.css?v=20260811b" />
 </head>
-<body data-app-name="History" data-subject="history" class="subject-page" data-subject="history">
+<body data-app-name="History" data-subject="history" class="subject-page">
   <script src="/kids/assets/i18n.js"></script>
   <script src="/kids/assets/app-shell.js"></script>
 
@@ -25,13 +25,16 @@
     <div class="breadcrumbs">
       <a href="/kids/" data-i18n="back_to_kids">Bayhaqy Kids</a>
       <span class="sep">›</span>
-      <span data-i18n="nav_math">Math</span>
+      <span data-i18n="nav_history">History</span>
     </div>
 
     <header class="app-hero">
-      <span class="app-eyebrow" data-i18n="nav_math">Math</span>
-      <h1 class="app-title">Stories of <span class="accent">our past</span></h1>
-      <p class="app-subtitle" data-i18n="subject_math_desc">Counting, arithmetic, fractions, geometry, algebra — from counting to algebra, built up step by step.</p>
+      <div class="subject-icon-big">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      </div>
+      <span class="app-eyebrow" data-i18n="nav_history">History</span>
+      <h1 class="app-title">Stories from the <span class="accent">past</span></h1>
+      <p class="app-subtitle" data-i18n="subject_history_desc">Indonesia, the world, key events and figures — see how the present was shaped.</p>
     </header>
 
     <section class="card">
@@ -40,7 +43,7 @@
           <strong style="font-family: var(--font-display);" data-i18n="grade_label">Grade level</strong>
           <div style="font-size: var(--fs-xs); color: var(--ink-mute);" data-i18n="lessons_sub">Pick a topic to start learning.</div>
         </div>
-        <div class="grade-selector" id="gradeSelector">
+        <div class="grade-selector" id="gradeSelector" style="flex-wrap:wrap;">
           <button class="grade-btn active" data-grade="all" data-i18n="grade_all">All</button>
           <button class="grade-btn" data-grade="K">K</button>
           <button class="grade-btn" data-grade="1">G1</button>
@@ -56,6 +59,24 @@
       </div>
     </section>
 
+    <section class="card" style="margin-top:0.75rem;">
+      <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:0.75rem;">
+        <div>
+          <strong style="font-family: var(--font-display);" data-i18n="curriculum_label">Curriculum</strong>
+          <div style="font-size: var(--fs-xs); color: var(--ink-mute);">SPC · Cambridge · IB · IPC · Montessori · ID</div>
+        </div>
+        <div class="grade-selector" id="currSelector" style="flex-wrap:wrap;">
+          <button class="grade-btn active" data-curr="all" data-i18n="grade_all">All</button>
+          <button class="grade-btn" data-curr="spc">SPC</button>
+          <button class="grade-btn" data-curr="cambridge">Cambridge</button>
+          <button class="grade-btn" data-curr="ib">IB</button>
+          <button class="grade-btn" data-curr="ipc">IPC</button>
+          <button class="grade-btn" data-curr="montessori">Montessori</button>
+          <button class="grade-btn" data-curr="id">ID</button>
+        </div>
+      </div>
+    </section>
+
     <h2 style="font-family: var(--font-display); font-size: var(--fs-xl); margin: 1.5rem 0 0.5rem;" data-i18n="lessons_title">Lessons</h2>
     <div class="lesson-list" id="lessonList"></div>
   </main>
@@ -63,14 +84,24 @@
   <script src="/kids/assets/lessons.js"></script>
   <script>
     var list = document.getElementById('lessonList');
-    var buttons = document.querySelectorAll('#gradeSelector .grade-btn');
+    var gradeBtns = document.querySelectorAll('#gradeSelector .grade-btn');
+    var currBtns = document.querySelectorAll('#currSelector .grade-btn');
     var currentGrade = 'all';
-    function rerender() { window.renderLessons(list, "history", currentGrade); }
-    buttons.forEach(function (b) {
+    var currentCurr = 'all';
+    function rerender() { window.renderLessons(list, 'history', currentGrade, currentCurr); }
+    gradeBtns.forEach(function (b) {
       b.addEventListener('click', function () {
-        buttons.forEach(function (x) { x.classList.remove('active'); });
+        gradeBtns.forEach(function (x) { x.classList.remove('active'); });
         b.classList.add('active');
         currentGrade = b.getAttribute('data-grade');
+        rerender();
+      });
+    });
+    currBtns.forEach(function (b) {
+      b.addEventListener('click', function () {
+        currBtns.forEach(function (x) { x.classList.remove('active'); });
+        b.classList.add('active');
+        currentCurr = b.getAttribute('data-curr');
         rerender();
       });
     });
