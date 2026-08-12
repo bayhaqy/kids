@@ -120,33 +120,40 @@
   </main>
 
   <script>
+    // Bilingual letter-word associations.
+    // English uses English words (A=Apple, B=Ball, C=Cat...).
+    // Indonesian uses Indonesian words that actually start with the same letter
+    //   (A=Apel, B=Bola, C=Cicak, D=Daun, E=Elang, F=Foto, G=Gajah, H=Harimau,
+    //    I=Ikan, J=Jeruk, K=Kucing, L=Laut, M=Matahari, N=Nasi, O=Obat, P=Pohon,
+    //    Q=Quran, R=Rumah, S=Sapi, T=Topi, U=Unta, V=Vas, W=Warna, X=Xilofon,
+    //    Y=Yoyo, Z=Zebra).
     var letters = [
-      { l: 'A', en: 'Apple',     id: 'Apel',        e: '🍎' },
-      { l: 'B', en: 'Ball',      id: 'Bola',        e: '⚽' },
-      { l: 'C', en: 'Cat',       id: 'Kucing',      e: '🐱' },
-      { l: 'D', en: 'Dog',       id: 'Anjing',      e: '🐶' },
-      { l: 'E', en: 'Egg',       id: 'Telur',       e: '🥚' },
-      { l: 'F', en: 'Fish',      id: 'Ikan',        e: '🐟' },
-      { l: 'G', en: 'Goat',      id: 'Kambing',     e: '🐐' },
-      { l: 'H', en: 'Hat',       id: 'Topi',        e: '🎩' },
-      { l: 'I', en: 'Ice',       id: 'Es',          e: '🧊' },
-      { l: 'J', en: 'Juice',     id: 'Jus',         e: '🧃' },
-      { l: 'K', en: 'Kite',      id: 'Layang',      e: '🪁' },
-      { l: 'L', en: 'Lion',      id: 'Singa',       e: '🦁' },
-      { l: 'M', en: 'Moon',      id: 'Bulan',       e: '🌙' },
-      { l: 'N', en: 'Nest',      id: 'Sarang',      e: '🪺' },
-      { l: 'O', en: 'Orange',    id: 'Jeruk',       e: '🍊' },
-      { l: 'P', en: 'Penguin',   id: 'Pinguin',     e: '🐧' },
-      { l: 'Q', en: 'Queen',     id: 'Ratu',        e: '👑' },
-      { l: 'R', en: 'Rabbit',    id: 'Kelinci',     e: '🐰' },
-      { l: 'S', en: 'Sun',       id: 'Matahari',    e: '☀️' },
-      { l: 'T', en: 'Tree',      id: 'Pohon',       e: '🌳' },
-      { l: 'U', en: 'Umbrella',  id: 'Payung',      e: '☂️' },
-      { l: 'V', en: 'Violin',    id: 'Biola',       e: '🎻' },
-      { l: 'W', en: 'Whale',     id: 'Paus',        e: '🐳' },
-      { l: 'X', en: 'Fox',       id: 'Rubah',       e: '🦊' },
-      { l: 'Y', en: 'Yarn',      id: 'Benang',      e: '🧶' },
-      { l: 'Z', en: 'Zebra',     id: 'Zebra',       e: '🦓' }
+      { l: 'A', en: 'Apple',     id: 'Apel',      e: '🍎' },
+      { l: 'B', en: 'Ball',      id: 'Bola',      e: '⚽' },
+      { l: 'C', en: 'Cat',       id: 'Cicak',     e: '🦎' },
+      { l: 'D', en: 'Dog',       id: 'Daun',      e: '🍃' },
+      { l: 'E', en: 'Egg',       id: 'Elang',     e: '🦅' },
+      { l: 'F', en: 'Fish',      id: 'Foto',      e: '📷' },
+      { l: 'G', en: 'Goat',      id: 'Gajah',     e: '🐘' },
+      { l: 'H', en: 'Hat',       id: 'Harimau',   e: '🐯' },
+      { l: 'I', en: 'Ice',       id: 'Ikan',      e: '🐟' },
+      { l: 'J', en: 'Juice',     id: 'Jeruk',     e: '🍊' },
+      { l: 'K', en: 'Kite',      id: 'Kucing',    e: '🐱' },
+      { l: 'L', en: 'Lion',      id: 'Laut',      e: '🌊' },
+      { l: 'M', en: 'Moon',      id: 'Matahari',  e: '☀️' },
+      { l: 'N', en: 'Nest',      id: 'Nasi',      e: '🍚' },
+      { l: 'O', en: 'Orange',    id: 'Obat',      e: '💊' },
+      { l: 'P', en: 'Penguin',   id: 'Pohon',     e: '🌳' },
+      { l: 'Q', en: 'Queen',     id: 'Quran',     e: '📖' },
+      { l: 'R', en: 'Rabbit',    id: 'Rumah',     e: '🏠' },
+      { l: 'S', en: 'Sun',       id: 'Sapi',      e: '🐄' },
+      { l: 'T', en: 'Tree',      id: 'Topi',      e: '🎩' },
+      { l: 'U', en: 'Umbrella',  id: 'Unta',      e: '🐪' },
+      { l: 'V', en: 'Violin',    id: 'Vas',       e: '🏺' },
+      { l: 'W', en: 'Whale',     id: 'Warna',     e: '🎨' },
+      { l: 'X', en: 'Fox',       id: 'Xilofon',   e: '🎹' },
+      { l: 'Y', en: 'Yarn',      id: 'Yoyo',      e: '🪀' },
+      { l: 'Z', en: 'Zebra',     id: 'Zebra',     e: '🦓' }
     ];
 
     var bigLetter = document.getElementById('bigLetter');
@@ -173,7 +180,7 @@
     function speak() {
       if (!('speechSynthesis' in window)) return;
       var lang = window.getLang();
-      var u = new SpeechSynthesisUtterance(current.l + ' for ' + (lang === 'id' ? current.id : current.en));
+      var u = new SpeechSynthesisUtterance(current.l + ' ' + (lang === 'id' ? 'untuk ' + current.id : 'for ' + current.en));
       u.lang = lang === 'id' ? 'id-ID' : 'en-US';
       u.rate = 0.7;
       speechSynthesis.speak(u);
@@ -184,7 +191,7 @@
     letters.forEach(function (l) {
       var card = document.createElement('div');
       card.className = 'alpha-card';
-      card.innerHTML = '<div class="letter">' + l.l + '</div><div class="emoji">' + l.e + '</div>';
+      card.innerHTML = '<div class="letter">' + l.l + '</div><div class="emoji">' + l.e + '</div><div class="word">' + (window.getLang() === 'id' ? l.id : l.en) + '</div>';
       card.addEventListener('click', function () { selectLetter(l); });
       grid.appendChild(card);
     });
@@ -192,6 +199,11 @@
     document.addEventListener('langchange', function () {
       var lang = window.getLang();
       wordDisplay.textContent = lang === 'id' ? current.id : current.en;
+      // Update word labels on all cards too
+      grid.querySelectorAll('.alpha-card').forEach(function (card, idx) {
+        var w = card.querySelector('.word');
+        if (w) w.textContent = lang === 'id' ? letters[idx].id : letters[idx].en;
+      });
     });
 
     selectLetter(letters[0]);
