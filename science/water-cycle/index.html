@@ -3,74 +3,34 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <meta name="description" content="The Water Cycle — interactive simulation. Watch evaporation, condensation, and precipitation in real time. Bilingual science lesson." />
+  <meta name="description" content="The Water Cycle — evaporation, condensation, precipitation, collection. Animated SVG diagram. Bilingual lesson for Grade 2-4." />
   <meta name="theme-color" content="#B91C1C" />
   <link rel="canonical" href="https://bayhaqy.my.id/kids/science/water-cycle/" />
   <link rel="icon" type="image/png" href="/kids/icons/logo.png" />
-  <title>Water Cycle — Bayhaqy Kids</title>
+  <title>The Water Cycle — Bayhaqy Kids</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <script>(function(){try{var s=localStorage.getItem('bayhaqy-kids-theme');if(s==='dark'||s==='light'){document.documentElement.setAttribute('data-theme',s);}else{var d=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches;document.documentElement.setAttribute('data-theme',d?'dark':'light');}}catch(e){}})();</script>
-  <link rel="stylesheet" href="/kids/assets/theme.css?v=20260811a" />
+  <link rel="stylesheet" href="/kids/assets/theme.css?v=20260812a" />
   <style>
-    .canvas-wrap {
-      background: linear-gradient(180deg, #87CEEB 0%, #B0E0E6 50%, #4682B4 100%);
-      border-radius: var(--radius-lg);
-      overflow: hidden;
-      position: relative;
-      margin: 1rem 0;
-      box-shadow: var(--shadow);
-    }
-    canvas { display: block; width: 100%; height: 460px; }
-    @media (max-width: 640px) { canvas { height: 360px; } }
-
-    .stage-controls {
-      display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center;
-      margin: 1rem 0;
-    }
-    .stage-controls label {
-      display: flex; flex-direction: column; gap: 0.2rem;
-      font-size: var(--fs-sm); font-weight: 600; color: var(--ink-soft);
-    }
-    .stage-controls input[type="range"] {
-      width: 140px; accent-color: var(--science);
-    }
-    .legend {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 0.75rem;
-      margin-top: 1rem;
-    }
-    .legend-item {
-      display: flex; align-items: center; gap: 0.5rem;
-      padding: 0.5rem 0.75rem;
-      background: var(--paper);
-      border: 1px solid var(--line);
-      border-radius: var(--radius-sm);
-      font-size: var(--fs-sm);
-    }
-    .legend-dot {
-      width: 16px; height: 16px; border-radius: 50%; flex-shrink: 0;
-    }
-    .legend-dot.evap { background: #FFD700; }
-    .legend-dot.cond { background: #F0F8FF; border: 1px solid #B0C4DE; }
-    .legend-dot.prec { background: #4682B4; }
-    .legend-dot.coll { background: #2E8B57; }
-
-    .phase-card {
-      padding: 1rem 1.25rem;
-      background: var(--sci-soft);
-      border-left: 4px solid var(--science);
-      border-radius: var(--radius-sm);
-      margin: 0.75rem 0;
-    }
-    .phase-card h3 {
-      font-family: var(--font-display);
-      font-size: var(--fs-lg);
-      color: var(--science);
-      margin-bottom: 0.3rem;
-    }
-    .phase-card p { color: var(--ink-soft); font-size: var(--fs-sm); }
-  </style>
+            .cycle-stage { background: var(--science-soft); border-radius: var(--radius-lg); padding: 1.5rem; text-align: center; margin: 1rem 0; }
+            .cycle-svg { width: 100%; max-width: 600px; height: auto; margin: 0 auto; display: block; }
+            .cycle-svg .stage { cursor: pointer; transition: opacity .2s; }
+            .cycle-svg .stage:hover { opacity: 0.85; }
+            .cycle-svg .stage.active circle, .cycle-svg .stage.active rect, .cycle-svg .stage.active path { stroke: var(--ink); stroke-width: 3; }
+            .cycle-svg .cloud { animation: drift 8s ease-in-out infinite; }
+            .cycle-svg .rain-drop { animation: fall 1.5s linear infinite; }
+            .cycle-svg .evap { animation: rise 3s ease-in infinite; opacity: 0.6; }
+            @keyframes drift { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(15px); } }
+            @keyframes fall { 0% { transform: translateY(-10px); opacity: 0; } 30% { opacity: 1; } 100% { transform: translateY(40px); opacity: 0; } }
+            @keyframes rise { 0% { transform: translateY(20px); opacity: 0; } 50% { opacity: 0.7; } 100% { transform: translateY(-30px); opacity: 0; } }
+            .stage-info { background: var(--paper); border: 3px solid var(--science); border-radius: var(--radius); padding: 1.25rem; margin: 1rem 0; }
+            .stage-info h3 { color: var(--science); margin-top: 0; }
+            .stage-buttons { display: flex; gap: 0.5rem; justify-content: center; flex-wrap: wrap; margin: 1rem 0; }
+            .stage-buttons button { padding: 0.6rem 1.1rem; border: 2px solid var(--science); background: var(--paper); color: var(--ink); border-radius: var(--radius); cursor: pointer; font-family: var(--font-display); font-weight: 700; transition: all .15s; }
+            .stage-buttons button.active { background: var(--science); color: #fff; }
+        </style>
 </head>
 <body data-app-name="Water Cycle" data-subject="science" class="subject-page">
   <script src="/kids/assets/i18n.js"></script>
@@ -82,271 +42,164 @@
       <span class="sep">›</span>
       <a href="/kids/science/">Science</a>
       <span class="sep">›</span>
-      <span>Water Cycle</span>
+      <span>The Water Cycle</span>
     </div>
 
     <header class="app-hero">
-      <span class="app-eyebrow">Grade 2 · Simulation</span>
+      <span class="app-eyebrow">Grade 2 · Lesson</span>
       <h1 class="app-title">The <span class="accent">Water Cycle</span></h1>
-      <p class="app-subtitle">Earth's water keeps moving — watch it evaporate, form clouds, fall as rain, and flow back to the sea.</p>
+      <p class="app-subtitle">Watch water travel from the ocean to the sky to the mountains and back again. Tap any stage to learn more.</p>
     </header>
 
     <section class="card">
-      <div class="canvas-wrap">
-        <canvas id="canvas"></canvas>
+      <h2 class="card-title">Water never leaves Earth</h2>
+      <p class="speakable">The water you drink today is the same water the dinosaurs drank! Water moves around Earth in a cycle — it changes between liquid, gas (vapor), and solid (ice), but it never disappears.</p>
+      <p class="speakable">The cycle has four main stages: <strong>evaporation</strong> (water rises as vapor), <strong>condensation</strong> (vapor forms clouds), <strong>precipitation</strong> (water falls as rain or snow), and <strong>collection</strong> (water gathers in oceans, lakes, and rivers).</p>
+    </section>
+
+    <section class="card">
+      <h2 class="card-title">Interactive water cycle</h2>
+      <p>Click any stage in the diagram, or use the buttons below to learn about each part.</p>
+      <div class="cycle-stage">
+        <svg class="cycle-svg" viewBox="0 0 600 350" xmlns="http://www.w3.org/2000/svg">
+          <!-- Sky background -->
+          <rect x="0" y="0" width="600" height="220" fill="#e0f2fe" />
+          <!-- Ocean -->
+          <rect x="0" y="220" width="350" height="130" fill="#0284c7" />
+          <!-- Mountain -->
+          <path d="M 350 220 L 460 80 L 600 220 Z" fill="#78716c" />
+          <path d="M 440 110 L 460 80 L 480 110 Z" fill="#f5f5f4" />
+          <!-- Lake -->
+          <ellipse cx="520" cy="280" rx="60" ry="15" fill="#0284c7" />
+          <!-- Sun -->
+          <circle cx="80" cy="60" r="30" fill="#fbbf24" />
+          <g stroke="#fbbf24" stroke-width="3" stroke-linecap="round">
+            <line x1="80" y1="10" x2="80" y2="20" />
+            <line x1="80" y1="100" x2="80" y2="110" />
+            <line x1="20" y1="60" x2="30" y2="60" />
+            <line x1="130" y1="60" x2="140" y2="60" />
+            <line x1="40" y1="20" x2="48" y2="28" />
+            <line x1="112" y1="92" x2="120" y2="100" />
+          </g>
+
+          <!-- Clouds (condensation) -->
+          <g class="stage" data-stage="condensation">
+            <g class="cloud" transform="translate(220, 90)">
+              <ellipse cx="0" cy="0" rx="40" ry="20" fill="#fff" />
+              <ellipse cx="25" cy="-8" rx="25" ry="18" fill="#fff" />
+              <ellipse cx="-25" cy="-5" rx="22" ry="15" fill="#fff" />
+            </g>
+            <g class="cloud" transform="translate(360, 70)">
+              <ellipse cx="0" cy="0" rx="35" ry="18" fill="#fff" />
+              <ellipse cx="22" cy="-6" rx="22" ry="14" fill="#fff" />
+            </g>
+          </g>
+
+          <!-- Evaporation arrows (water rising from ocean) -->
+          <g class="stage" data-stage="evaporation">
+            <g class="evap" transform="translate(100, 200)">
+              <path d="M 0 0 Q -5 -15 0 -30" stroke="#0284c7" stroke-width="3" fill="none" marker-end="url(#arrow)" />
+            </g>
+            <g class="evap" transform="translate(180, 210)" style="animation-delay: 1s;">
+              <path d="M 0 0 Q -5 -20 0 -40" stroke="#0284c7" stroke-width="3" fill="none" />
+            </g>
+            <g class="evap" transform="translate(260, 200)" style="animation-delay: 0.5s;">
+              <path d="M 0 0 Q 5 -18 0 -35" stroke="#0284c7" stroke-width="3" fill="none" />
+            </g>
+          </g>
+
+          <!-- Precipitation (rain falling from clouds) -->
+          <g class="stage" data-stage="precipitation">
+            <g class="rain-drop" transform="translate(220, 130)">
+              <line x1="0" y1="0" x2="0" y2="15" stroke="#0284c7" stroke-width="3" stroke-linecap="round" />
+            </g>
+            <g class="rain-drop" transform="translate(240, 130)" style="animation-delay: 0.3s;">
+              <line x1="0" y1="0" x2="0" y2="15" stroke="#0284c7" stroke-width="3" stroke-linecap="round" />
+            </g>
+            <g class="rain-drop" transform="translate(200, 130)" style="animation-delay: 0.6s;">
+              <line x1="0" y1="0" x2="0" y2="15" stroke="#0284c7" stroke-width="3" stroke-linecap="round" />
+            </g>
+            <g class="rain-drop" transform="translate(370, 110)" style="animation-delay: 0.4s;">
+              <line x1="0" y1="0" x2="0" y2="15" stroke="#0284c7" stroke-width="3" stroke-linecap="round" />
+            </g>
+            <g class="rain-drop" transform="translate(390, 110)" style="animation-delay: 0.7s;">
+              <line x1="0" y1="0" x2="0" y2="15" stroke="#0284c7" stroke-width="3" stroke-linecap="round" />
+            </g>
+            <!-- Snow on mountain -->
+            <circle cx="460" cy="80" r="3" fill="#fff" opacity="0.9" />
+          </g>
+
+          <!-- Collection (water in ocean + lake) -->
+          <g class="stage" data-stage="collection">
+            <text x="175" y="285" font-family="Baloo 2" font-weight="700" font-size="14" fill="#fff" text-anchor="middle">Ocean</text>
+            <text x="520" y="285" font-family="Baloo 2" font-weight="700" font-size="12" fill="#fff" text-anchor="middle">Lake</text>
+          </g>
+
+          <defs>
+            <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+              <path d="M 0 0 L 10 5 L 0 10 z" fill="#0284c7" />
+            </marker>
+          </defs>
+        </svg>
       </div>
-      <div class="stage-controls">
-        <label>
-          <span>☀️ Sun heat</span>
-          <input type="range" id="sunHeat" min="0" max="100" value="60" />
-        </label>
-        <label>
-          <span>💨 Wind</span>
-          <input type="range" id="wind" min="0" max="100" value="40" />
-        </label>
-        <button class="btn btn-ghost" id="pauseBtn">⏸ Pause</button>
-        <button class="btn btn-ghost" id="rainBtn">🌧 Make it rain</button>
+
+      <div class="stage-buttons">
+        <button data-stage="evaporation" class="active">1. Evaporation</button>
+        <button data-stage="condensation">2. Condensation</button>
+        <button data-stage="precipitation">3. Precipitation</button>
+        <button data-stage="collection">4. Collection</button>
       </div>
-      <div class="legend">
-        <div class="legend-item"><span class="legend-dot evap"></span> Evaporation</div>
-        <div class="legend-item"><span class="legend-dot cond"></span> Condensation (clouds)</div>
-        <div class="legend-item"><span class="legend-dot prec"></span> Precipitation (rain)</div>
-        <div class="legend-item"><span class="legend-dot coll"></span> Collection (rivers/sea)</div>
+
+      <div class="stage-info" id="stageInfo">
+        <h3 id="stageTitle">1. Evaporation</h3>
+        <p id="stageDesc">The Sun heats the ocean. Water turns into vapor (an invisible gas) and rises into the sky. This is called evaporation. Heat gives water molecules energy to escape from the liquid surface.</p>
       </div>
     </section>
 
-    <section class="phase-card">
-      <h3>1. Evaporation</h3>
-      <p>The Sun heats lakes, rivers, and the sea. Water turns into invisible vapor and rises into the sky. Try sliding the "Sun heat" higher — you'll see more vapor rise.</p>
+    <section class="card">
+      <h2 class="card-title">Why the cycle matters</h2>
+      <p class="speakable">The water cycle gives us fresh water to drink. When ocean water evaporates, the salt is left behind. The fresh water falls as rain, fills rivers and lakes, and we can drink it. Without the water cycle, all water would stay in the ocean and we'd have nothing to drink!</p>
     </section>
-    <section class="phase-card">
-      <h3>2. Condensation</h3>
-      <p>High up, the air is cooler. The vapor turns back into tiny water droplets — that's a cloud! More vapor means thicker clouds.</p>
-    </section>
-    <section class="phase-card">
-      <h3>3. Precipitation</h3>
-      <p>When clouds get heavy with water, they let it fall as rain, snow, or hail. Press "Make it rain" to see this happen.</p>
-    </section>
-    <section class="phase-card">
-      <h3>4. Collection</h3>
-      <p>Rain falls on the ground. Some soaks in, some flows in rivers back to the sea — and the cycle starts again!</p>
+    
+    <section class="card">
+      <h2 class="card-title">Why this matters</h2>
+      <p class="speakable">The water cycle is how Earth shares water with everyone. A drop of rain in your town might have evaporated from the Amazon rainforest, drifted across the ocean as a cloud, and fallen on your head. We all share the same water.</p>
+      <p class="speakable">Understanding the water cycle helps us predict droughts, floods, and storms. It helps farmers know when to plant. It helps cities plan their water supply. It reminds us that water is precious — there is no new water, only the same water moving around.</p>
     </section>
   </main>
 
   <script>
-    var canvas = document.getElementById('canvas');
-    var ctx = canvas.getContext('2d');
-    var sunHeatEl = document.getElementById('sunHeat');
-    var windEl = document.getElementById('wind');
-    var pauseBtn = document.getElementById('pauseBtn');
-    var rainBtn = document.getElementById('rainBtn');
+            var stages = {"evaporation": {"title": "1. Evaporation", "desc": "The Sun heats the ocean. Water turns into vapor (an invisible gas) and rises into the sky. This is called evaporation. Heat gives water molecules energy to escape from the liquid surface."}, "condensation": {"title": "2. Condensation", "desc": "High in the sky, the air is cooler. The water vapor cools and turns back into tiny water droplets. These droplets gather to form clouds. This is called condensation."}, "precipitation": {"title": "3. Precipitation", "desc": "When clouds get heavy with water, the droplets fall back to Earth. If it's warm, they fall as rain. If it's cold, they fall as snow, hail, or sleet. This is called precipitation."}, "collection": {"title": "4. Collection", "desc": "The fallen water collects in oceans, lakes, rivers, and underground. Some soaks into the ground to become groundwater. From there, the cycle begins again \u2014 the Sun heats the water, and it evaporates."}};
+            var stageInfo = document.getElementById('stageInfo');
+            var stageTitle = document.getElementById('stageTitle');
+            var stageDesc = document.getElementById('stageDesc');
+            var svg = document.querySelector('.cycle-svg');
 
-    var W = 0, H = 0, dpr = window.devicePixelRatio || 1;
-    function resize() {
-      var rect = canvas.getBoundingClientRect();
-      W = rect.width; H = rect.height;
-      canvas.width = W * dpr; canvas.height = H * dpr;
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    }
-    window.addEventListener('resize', resize);
-    resize();
+            function showStage(name) {
+              var s = stages[name];
+              if (!s) return;
+              stageTitle.textContent = s.title;
+              stageDesc.textContent = s.desc;
+              // Highlight the matching SVG group
+              svg.querySelectorAll('.stage').forEach(function (g) { g.classList.remove('active'); });
+              var g = svg.querySelector('[data-stage="' + name + '"]');
+              if (g) g.classList.add('active');
+              // Update buttons
+              document.querySelectorAll('.stage-buttons button').forEach(function (b) {
+                b.classList.toggle('active', b.dataset.stage === name);
+              });
+              // Speak
+              if (window.speak) window.speak(s.title + '. ' + s.desc, { grade: '2' });
+            }
 
-    // State
-    var paused = false;
-    var vaporParticles = [];
-    var cloudDroplets = [];
-    var rainDrops = [];
-    var riverParticles = [];
-    var t = 0;
+            document.querySelectorAll('.stage-buttons button').forEach(function (btn) {
+              btn.addEventListener('click', function () { showStage(btn.dataset.stage); });
+            });
+            svg.querySelectorAll('.stage').forEach(function (g) {
+              g.addEventListener('click', function () { showStage(g.getAttribute('data-stage')); });
+            });
 
-    function spawnVapor() {
-      var heat = parseInt(sunHeatEl.value);
-      if (Math.random() * 100 < heat * 0.15) {
-        vaporParticles.push({
-          x: 80 + Math.random() * (W - 160),
-          y: H - 60,
-          vx: (Math.random() - 0.5) * 0.5,
-          vy: -0.4 - Math.random() * 0.8,
-          r: 2 + Math.random() * 3,
-          alpha: 0.6 + Math.random() * 0.3
-        });
-      }
-    }
-
-    function spawnRain() {
-      for (var i = 0; i < 80; i++) {
-        rainDrops.push({
-          x: Math.random() * W,
-          y: 100 + Math.random() * 60,
-          vy: 4 + Math.random() * 3,
-          len: 6 + Math.random() * 4
-        });
-      }
-    }
-
-    function drawSun() {
-      var x = W - 70, y = 60;
-      ctx.fillStyle = '#FFD700';
-      ctx.beginPath();
-      ctx.arc(x, y, 24, 0, Math.PI * 2);
-      ctx.fill();
-      // rays
-      ctx.strokeStyle = '#FFA500';
-      ctx.lineWidth = 2;
-      for (var i = 0; i < 8; i++) {
-        var a = (i / 8) * Math.PI * 2 + t * 0.01;
-        ctx.beginPath();
-        ctx.moveTo(x + Math.cos(a) * 28, y + Math.sin(a) * 28);
-        ctx.lineTo(x + Math.cos(a) * 38, y + Math.sin(a) * 38);
-        ctx.stroke();
-      }
-    }
-
-    function drawLand() {
-      // Sky gradient
-      var sky = ctx.createLinearGradient(0, 0, 0, H * 0.7);
-      sky.addColorStop(0, '#87CEEB');
-      sky.addColorStop(1, '#B0E0E6');
-      ctx.fillStyle = sky;
-      ctx.fillRect(0, 0, W, H * 0.7);
-
-      // Mountains
-      ctx.fillStyle = '#6B8E6B';
-      ctx.beginPath();
-      ctx.moveTo(0, H * 0.65);
-      ctx.lineTo(W * 0.2, H * 0.45);
-      ctx.lineTo(W * 0.35, H * 0.6);
-      ctx.lineTo(W * 0.5, H * 0.4);
-      ctx.lineTo(W * 0.7, H * 0.55);
-      ctx.lineTo(W * 0.85, H * 0.45);
-      ctx.lineTo(W, H * 0.6);
-      ctx.lineTo(W, H * 0.7);
-      ctx.lineTo(0, H * 0.7);
-      ctx.closePath();
-      ctx.fill();
-
-      // Sea
-      var sea = ctx.createLinearGradient(0, H * 0.7, 0, H);
-      sea.addColorStop(0, '#4682B4');
-      sea.addColorStop(1, '#1E5C8C');
-      ctx.fillStyle = sea;
-      ctx.fillRect(0, H * 0.7, W, H * 0.3);
-
-      // Wavy sea surface
-      ctx.strokeStyle = 'rgba(255,255,255,0.3)';
-      ctx.lineWidth = 1.5;
-      for (var i = 0; i < 3; i++) {
-        ctx.beginPath();
-        for (var x = 0; x <= W; x += 8) {
-          var y = H * 0.7 + 4 + i * 8 + Math.sin(x * 0.04 + t * 0.03 + i) * 3;
-          if (x === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
-        }
-        ctx.stroke();
-      }
-    }
-
-    function drawClouds() {
-      cloudDroplets.forEach(function (d) {
-        ctx.fillStyle = 'rgba(255,255,255,' + d.alpha + ')';
-        ctx.beginPath();
-        ctx.arc(d.x, d.y, d.r, 0, Math.PI * 2);
-        ctx.fill();
-      });
-    }
-
-    function drawVapor() {
-      vaporParticles.forEach(function (p) {
-        ctx.fillStyle = 'rgba(255, 215, 0, ' + p.alpha + ')';
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fill();
-      });
-    }
-
-    function drawRain() {
-      ctx.strokeStyle = '#4682B4';
-      ctx.lineWidth = 1.5;
-      rainDrops.forEach(function (r) {
-        ctx.beginPath();
-        ctx.moveTo(r.x, r.y);
-        ctx.lineTo(r.x - 1, r.y + r.len);
-        ctx.stroke();
-      });
-    }
-
-    function step() {
-      if (paused) { requestAnimationFrame(step); return; }
-      t++;
-      var wind = parseInt(windEl.value) / 100;
-
-      // Spawn vapor
-      spawnVapor();
-
-      // Update vapor
-      for (var i = vaporParticles.length - 1; i >= 0; i--) {
-        var p = vaporParticles[i];
-        p.x += p.vx + wind * 0.5;
-        p.y += p.vy;
-        p.alpha -= 0.002;
-        // When vapor reaches cloud zone (top 1/3), convert to cloud droplet
-        if (p.y < H * 0.35) {
-          cloudDroplets.push({
-            x: p.x,
-            y: p.y + (Math.random() - 0.5) * 20,
-            vx: (Math.random() - 0.5) * 0.3 + wind * 0.5,
-            r: 8 + Math.random() * 12,
-            alpha: 0.4 + Math.random() * 0.3
-          });
-          vaporParticles.splice(i, 1);
-        } else if (p.alpha <= 0 || p.x < -10 || p.x > W + 10) {
-          vaporParticles.splice(i, 1);
-        }
-      }
-
-      // Update clouds
-      for (var j = cloudDroplets.length - 1; j >= 0; j--) {
-        var d = cloudDroplets[j];
-        d.x += d.vx;
-        // Cloud droplets drift and eventually rain
-        if (cloudDroplets.length > 200 && Math.random() < 0.005) {
-          // Convert to rain
-          for (var k = 0; k < 3; k++) {
-            rainDrops.push({ x: d.x + (Math.random() - 0.5) * 20, y: d.y, vy: 4 + Math.random() * 3, len: 6 });
-          }
-          cloudDroplets.splice(j, 1);
-        } else if (d.x < -50 || d.x > W + 50) {
-          cloudDroplets.splice(j, 1);
-        }
-      }
-
-      // Update rain
-      for (var r = rainDrops.length - 1; r >= 0; r--) {
-        var drop = rainDrops[r];
-        drop.y += drop.vy;
-        if (drop.y > H * 0.7) {
-          // Splash
-          rainDrops.splice(r, 1);
-        }
-      }
-
-      // Draw
-      ctx.clearRect(0, 0, W, H);
-      drawLand();
-      drawSun();
-      drawVapor();
-      drawClouds();
-      drawRain();
-
-      requestAnimationFrame(step);
-    }
-
-    pauseBtn.addEventListener('click', function () {
-      paused = !paused;
-      pauseBtn.textContent = paused ? '▶ Play' : '⏸ Pause';
-    });
-    rainBtn.addEventListener('click', spawnRain);
-
-    step();
-  </script>
+            showStage('evaporation');
+        </script>
 </body>
 </html>
