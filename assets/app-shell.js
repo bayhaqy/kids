@@ -207,7 +207,7 @@
     var appName = document.body.getAttribute('data-app-name') || '';
     var subject = document.body.getAttribute('data-subject') || '';
 
-    // Header — logo image + nav + lang toggle + theme toggle (matches apps format)
+    // Header — logo + Portfolio + lang toggle + theme toggle (minimal, matches apps/games)
     var header = document.createElement('header');
     header.className = 'kids-header';
     header.id = 'kidsHeader';
@@ -218,15 +218,7 @@
         '</a>' +
         '<button class="menu-toggle" id="menuToggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>' +
         '<nav class="kids-nav" id="kidsNav" aria-label="Primary">' +
-          '<a href="/kids/math/" data-i18n="nav_math">Math</a>' +
-          '<a href="/kids/language/" data-i18n="nav_language">Language</a>' +
-          '<a href="/kids/science/" data-i18n="nav_science">Science</a>' +
-          '<a href="/kids/tech/" data-i18n="nav_tech">Tech</a>' +
-          '<a href="/kids/history/" data-i18n="nav_history">History</a>' +
-          '<a href="/kids/art/" data-i18n="nav_art">Art</a>' +
-          '<a href="/kids/geography/" data-i18n="nav_geography">Geography</a>' +
-          '<a href="/kids/social/" data-i18n="nav_social">Social</a>' +
-          '<a href="/kids/games/" data-i18n="nav_games">Games</a>' +
+          '<a href="https://bayhaqy.my.id/" data-i18n="nav_portfolio">Portfolio</a>' +
           '<button class="lang-toggle" id="langToggle" type="button" aria-label="Switch language">ID</button>' +
           '<button class="theme-toggle" type="button" aria-label="Toggle dark mode" id="themeToggle">' +
             '<svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>' +
