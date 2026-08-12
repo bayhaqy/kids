@@ -127,33 +127,37 @@
     //    I=Ikan, J=Jeruk, K=Kucing, L=Laut, M=Matahari, N=Nasi, O=Obat, P=Pohon,
     //    Q=Quran, R=Rumah, S=Sapi, T=Topi, U=Unta, V=Vas, W=Warna, X=Xilofon,
     //    Y=Yoyo, Z=Zebra).
+    // Bilingual letter-word-emoji associations.
+    // English uses English words + matching emoji (C=Cat 🐱).
+    // Indonesian uses Indonesian words + matching emoji (C=Cicak 🦎).
+    // Both words start with the same letter in their language.
     var letters = [
-      { l: 'A', en: 'Apple',     id: 'Apel',      e: '🍎' },
-      { l: 'B', en: 'Ball',      id: 'Bola',      e: '⚽' },
-      { l: 'C', en: 'Cat',       id: 'Cicak',     e: '🦎' },
-      { l: 'D', en: 'Dog',       id: 'Daun',      e: '🍃' },
-      { l: 'E', en: 'Egg',       id: 'Elang',     e: '🦅' },
-      { l: 'F', en: 'Fish',      id: 'Foto',      e: '📷' },
-      { l: 'G', en: 'Goat',      id: 'Gajah',     e: '🐘' },
-      { l: 'H', en: 'Hat',       id: 'Harimau',   e: '🐯' },
-      { l: 'I', en: 'Ice',       id: 'Ikan',      e: '🐟' },
-      { l: 'J', en: 'Juice',     id: 'Jeruk',     e: '🍊' },
-      { l: 'K', en: 'Kite',      id: 'Kucing',    e: '🐱' },
-      { l: 'L', en: 'Lion',      id: 'Laut',      e: '🌊' },
-      { l: 'M', en: 'Moon',      id: 'Matahari',  e: '☀️' },
-      { l: 'N', en: 'Nest',      id: 'Nasi',      e: '🍚' },
-      { l: 'O', en: 'Orange',    id: 'Obat',      e: '💊' },
-      { l: 'P', en: 'Penguin',   id: 'Pohon',     e: '🌳' },
-      { l: 'Q', en: 'Queen',     id: 'Quran',     e: '📖' },
-      { l: 'R', en: 'Rabbit',    id: 'Rumah',     e: '🏠' },
-      { l: 'S', en: 'Sun',       id: 'Sapi',      e: '🐄' },
-      { l: 'T', en: 'Tree',      id: 'Topi',      e: '🎩' },
-      { l: 'U', en: 'Umbrella',  id: 'Unta',      e: '🐪' },
-      { l: 'V', en: 'Violin',    id: 'Vas',       e: '🏺' },
-      { l: 'W', en: 'Whale',     id: 'Warna',     e: '🎨' },
-      { l: 'X', en: 'Fox',       id: 'Xilofon',   e: '🎹' },
-      { l: 'Y', en: 'Yarn',      id: 'Yoyo',      e: '🪀' },
-      { l: 'Z', en: 'Zebra',     id: 'Zebra',     e: '🦓' }
+      { l: 'A', en: 'Apple',     en_e: '🍎', id: 'Apel',      id_e: '🍎' },
+      { l: 'B', en: 'Ball',      en_e: '⚽', id: 'Bola',      id_e: '⚽' },
+      { l: 'C', en: 'Cat',       en_e: '🐱', id: 'Cicak',     id_e: '🦎' },
+      { l: 'D', en: 'Dog',       en_e: '🐶', id: 'Daun',      id_e: '🍃' },
+      { l: 'E', en: 'Egg',       en_e: '🥚', id: 'Elang',     id_e: '🦅' },
+      { l: 'F', en: 'Fish',      en_e: '🐟', id: 'Foto',      id_e: '📷' },
+      { l: 'G', en: 'Goat',      en_e: '🐐', id: 'Gajah',     id_e: '🐘' },
+      { l: 'H', en: 'Hat',       en_e: '🎩', id: 'Harimau',   id_e: '🐯' },
+      { l: 'I', en: 'Ice',       en_e: '🧊', id: 'Ikan',      id_e: '🐟' },
+      { l: 'J', en: 'Juice',     en_e: '🧃', id: 'Jeruk',     id_e: '🍊' },
+      { l: 'K', en: 'Kite',      en_e: '🪁', id: 'Kucing',    id_e: '🐱' },
+      { l: 'L', en: 'Lion',      en_e: '🦁', id: 'Laut',      id_e: '🌊' },
+      { l: 'M', en: 'Moon',      en_e: '🌙', id: 'Matahari',  id_e: '☀️' },
+      { l: 'N', en: 'Nest',      en_e: '🪺', id: 'Nasi',      id_e: '🍚' },
+      { l: 'O', en: 'Orange',    en_e: '🍊', id: 'Obat',      id_e: '💊' },
+      { l: 'P', en: 'Penguin',   en_e: '🐧', id: 'Pohon',     id_e: '🌳' },
+      { l: 'Q', en: 'Queen',     en_e: '👑', id: 'Quran',     id_e: '📖' },
+      { l: 'R', en: 'Rabbit',    en_e: '🐰', id: 'Rumah',     id_e: '🏠' },
+      { l: 'S', en: 'Sun',       en_e: '☀️', id: 'Sapi',      id_e: '🐄' },
+      { l: 'T', en: 'Tree',      en_e: '🌳', id: 'Topi',      id_e: '🎩' },
+      { l: 'U', en: 'Umbrella',  en_e: '☂️', id: 'Unta',      id_e: '🐪' },
+      { l: 'V', en: 'Violin',    en_e: '🎻', id: 'Vas',       id_e: '🏺' },
+      { l: 'W', en: 'Whale',     en_e: '🐳', id: 'Warna',     id_e: '🎨' },
+      { l: 'X', en: 'Fox',       en_e: '🦊', id: 'Xilofon',   id_e: '🎹' },
+      { l: 'Y', en: 'Yarn',      en_e: '🧶', id: 'Yoyo',      id_e: '🪀' },
+      { l: 'Z', en: 'Zebra',     en_e: '🦓', id: 'Zebra',     id_e: '🦓' }
     ];
 
     var bigLetter = document.getElementById('bigLetter');
@@ -166,7 +170,8 @@
     function selectLetter(l) {
       current = l;
       bigLetter.textContent = l.l;
-      emojiDisplay.textContent = l.e;
+      var lang = window.getLang();
+      emojiDisplay.textContent = lang === 'id' ? l.id_e : l.en_e;
       var lang = window.getLang();
       wordDisplay.textContent = lang === 'id' ? l.id : l.en;
       // Highlight
@@ -191,7 +196,8 @@
     letters.forEach(function (l) {
       var card = document.createElement('div');
       card.className = 'alpha-card';
-      card.innerHTML = '<div class="letter">' + l.l + '</div><div class="emoji">' + l.e + '</div><div class="word">' + (window.getLang() === 'id' ? l.id : l.en) + '</div>';
+      var lang0 = window.getLang();
+      card.innerHTML = '<div class="letter">' + l.l + '</div><div class="emoji">' + (lang0 === 'id' ? l.id_e : l.en_e) + '</div><div class="word">' + (lang0 === 'id' ? l.id : l.en) + '</div>';
       card.addEventListener('click', function () { selectLetter(l); });
       grid.appendChild(card);
     });
@@ -199,10 +205,13 @@
     document.addEventListener('langchange', function () {
       var lang = window.getLang();
       wordDisplay.textContent = lang === 'id' ? current.id : current.en;
-      // Update word labels on all cards too
+      emojiDisplay.textContent = lang === 'id' ? current.id_e : current.en_e;
+      // Update word + emoji on all cards too
       grid.querySelectorAll('.alpha-card').forEach(function (card, idx) {
         var w = card.querySelector('.word');
+        var e = card.querySelector('.emoji');
         if (w) w.textContent = lang === 'id' ? letters[idx].id : letters[idx].en;
+        if (e) e.textContent = lang === 'id' ? letters[idx].id_e : letters[idx].en_e;
       });
     });
 
