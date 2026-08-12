@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <meta name="description" content="Slice a pizza to learn halves, thirds, quarters. — Bilingual lesson for kids. Bayhaqy Kids." />
+  <meta name="description" content="Fractions with Pizza — slice a pizza to learn halves, thirds, quarters, sixths, eighths. Interactive lesson for Grade 2-4." />
   <meta name="theme-color" content="#B91C1C" />
   <link rel="canonical" href="https://bayhaqy.my.id/kids/math/fractions-pizza/" />
   <link rel="icon" type="image/png" href="/kids/icons/logo.png" />
@@ -14,151 +14,20 @@
   <script>(function(){try{var s=localStorage.getItem('bayhaqy-kids-theme');if(s==='dark'||s==='light'){document.documentElement.setAttribute('data-theme',s);}else{var d=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches;document.documentElement.setAttribute('data-theme',d?'dark':'light');}}catch(e){}})();</script>
   <link rel="stylesheet" href="/kids/assets/theme.css?v=20260812a" />
   <style>
-    .lesson-block {
-      background: var(--paper);
-      border: 2px solid var(--line);
-      border-radius: var(--radius-lg);
-      padding: 1.5rem;
-      margin: 1rem 0;
-      display: flex;
-      align-items: flex-start;
-      gap: 1rem;
-      transition: transform .2s var(--ease), border-color .2s, box-shadow .2s;
-    }
-    .lesson-block:hover {
-      transform: translateY(-2px);
-      border-color: var(--math);
-      box-shadow: var(--shadow);
-    }
-    .lesson-block .emoji {
-      font-size: 3rem;
-      line-height: 1;
-      flex-shrink: 0;
-      animation: wiggle 2s ease-in-out infinite;
-      animation-play-state: paused;
-    }
-    .lesson-block:hover .emoji {
-      animation-play-state: running;
-    }
-    @keyframes wiggle {
-      0%, 100% { transform: rotate(-3deg); }
-      50% { transform: rotate(3deg); }
-    }
-    .lesson-block .content {
-      flex: 1;
-    }
-    .lesson-block .text {
-      font-size: var(--fs-md);
-      line-height: 1.6;
-      color: var(--ink);
-      margin: 0 0 0.5rem;
-    }
-    .speak-row {
-      display: flex;
-      gap: 0.5rem;
-      align-items: center;
-      margin-top: 0.5rem;
-    }
-    .quiz-box {
-      background: var(--math-soft);
-      border-radius: var(--radius-lg);
-      padding: 1.5rem;
-      margin: 1.5rem 0;
-    }
-    .quiz-box .q-text {
-      font-family: var(--font-display);
-      font-size: var(--fs-xl);
-      font-weight: 700;
-      color: var(--ink);
-      margin: 0 0 1rem;
-      text-align: center;
-    }
-    .quiz-box .choices {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-      gap: 0.75rem;
-      max-width: 600px;
-      margin: 0 auto;
-    }
-    .quiz-box .choice {
-      padding: 1rem;
-      background: var(--paper);
-      border: 3px solid var(--line);
-      border-radius: var(--radius);
-      font-family: var(--font-display);
-      font-size: var(--fs-lg);
-      font-weight: 700;
-      color: var(--ink);
-      cursor: pointer;
-      transition: all .15s var(--ease);
-      text-align: center;
-    }
-    .quiz-box .choice:hover {
-      border-color: var(--math);
-      transform: scale(1.05);
-    }
-    .quiz-box .choice.correct {
-      background: #16a34a;
-      color: #fff;
-      border-color: #16a34a;
-      animation: pop .3s;
-    }
-    .quiz-box .choice.wrong {
-      background: #dc2626;
-      color: #fff;
-      border-color: #dc2626;
-      animation: shake .3s;
-    }
-    .feedback {
-      text-align: center;
-      margin-top: 1rem;
-      font-weight: 700;
-      font-size: var(--fs-lg);
-      min-height: 1.5em;
-    }
-    .score-row {
-      text-align: center;
-      margin-top: 0.5rem;
-      font-size: var(--fs-sm);
-      color: var(--ink-mute);
-    }
-    .lesson-hero-icon {
-      font-size: 5rem;
-      text-align: center;
-      animation: bounce 2s ease-in-out infinite;
-      display: block;
-      margin: 0 auto 0.5rem;
-    }
-    @keyframes bounce {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
-    }
-    @keyframes pop {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.1); }
-      100% { transform: scale(1); }
-    }
-    @keyframes shake {
-      0%, 100% { transform: translateX(0); }
-      25% { transform: translateX(-5px); }
-      75% { transform: translateX(5px); }
-    }
-    .next-btn {
-      display: block;
-      margin: 1rem auto 0;
-    }
-    @media (max-width: 640px) {
-      .lesson-block {
-        flex-direction: column;
-        padding: 1rem;
-      }
-      .lesson-block .emoji {
-        font-size: 2.5rem;
-        text-align: center;
-      }
-      .lesson-hero-icon { font-size: 4rem; }
-    }
-  </style>
+            .pizza-stage { background: var(--math-soft); border-radius: var(--radius-lg); padding: 1.5rem; text-align: center; margin: 1rem 0; }
+            .pizza-svg { width: 280px; height: 280px; max-width: 100%; }
+            .pizza-controls { display: flex; gap: 0.5rem; justify-content: center; flex-wrap: wrap; margin: 1rem 0; }
+            .pizza-controls button { padding: 0.6rem 1.1rem; border: 2px solid var(--line); background: var(--paper); color: var(--ink); border-radius: var(--radius); cursor: pointer; font-family: var(--font-display); font-weight: 700; transition: all .15s; }
+            .pizza-controls button.active { background: var(--math); color: #fff; border-color: var(--math); }
+            .pizza-fraction { font-family: var(--font-display); font-size: 2.5rem; font-weight: 800; color: var(--math); margin: 1rem 0; }
+            .pizza-fraction .num, .pizza-fraction .den { display: block; line-height: 1; }
+            .pizza-fraction .num { font-size: 2rem; }
+            .pizza-fraction .bar { display: block; width: 60px; height: 4px; background: var(--math); margin: 4px auto; }
+            .pizza-fraction .den { font-size: 2rem; }
+            .pizza-info { background: var(--paper); border: 3px solid var(--math); border-radius: var(--radius); padding: 1rem; margin-top: 1rem; font-weight: 600; }
+            .pizza-actions { display: flex; gap: 0.5rem; justify-content: center; margin-top: 0.75rem; }
+            .pizza-actions button { padding: 0.5rem 1rem; border: 2px solid var(--math); background: var(--math-soft); color: var(--ink); border-radius: var(--radius); cursor: pointer; font-family: var(--font-display); font-weight: 700; }
+        </style>
 </head>
 <body data-app-name="Fractions with Pizza" data-subject="math" class="subject-page">
   <script src="/kids/assets/i18n.js"></script>
@@ -174,148 +43,210 @@
     </div>
 
     <header class="app-hero">
-      <span class="lesson-hero-icon">🍕</span>
-      <span class="app-eyebrow">Grade 3 · Simulation</span>
-      <h1 class="app-title">Fractions <span class="accent">with Pizza</span></h1>
-      <p class="app-subtitle">Slice a pizza to learn halves, thirds, quarters.</p>
+      <span class="app-eyebrow">Grade 2 · Lesson</span>
+      <h1 class="app-title">Fractions with <span class="accent">Pizza</span></h1>
+      <p class="app-subtitle">Slice the pizza to learn halves, thirds, quarters, and more. Tap a slice to eat it — and see what fraction is left!</p>
     </header>
 
     <section class="card">
-      <h2 class="card-title">📚 <span data-i18n="lessons_title">Lessons</span></h2>
-      <div class="lesson-block">
-        <div class="emoji">🍕</div>
-        <div class="content">
-          <p class="text" data-en="A fraction shows part of a whole. If we cut a pizza into 2 equal slices, each slice is one half (1/2)." data-id="Pecahan menunjukkan bagian dari utuh. Jika pizza dipotong jadi 2 sama rata, tiap potong adalah setengah (1/2).">A fraction shows part of a whole. If we cut a pizza into 2 equal slices, each slice is one half (1/2).</p>
-          <div class="speak-row">
-            <button class="btn btn-ghost btn-sm" data-speak-idx="0" data-i18n-label="listen">🔊 <span data-i18n="listen">Listen</span></button>
-          </div>
+      <h2 class="card-title">What is a fraction?</h2>
+      <p class="speakable">A fraction is a part of a whole. When you cut a pizza into 4 equal slices and eat 1 slice, you ate <strong>one quarter</strong> of the pizza. We write it as 1/4. The top number (1) is how many slices you have. The bottom number (4) is how many equal slices the whole pizza was cut into.</p>
+      <p class="speakable">The bottom number is called the <strong>denominator</strong> (how many parts in total). The top number is the <strong>numerator</strong> (how many parts you have). If you cut a pizza into 8 slices and eat 3, you ate 3/8 of the pizza.</p>
+    </section>
+
+    <section class="card">
+      <h2 class="card-title">Slice the pizza</h2>
+      <p>Choose how many slices to cut the pizza into. Then tap slices to "eat" them and watch the fraction change!</p>
+      <div class="pizza-stage">
+        <svg class="pizza-svg" viewBox="-100 -100 200 200" id="pizzaSvg">
+          <!-- Pizza base (circle) -->
+          <circle cx="0" cy="0" r="90" fill="#fbbf24" stroke="#92400e" stroke-width="3" />
+          <!-- Cheese layer -->
+          <circle cx="0" cy="0" r="82" fill="#fde68a" stroke="#f59e0b" stroke-width="1" />
+          <!-- Pepperoni placeholders, added dynamically -->
+          <g id="pizzaToppings"></g>
+          <!-- Slice lines, added dynamically -->
+          <g id="pizzaSlices" stroke="#92400e" stroke-width="2.5" stroke-linecap="round"></g>
+          <!-- Eaten overlay (slices disappear) -->
+          <g id="pizzaEaten"></g>
+        </svg>
+
+        <div class="pizza-fraction" id="fractionDisplay">
+          <span class="num">0</span>
+          <span class="bar"></span>
+          <span class="den">4</span>
         </div>
-      </div>
-      <div class="lesson-block">
-        <div class="emoji">🔪</div>
-        <div class="content">
-          <p class="text" data-en="Cut into 3 equal slices — each is one third (1/3). Cut into 4 equal slices — each is one quarter (1/4)." data-id="Potong jadi 3 sama rata — tiap potong sepertiga (1/3). Potong jadi 4 sama rata — tiap potong seperempat (1/4).">Cut into 3 equal slices — each is one third (1/3). Cut into 4 equal slices — each is one quarter (1/4).</p>
-          <div class="speak-row">
-            <button class="btn btn-ghost btn-sm" data-speak-idx="1" data-i18n-label="listen">🔊 <span data-i18n="listen">Listen</span></button>
-          </div>
+
+        <div class="pizza-controls">
+          <button data-slices="2">Halves (2)</button>
+          <button data-slices="3">Thirds (3)</button>
+          <button data-slices="4" class="active">Quarters (4)</button>
+          <button data-slices="6">Sixths (6)</button>
+          <button data-slices="8">Eighths (8)</button>
         </div>
-      </div>
-      <div class="lesson-block">
-        <div class="emoji">✋</div>
-        <div class="content">
-          <p class="text" data-en="The bottom number is how many equal parts. The top number is how many parts you have." data-id="Angka bawah adalah jumlah bagian sama rata. Angka atas adalah jumlah bagian yang kamu punya.">The bottom number is how many equal parts. The top number is how many parts you have.</p>
-          <div class="speak-row">
-            <button class="btn btn-ghost btn-sm" data-speak-idx="2" data-i18n-label="listen">🔊 <span data-i18n="listen">Listen</span></button>
-          </div>
-        </div>
-      </div>
-      <div class="lesson-block">
-        <div class="emoji">🎯</div>
-        <div class="content">
-          <p class="text" data-en="One half is bigger than one third. One third is bigger than one quarter. Smaller pieces = bigger denominator!" data-id="Setengah lebih besar dari sepertiga. Sepertiga lebih besar dari seperempat. Potongan lebih kecil = penyebut lebih besar!">One half is bigger than one third. One third is bigger than one quarter. Smaller pieces = bigger denominator!</p>
-          <div class="speak-row">
-            <button class="btn btn-ghost btn-sm" data-speak-idx="3" data-i18n-label="listen">🔊 <span data-i18n="listen">Listen</span></button>
-          </div>
+
+        <div class="pizza-info" id="pizzaInfo">Pizza cut into 4 equal slices. None eaten yet. The whole pizza = 4/4 = 1.</div>
+        <div class="pizza-actions">
+          <button id="resetBtn">↻ Reset pizza</button>
+          <button id="eatOneBtn">🍴 Eat one slice</button>
         </div>
       </div>
     </section>
 
-    <section class="quiz-box">
-      <p class="q-text" id="qText"></p>
-      <div class="choices" id="choices"></div>
-      <p class="feedback" id="feedback"></p>
-      <p class="score-row">
-        <span data-i18n="score">Score</span>: <strong id="score">0</strong> ·
-        <span data-i18n="question">Question</span> <span id="qNum">1</span>
-      </p>
-      <button class="btn btn-primary next-btn" id="nextQ" style="display:none;" data-i18n="next_question">Next question</button>
+    <section class="card">
+      <h2 class="card-title">Equivalent fractions</h2>
+      <p class="speakable">Some fractions look different but mean the same amount! 1/2 is the same as 2/4, which is the same as 4/8. Try it: cut the pizza into 4, eat 2 slices — you ate 2/4. Now cut into 8, eat 4 slices — you ate 4/8. Same amount of pizza, different fractions!</p>
+      <p class="speakable">These are called <strong>equivalent fractions</strong>. As long as you multiply or divide both the top and bottom by the same number, the fraction means the same amount.</p>
     </section>
-
-    <p style="text-align:center; margin-top:2rem;">
-      <button class="btn btn-ghost" id="listenAll" data-i18n="listen">Listen</button>
-      <button class="btn btn-ghost" id="stopAll" data-i18n="stop">Stop</button>
-    </p>
+    
+    <section class="card">
+      <h2 class="card-title">Why this matters</h2>
+      <p class="speakable">Fractions are everywhere in real life: recipes (1/2 cup of flour), time (a quarter past three), money (half a dollar), music (a half note), and sports (half-time). Once you understand fractions, you can split anything fairly.</p>
+      <p class="speakable">Chefs use fractions to scale recipes. Carpenters use fractions to measure wood. Musicians use fractions to read rhythm. Bankers use fractions to calculate interest. Fractions are the language of "part of something" — and we use them every day.</p>
+    </section>
   </main>
 
   <script>
-    // Lesson content for speak
-    var LESSON_CONTENT = [{"emoji": "\ud83c\udf55", "en": "A fraction shows part of a whole. If we cut a pizza into 2 equal slices, each slice is one half (1/2).", "id": "Pecahan menunjukkan bagian dari utuh. Jika pizza dipotong jadi 2 sama rata, tiap potong adalah setengah (1/2)."}, {"emoji": "\ud83d\udd2a", "en": "Cut into 3 equal slices \u2014 each is one third (1/3). Cut into 4 equal slices \u2014 each is one quarter (1/4).", "id": "Potong jadi 3 sama rata \u2014 tiap potong sepertiga (1/3). Potong jadi 4 sama rata \u2014 tiap potong seperempat (1/4)."}, {"emoji": "\u270b", "en": "The bottom number is how many equal parts. The top number is how many parts you have.", "id": "Angka bawah adalah jumlah bagian sama rata. Angka atas adalah jumlah bagian yang kamu punya."}, {"emoji": "\ud83c\udfaf", "en": "One half is bigger than one third. One third is bigger than one quarter. Smaller pieces = bigger denominator!", "id": "Setengah lebih besar dari sepertiga. Sepertiga lebih besar dari seperempat. Potongan lebih kecil = penyebut lebih besar!"}];
+            var slices = 4;
+            var eaten = []; // array of slice indices that are eaten
+            var pizzaSvg = document.getElementById('pizzaSvg');
+            var slicesG = document.getElementById('pizzaSlices');
+            var eatenG = document.getElementById('pizzaEaten');
+            var toppingsG = document.getElementById('pizzaToppings');
+            var fractionDisplay = document.getElementById('fractionDisplay');
+            var pizzaInfo = document.getElementById('pizzaInfo');
 
-    // Quiz
-    var QUIZ = [{"q_en": "Which is bigger: 1/2 or 1/4?", "q_id": "Mana lebih besar: 1/2 atau 1/4?", "choices": ["1/2", "1/4", "Same", "Cannot tell"], "answer_idx": 0}, {"q_en": "A pizza cut into 3 equal slices \u2014 each slice is?", "q_id": "Pizza dipotong 3 sama rata \u2014 tiap potong?", "choices": ["1/2", "1/3", "1/4", "1/5"], "answer_idx": 1}, {"q_en": "What is the bottom number of a fraction called?", "q_id": "Apa nama angka bawah pecahan?", "choices": ["Numerator", "Denominator", "Top", "Side"], "answer_idx": 1}, {"q_en": "2/4 is the same as?", "q_id": "2/4 sama dengan?", "choices": ["1/4", "1/2", "1/3", "2/3"], "answer_idx": 1}];
-    var qIdx = 0, score = 0;
-    var qText = document.getElementById('qText');
-    var choicesEl = document.getElementById('choices');
-    var feedback = document.getElementById('feedback');
-    var scoreEl = document.getElementById('score');
-    var qNumEl = document.getElementById('qNum');
-    var nextBtn = document.getElementById('nextQ');
+            // Pre-place pepperoni at fixed positions (won't move when slicing)
+            var pepperoniPositions = [
+              { x: -30, y: -30 }, { x: 30, y: -30 }, { x: -30, y: 30 }, { x: 30, y: 30 },
+              { x: 0, y: 0 }, { x: -50, y: 0 }, { x: 50, y: 0 }, { x: 0, y: -50 }, { x: 0, y: 50 }
+            ];
 
-    function loadQ() {
-      feedback.textContent = '';
-      feedback.style.color = '';
-      nextBtn.style.display = 'none';
-      var q = QUIZ[qIdx];
-      var lang = window.getLang ? window.getLang() : 'en';
-      qText.textContent = lang === 'id' ? q.q_id : q.q_en;
-      choicesEl.innerHTML = '';
-      q.choices.forEach(function (c, i) {
-        var btn = document.createElement('button');
-        btn.className = 'choice';
-        btn.textContent = c;
-        btn.addEventListener('click', function () {
-          if (i === q.answer_idx) {
-            btn.classList.add('correct');
-            feedback.textContent = window.t ? window.t('correct') : 'Correct!';
-            feedback.style.color = '#16a34a';
-            score++;
-            scoreEl.textContent = score;
-          } else {
-            btn.classList.add('wrong');
-            feedback.textContent = window.t ? window.t('incorrect') : 'Try again!';
-            feedback.style.color = '#dc2626';
-            choicesEl.querySelectorAll('.choice').forEach(function (b, j) {
-              if (j === q.answer_idx) b.classList.add('correct');
+            function buildPizza() {
+              // Slice lines
+              slicesG.innerHTML = '';
+              for (var i = 0; i < slices; i++) {
+                var angle = (i * 360 / slices) * Math.PI / 180;
+                var x = 90 * Math.cos(angle);
+                var y = 90 * Math.sin(angle);
+                var line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                line.setAttribute('x1', 0);
+                line.setAttribute('y1', 0);
+                line.setAttribute('x2', x);
+                line.setAttribute('y2', y);
+                slicesG.appendChild(line);
+              }
+
+              // Toppings (only show first N to fit)
+              toppingsG.innerHTML = '';
+              var n = Math.min(pepperoniPositions.length, slices + 3);
+              for (var i = 0; i < n; i++) {
+                var p = pepperoniPositions[i];
+                var c = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+                c.setAttribute('cx', p.x);
+                c.setAttribute('cy', p.y);
+                c.setAttribute('r', 8);
+                c.setAttribute('fill', '#dc2626');
+                c.setAttribute('stroke', '#7f1d1d');
+                c.setAttribute('stroke-width', '1');
+                toppingsG.appendChild(c);
+              }
+
+              // Reset eaten
+              eaten = [];
+              drawEaten();
+              updateDisplay();
+            }
+
+            function drawEaten() {
+              eatenG.innerHTML = '';
+              eaten.forEach(function (idx) {
+                // Each slice is a "pie slice" from angle1 to angle2
+                var a1 = (idx * 360 / slices - 90) * Math.PI / 180;
+                var a2 = ((idx + 1) * 360 / slices - 90) * Math.PI / 180;
+                var r = 90;
+                var x1 = r * Math.cos(a1), y1 = r * Math.sin(a1);
+                var x2 = r * Math.cos(a2), y2 = r * Math.sin(a2);
+                var path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                path.setAttribute('d', 'M 0 0 L ' + x1 + ' ' + y1 + ' A ' + r + ' ' + r + ' 0 0 1 ' + x2 + ' ' + y2 + ' Z');
+                path.setAttribute('fill', '#f5f5f4');
+                path.setAttribute('stroke', '#d6d3d1');
+                path.setAttribute('stroke-width', '1');
+                path.setAttribute('opacity', '0.92');
+                eatenG.appendChild(path);
+              });
+            }
+
+            function updateDisplay() {
+              var remaining = slices - eaten.length;
+              fractionDisplay.querySelector('.num').textContent = remaining;
+              fractionDisplay.querySelector('.den').textContent = slices;
+
+              var info = '';
+              if (eaten.length === 0) {
+                info = 'Pizza cut into ' + slices + ' equal slices. None eaten yet. The whole pizza = ' + slices + '/' + slices + ' = 1.';
+              } else if (eaten.length === slices) {
+                info = 'You ate the whole pizza! ' + slices + '/' + slices + ' = 1 whole pizza. Yum! 🍕';
+              } else {
+                info = 'You ate ' + eaten.length + ' slice' + (eaten.length > 1 ? 's' : '') + ' (' + eaten.length + '/' + slices + '). ' +
+                       remaining + ' slice' + (remaining > 1 ? 's' : '') + ' left (' + remaining + '/' + slices + ').';
+              }
+              pizzaInfo.textContent = info;
+            }
+
+            // Tap on pizza to eat a slice
+            pizzaSvg.addEventListener('click', function (e) {
+              // Find which slice was clicked
+              var rect = pizzaSvg.getBoundingClientRect();
+              var cx = e.clientX - rect.left - rect.width / 2;
+              var cy = e.clientY - rect.top - rect.height / 2;
+              var angle = Math.atan2(cy, cx) * 180 / Math.PI; // -180 to 180, 0 = right
+              angle = (angle + 90 + 360) % 360; // 0 = top, going clockwise
+              var sliceIdx = Math.floor(angle / (360 / slices));
+              if (eaten.indexOf(sliceIdx) === -1) {
+                eaten.push(sliceIdx);
+                drawEaten();
+                updateDisplay();
+                if (window.speak) {
+                  var remaining = slices - eaten.length;
+                  window.speak(remaining + ' out of ' + slices + ' slices left', { grade: '2' });
+                }
+              }
             });
-          }
-          choicesEl.querySelectorAll('.choice').forEach(function (b) { b.style.pointerEvents = 'none'; });
-          nextBtn.style.display = 'block';
-        });
-        choicesEl.appendChild(btn);
-      });
-    }
 
-    nextBtn.addEventListener('click', function () {
-      qIdx = (qIdx + 1) % QUIZ.length;
-      qNumEl.textContent = qIdx + 1;
-      loadQ();
-    });
-    loadQ();
+            // Controls
+            document.querySelectorAll('.pizza-controls button').forEach(function (btn) {
+              btn.addEventListener('click', function () {
+                document.querySelectorAll('.pizza-controls button').forEach(function (b) { b.classList.remove('active'); });
+                btn.classList.add('active');
+                slices = parseInt(btn.dataset.slices, 10);
+                buildPizza();
+              });
+            });
 
-    // Listen all button
-    document.getElementById('listenAll').addEventListener('click', function () {
-      var lang = window.getLang ? window.getLang() : 'en';
-      var text = LESSON_CONTENT.map(function (b) { return lang === 'id' ? b.id : b.en; }).join(' ');
-      if (window.speak) window.speak(text);
-    });
-    document.getElementById('stopAll').addEventListener('click', function () {
-      if (window.stopSpeaking) window.stopSpeaking();
-    });
+            document.getElementById('resetBtn').addEventListener('click', function () {
+              eaten = [];
+              drawEaten();
+              updateDisplay();
+            });
 
-    // Per-block speak buttons
-    document.querySelectorAll('[data-speak-idx]').forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        var idx = parseInt(btn.getAttribute('data-speak-idx'));
-        var lang = window.getLang ? window.getLang() : 'en';
-        var text = lang === 'id' ? LESSON_CONTENT[idx].id : LESSON_CONTENT[idx].en;
-        if (window.speak) window.speak(text);
-      });
-    });
+            document.getElementById('eatOneBtn').addEventListener('click', function () {
+              // Eat the next uneaten slice
+              for (var i = 0; i < slices; i++) {
+                if (eaten.indexOf(i) === -1) {
+                  eaten.push(i);
+                  break;
+                }
+              }
+              drawEaten();
+              updateDisplay();
+              if (window.speak) {
+                var remaining = slices - eaten.length;
+                window.speak(remaining + ' out of ' + slices + ' slices left', { grade: '2' });
+              }
+            });
 
-    // Update quiz language on lang change
-    document.addEventListener('langchange', function () {
-      loadQ();
-    });
-  </script>
+            buildPizza();
+        </script>
 </body>
 </html>
