@@ -12,7 +12,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <script>(function(){try{var s=localStorage.getItem('bayhaqy-kids-theme');if(s==='dark'||s==='light'){document.documentElement.setAttribute('data-theme',s);}else{var d=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches;document.documentElement.setAttribute('data-theme',d?'dark':'light');}}catch(e){}})();</script>
-  <link rel="stylesheet" href="/kids/assets/theme.css?v=20260811a" />
+  <link rel="stylesheet" href="/kids/assets/theme.css?v=20260829a" />
+  <link rel="stylesheet" href="/kids/assets/lesson-kit.css?v=20260829a" />
   <style>
     .count-grid {
       display: grid;
@@ -118,9 +119,11 @@
     }
   </style>
 </head>
-<body data-app-name="Counting 1 to 10" data-subject="math" class="subject-page" data-subject="math">
+<body data-app-name="Counting 1 to 10" data-subject="math" class="subject-page">
   <script src="/kids/assets/i18n.js"></script>
   <script src="/kids/assets/app-shell.js"></script>
+  <script src="/kids/assets/lessons.js?v=20260829a"></script>
+  <script src="/kids/assets/lesson-kit.js?v=20260829a"></script>
 
   <main class="app-main">
     <div class="breadcrumbs">
@@ -134,16 +137,34 @@
     <header class="app-hero">
       <span class="app-eyebrow">Kindergarten · Lesson</span>
       <h1 class="app-title">Counting <span class="accent">1 to 10</span></h1>
-      <p class="app-subtitle">Tap each number to hear it. Then practice — pick the right number for the dots.</p>
+      <p class="app-subtitle">Counting answers the question “how many?”. Learn to count one at a time, meet the numbers 1 to 10, then practice with dots.</p>
     </header>
 
+
+    <section class="card learn">
+      <h2 class="card-title">1 · Counting means “how many?”</h2>
+      <p>When we count, we say one number for <strong>each thing</strong> — one apple, two apples, three apples. Touch or point at each object as you say its number. That way every object gets exactly one number, and the last number you say tells you <em>how many</em> there are. If you count the same apple twice, the answer grows — but no new apple appeared! That is why careful counters go slowly.</p>
+      <p>Try it now: count the people in your room, then count the windows. Did you touch each one as you said its number?</p>
+    </section>
+
+    <section class="card learn">
+      <h2 class="card-title">2 · Numbers walk in order</h2>
+      <p>Numbers always walk in the same line: <strong>1, 2, 3, 4, 5, 6, 7, 8, 9, 10</strong>. Each step adds exactly one more. Five is one more than four. Ten is one more than nine — and it is the biggest number on this page! Say the line out loud, forward and backward. Counting backward is how rockets launch: 10, 9, 8… 3, 2, 1… blast off!</p>
+    </section>
+
     <section class="card">
-      <h2 class="card-title">Meet the numbers</h2>
+      <h2 class="card-title">3 · Meet the numbers</h2>
       <div class="count-grid" id="countGrid"></div>
     </section>
 
+    <section class="card learn">
+      <h2 class="card-title">4 · Count everything!</h2>
+      <p>Counting is a superpower you can practice anywhere. Count the stairs while you climb them. Count the fries on your plate (before you eat them!). Count your fingers, then count them again starting from your thumb. The more you count real things, the faster numbers become your friends.</p>
+    </section>
+
+
     <section class="practice-box">
-      <p class="q-prompt">How many dots?</p>
+      <p class="q-prompt">5 · Practice: how many dots?</p>
       <div class="q-num" id="dotsDisplay"></div>
       <div class="choices" id="choicesRow"></div>
       <p id="feedback" style="margin-top:1rem; font-weight:700; font-size: var(--fs-lg);"></p>
@@ -171,8 +192,10 @@
         '<div class="word" data-en="' + words[i-1] + '" data-id="' + kata[i-1] + '">' + words[i-1] + '</div>';
       card.addEventListener('click', function (n, c) {
         return function () {
-          // Speak the number using Web Speech API
-          if ('speechSynthesis' in window) {
+          // Natural voice via app-shell (best available voice per language)
+          var say = (window.getLang() === 'id' ? kata : words)[n - 1];
+          if (window.speak) window.speak(String(n) + '. ' + say, { grade: 'K', target: c });
+          else if ('speechSynthesis' in window) {
             var u = new SpeechSynthesisUtterance(String(n));
             u.lang = window.getLang() === 'id' ? 'id-ID' : 'en-US';
             u.rate = 0.8;
