@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <meta name="description" content="Bayhaqy Kids — bilingual (English & Indonesian) learning platform for kids from Kindergarten to Grade 9. Math, Language, Science, Tech, History with interactive lessons, simulations, and games. Aligned with Singapore Primary, Cambridge, IB, IPC, and Montessori." />
+  <meta name="description" content="Bayhaqy Kids — bilingual (English & Indonesian) learning platform for kids from Kindergarten to Grade 9. Interactive lessons, simulations, and games across 8 subjects, matched to Kurikulum Merdeka phases A-D and inspired by Singapore Math and Cambridge Primary." />
   <meta name="keywords" content="Bayhaqy Kids, kids learning, K-9, kindergarten, elementary, junior high, math, language, science, tech, history, belajar anak, TK, SD, SMP, Singapore Primary, Cambridge, IB, IPC, Montessori" />
   <meta name="author" content="Achmad Bayhaqy" />
   <meta name="robots" content="index, follow, max-image-preview:large" />
@@ -13,7 +13,7 @@
   <!-- Open Graph -->
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Bayhaqy Kids — Bilingual Learning Platform for K-9" />
-  <meta property="og:description" content="Free interactive lessons, simulations, and games for kids K-9. Math, Language, Science, Tech, History in English & Indonesian. Aligned with Singapore Primary, Cambridge, IB, IPC, Montessori." />
+  <meta property="og:description" content="Free interactive lessons, simulations, and games for kids K-9 in English & Indonesian. 8 subjects, matched to Kurikulum Merdeka Fase A-D, inspired by Singapore Math and Cambridge Primary." />
   <meta property="og:url" content="https://bayhaqy.my.id/kids/" />
   <meta property="og:image" content="https://bayhaqy.my.id/kids/icons/og-image.png" />
   <meta property="og:site_name" content="Bayhaqy Kids" />
@@ -50,7 +50,8 @@
     })();
   </script>
 
-  <link rel="stylesheet" href="/kids/assets/theme.css?v=20260811b" />
+  <link rel="stylesheet" href="/kids/assets/theme.css?v=20260829a" />
+  <link rel="stylesheet" href="/kids/assets/lesson-kit.css?v=20260829a" />
   <style>
     /* Hero */
     .kids-landing-hero {
@@ -363,6 +364,8 @@
 <body data-app-name="">
   <script src="/kids/assets/i18n.js"></script>
   <script src="/kids/assets/app-shell.js"></script>
+  <script src="/kids/assets/lessons.js?v=20260829a"></script>
+  <script src="/kids/assets/lesson-kit.js?v=20260829a"></script>
 
   <main>
     <!-- Hero -->
@@ -375,7 +378,7 @@
         <h1 class="hero-title">
           <span data-i18n="hero_title_1">Learn, play, and grow with </span><span class="accent" data-i18n="hero_title_2">Bayhaqy Kids</span>
         </h1>
-        <p class="hero-sub" data-i18n="hero_sub">A bilingual (English & Indonesian) learning platform with interactive lessons, simulations, and games across Math, Language, Science, Tech, and History. Aligned with Singapore Primary, Cambridge, IB, IPC, and Montessori. 100% free, 100% kid-safe, runs entirely in your browser.</p>
+        <p class="hero-sub" data-i18n="hero_sub">A bilingual (English & Indonesian) learning platform with interactive lessons, simulations, and games across 8 subjects. Matched to Indonesia's Kurikulum Merdeka phases A-D, inspired by Singapore Math and Cambridge Primary. 100% free, 100% kid-safe, runs entirely in your browser.</p>
 
         <div class="hero-actions">
           <a href="#subjects" class="btn btn-primary btn-big">
@@ -386,12 +389,14 @@
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:20px;height:20px"><rect x="2" y="6" width="20" height="12" rx="2"/><line x1="6" y1="12" x2="10" y2="12"/><line x1="8" y1="10" x2="8" y2="14"/><circle cx="15" cy="11" r="1"/><circle cx="18" cy="13" r="1"/></svg>
             <span data-i18n="hero_cta_games">Play games</span>
           </a>
-        </div>
+        
+
+    <a id="bkContinue" class="bk-continue" href="#"><span class="emoji">📍</span><span class="meta"><span class="label">Continue learning</span><span class="title"></span><span class="sub"></span></span><span class="go">Start →</span></a></div>
 
         <ul class="hero-stats">
-          <li class="stat"><span class="num">9</span><span class="lbl" data-i18n="stat_subjects">Subjects</span></li>
-          <li class="stat"><span class="num">40+</span><span class="lbl" data-i18n="stat_lessons">Lessons</span></li>
-          <li class="stat"><span class="num">5</span><span class="lbl" data-i18n="stat_curricula">Curricula</span></li>
+          <li class="stat"><span class="num">8</span><span class="lbl" data-i18n="stat_subjects">Subjects</span></li>
+          <li class="stat"><span class="num">72</span><span class="lbl" data-i18n="stat_lessons">Lessons</span></li>
+          <li class="stat"><span class="num">A–D</span><span class="lbl" data-i18n="stat_curricula">Curricula</span></li>
           <li class="stat"><span class="num">2</span><span class="lbl" data-i18n="stat_languages">Languages</span></li>
           <li class="stat"><span class="num">K–9</span><span class="lbl" data-i18n="stat_grade">Grade range</span></li>
           <li class="stat"><span class="num">0</span><span class="lbl" data-i18n="stat_signup">Sign-ups</span></li>
@@ -562,6 +567,41 @@
     </section>
 
 
+    <!-- Kurikulum Merdeka phases -->
+    <section class="section">
+      <div class="section-head">
+        <h2><span data-i18n="curr_title_1">Matched to </span><span class="accent" data-i18n="curr_title_2">Kurikulum Merdeka</span></h2>
+        <p data-i18n="curr_sub">Every lesson carries a phase badge so you always know where it fits in the Indonesian curriculum (TK to Grade 9).</p>
+      </div>
+      <div class="curriculum-grid">
+        <div class="curriculum-card">
+          <span class="curr-badge">Fase A</span>
+          <h4 data-i18n="fase_a_t">Fase A &middot; TK&ndash;Grade 2</h4>
+          <p data-i18n="fase_a_d">Counting to 20, phonics, shapes, comparing numbers, senses, living things.</p>
+          <div class="topics"><span>🔢 Math</span><span>🔤 Language</span><span>🔬 Science</span></div>
+        </div>
+        <div class="curriculum-card">
+          <span class="curr-badge">Fase B</span>
+          <h4 data-i18n="fase_b_t">Fase B &middot; Grades 3&ndash;4</h4>
+          <p data-i18n="fase_b_d">Multiplication and division, fractions, reading fluency, ecosystems, Indonesian history.</p>
+          <div class="topics"><span>✖️ Math</span><span>📖 Language</span><span>🏛️ History</span></div>
+        </div>
+        <div class="curriculum-card">
+          <span class="curr-badge">Fase C</span>
+          <h4 data-i18n="fase_c_t">Fase C &middot; Grades 5&ndash;6</h4>
+          <p data-i18n="fase_c_d">Decimals and percentages, essays, lab science, world history, geometry.</p>
+          <div class="topics"><span>🧮 Math</span><span>✍️ Language</span><span>🌏 Geography</span></div>
+        </div>
+        <div class="curriculum-card">
+          <span class="curr-badge">Fase D</span>
+          <h4 data-i18n="fase_d_t">Fase D &middot; Grades 7&ndash;9</h4>
+          <p data-i18n="fase_d_d">Algebra, coding, civics, research skills, structured writing.</p>
+          <div class="topics"><span>🚀 Tech</span><span>⚖️ Social</span><span>🎨 Art</span></div>
+        </div>
+      </div>
+    </section>
+
+
     <!-- Features -->
     <section class="section">
       <div class="section-head">
@@ -621,7 +661,7 @@
         <li data-i18n="parents_1">No accounts, no data collection — kids just open the page and learn.</li>
         <li data-i18n="parents_2">Works on any device with a browser — phone, tablet, laptop, Chromebook.</li>
         <li data-i18n="parents_3">Natural text-to-speech in both English and Indonesian — supports early readers and language learners.</li>
-        <li data-i18n="parents_4">Aligned with Singapore Primary, Cambridge, IB, IPC, Montessori, and Indonesia's Kurikulum Merdeka.</li>
+        <li data-i18n="parents_4">Matches Kurikulum Merdeka phases A-D (TK to Grade 9); inspired by Singapore Math and Cambridge Primary. Built on learning science: short lessons, immediate feedback, easy revisits.</li>
         <li data-i18n="parents_5">Installable as an app (PWA) — add to home screen for full-screen offline use.</li>
         <li data-i18n="parents_6">Open source — every lesson's code is on GitHub for transparency and contribution.</li>
         <li data-i18n="parents_7">Built by Achmad Bayhaqy — IT leader, parent, and education advocate.</li>
