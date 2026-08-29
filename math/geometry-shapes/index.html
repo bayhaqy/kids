@@ -3,161 +3,71 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <meta name="description" content="Circles, squares, triangles, rectangles — and their properties. — Bilingual lesson for kids. Bayhaqy Kids." />
+  <meta name="description" content="2D Shapes for Grade 2 — count sides and vertices, meet pentagons, hexagons and octagons, compose new shapes, and find symmetry lines. Bilingual English & Indonesian." />
   <meta name="theme-color" content="#B91C1C" />
   <link rel="canonical" href="https://bayhaqy.my.id/kids/math/geometry-shapes/" />
   <link rel="icon" type="image/png" href="/kids/icons/logo.png" />
-  <title>2D Shapes — Bayhaqy Kids</title>
+  <title>2D Shapes — Grade 2 · Bayhaqy Kids</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <script>(function(){try{var s=localStorage.getItem('bayhaqy-kids-theme');if(s==='dark'||s==='light'){document.documentElement.setAttribute('data-theme',s);}else{var d=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches;document.documentElement.setAttribute('data-theme',d?'dark':'light');}}catch(e){}})();</script>
-  <link rel="stylesheet" href="/kids/assets/theme.css?v=20260812a" />
+  <link rel="stylesheet" href="/kids/assets/theme.css?v=20260829a" />
+  <link rel="stylesheet" href="/kids/assets/lesson-kit.css?v=20260829a" />
   <style>
-    .lesson-block {
-      background: var(--paper);
-      border: 2px solid var(--line);
-      border-radius: var(--radius-lg);
-      padding: 1.5rem;
-      margin: 1rem 0;
-      display: flex;
-      align-items: flex-start;
-      gap: 1rem;
-      transition: transform .2s var(--ease), border-color .2s, box-shadow .2s;
-    }
-    .lesson-block:hover {
-      transform: translateY(-2px);
-      border-color: var(--math);
-      box-shadow: var(--shadow);
-    }
-    .lesson-block .emoji {
-      font-size: 3rem;
-      line-height: 1;
-      flex-shrink: 0;
-      animation: wiggle 2s ease-in-out infinite;
-      animation-play-state: paused;
-    }
-    .lesson-block:hover .emoji {
-      animation-play-state: running;
-    }
-    @keyframes wiggle {
-      0%, 100% { transform: rotate(-3deg); }
-      50% { transform: rotate(3deg); }
-    }
-    .lesson-block .content {
-      flex: 1;
-    }
-    .lesson-block .text {
-      font-size: var(--fs-md);
-      line-height: 1.6;
-      color: var(--ink);
-      margin: 0 0 0.5rem;
-    }
-    .speak-row {
-      display: flex;
-      gap: 0.5rem;
-      align-items: center;
-      margin-top: 0.5rem;
-    }
-    .quiz-box {
-      background: var(--math-soft);
-      border-radius: var(--radius-lg);
-      padding: 1.5rem;
-      margin: 1.5rem 0;
-    }
-    .quiz-box .q-text {
-      font-family: var(--font-display);
-      font-size: var(--fs-xl);
-      font-weight: 700;
-      color: var(--ink);
-      margin: 0 0 1rem;
-      text-align: center;
-    }
-    .quiz-box .choices {
+    .shape-gallery {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-      gap: 0.75rem;
-      max-width: 600px;
-      margin: 0 auto;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 1rem;
+      margin: 1.25rem 0;
     }
-    .quiz-box .choice {
-      padding: 1rem;
+    .shape-tile {
       background: var(--paper);
       border: 3px solid var(--line);
-      border-radius: var(--radius);
-      font-family: var(--font-display);
-      font-size: var(--fs-lg);
-      font-weight: 700;
-      color: var(--ink);
-      cursor: pointer;
-      transition: all .15s var(--ease);
+      border-radius: var(--radius-lg);
+      padding: 1rem 0.75rem;
       text-align: center;
+      transition: transform .2s var(--ease), border-color .2s;
     }
-    .quiz-box .choice:hover {
-      border-color: var(--math);
-      transform: scale(1.05);
+    .shape-tile:hover { transform: translateY(-3px); border-color: var(--math); }
+    .shape-tile svg { width: 74px; height: 74px; }
+    .shape-tile .nm { font-family: var(--font-display); font-weight: 800; color: var(--ink); margin-top: 0.35rem; }
+    .shape-tile .info { font-size: var(--fs-xs); color: var(--ink-mute); margin-top: 0.15rem; }
+    .count-line {
+      display: flex; align-items: center; justify-content: center;
+      gap: 0.5rem; margin-top: 0.45rem; font-size: var(--fs-sm); font-weight: 700; color: var(--ink-soft);
     }
-    .quiz-box .choice.correct {
-      background: #16a34a;
-      color: #fff;
-      border-color: #16a34a;
-      animation: pop .3s;
+    .compose-demo {
+      display: flex; align-items: center; justify-content: center;
+      gap: 0.9rem; flex-wrap: wrap; margin: 1rem 0; padding: 1rem;
+      background: var(--math-soft); border-radius: var(--radius-lg);
     }
-    .quiz-box .choice.wrong {
-      background: #dc2626;
-      color: #fff;
-      border-color: #dc2626;
-      animation: shake .3s;
+    .compose-demo svg { width: 64px; height: 64px; }
+    .compose-demo .op { font-family: var(--font-display); font-size: 1.6rem; font-weight: 800; color: var(--ink); }
+    .sym-demo { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin: 1rem 0; }
+    .sym-demo figure { margin: 0; text-align: center; }
+    .sym-demo svg { width: 92px; height: 92px; }
+    .sym-demo figcaption { font-size: var(--fs-xs); color: var(--ink-mute); margin-top: 0.3rem; }
+    .quiz-choices { display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap; margin-top: 1rem; }
+    .quiz-choices button {
+      min-width: 86px; padding: 0.8rem 1.15rem;
+      background: var(--paper); border: 3px solid var(--line); border-radius: var(--radius);
+      font-family: var(--font-display); font-size: var(--fs-lg); font-weight: 800; color: var(--ink);
+      cursor: pointer; transition: transform .15s var(--ease), border-color .2s, background .2s;
     }
-    .feedback {
-      text-align: center;
-      margin-top: 1rem;
-      font-weight: 700;
-      font-size: var(--fs-lg);
-      min-height: 1.5em;
-    }
+    .quiz-choices button:hover { transform: translateY(-2px); border-color: var(--math); }
+    .quiz-choices button.ok { background: #DCFCE7; border-color: #16A34A; }
+    .quiz-choices button.no { background: #FEE2E2; border-color: #DC2626; }
     .score-row {
-      text-align: center;
-      margin-top: 0.5rem;
-      font-size: var(--fs-sm);
-      color: var(--ink-mute);
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 0.75rem; flex-wrap: wrap; margin-bottom: 0.6rem;
     }
-    .lesson-hero-icon {
-      font-size: 5rem;
-      text-align: center;
-      animation: bounce 2s ease-in-out infinite;
-      display: block;
-      margin: 0 auto 0.5rem;
-    }
-    @keyframes bounce {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
-    }
-    @keyframes pop {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.1); }
-      100% { transform: scale(1); }
-    }
-    @keyframes shake {
-      0%, 100% { transform: translateX(0); }
-      25% { transform: translateX(-5px); }
-      75% { transform: translateX(5px); }
-    }
-    .next-btn {
-      display: block;
-      margin: 1rem auto 0;
-    }
-    @media (max-width: 640px) {
-      .lesson-block {
-        flex-direction: column;
-        padding: 1rem;
-      }
-      .lesson-block .emoji {
-        font-size: 2.5rem;
-        text-align: center;
-      }
-      .lesson-hero-icon { font-size: 4rem; }
-    }
+    .score { font-family: var(--font-display); font-weight: 800; color: var(--math); font-size: var(--fs-md); }
+    .q-text { font-size: var(--fs-lg); color: var(--ink); font-weight: 700; text-align: center; }
+    .fb { min-height: 1.6em; text-align: center; font-weight: 700; font-size: var(--fs-sm); margin-top: 0.7rem; }
+    .fb.good { color: #16A34A; }
+    .fb.bad { color: #DC2626; }
+    .learn p { color: var(--ink-soft); line-height: 1.65; }
   </style>
 </head>
 <body data-app-name="2D Shapes" data-subject="math" class="subject-page">
@@ -174,157 +84,165 @@
     </div>
 
     <header class="app-hero">
-      <span class="lesson-hero-icon">⭐</span>
       <span class="app-eyebrow">Grade 2 · Lesson</span>
-      <h1 class="app-title">2D <span class="accent">Shapes</span></h1>
-      <p class="app-subtitle">Circles, squares, triangles, rectangles — and their properties.</p>
+      <h1 class="app-title">2D Shapes <span class="accent">and their secrets</span></h1>
+      <p class="app-subtitle">You already know circles, squares and triangles. Now count their sides and corners, meet the pentagon family, build new shapes, and fold to find symmetry.</p>
     </header>
 
+    <section class="card learn">
+      <h2 class="card-title">1 · Count sides and vertices</h2>
+      <p>Every flat shape is made of <strong>sides</strong> (straight lines) and <strong>vertices</strong> (corners where two sides meet). One corner is a <em>vertex</em>, two or more are <em>vertices</em>. Here is a trick: if a shape has 4 sides, it always has 4 vertices too!</p>
+      <div class="shape-gallery">
+        <div class="shape-tile" data-speak="A triangle has 3 sides and 3 vertices">
+          <svg viewBox="0 0 100 100" aria-hidden="true"><polygon points="50,12 92,88 8,88" fill="var(--math-soft)" stroke="var(--math)" stroke-width="5" stroke-linejoin="round"/><circle cx="50" cy="12" r="6" fill="var(--red-700)"/><circle cx="92" cy="88" r="6" fill="var(--red-700)"/><circle cx="8" cy="88" r="6" fill="var(--red-700)"/></svg>
+          <div class="nm">Triangle</div>
+          <div class="info">3 sides · 3 vertices</div>
+        </div>
+        <div class="shape-tile" data-speak="A square has 4 equal sides and 4 vertices">
+          <svg viewBox="0 0 100 100" aria-hidden="true"><rect x="14" y="14" width="72" height="72" rx="4" fill="var(--math-soft)" stroke="var(--math)" stroke-width="5"/><circle cx="14" cy="14" r="6" fill="var(--red-700)"/><circle cx="86" cy="14" r="6" fill="var(--red-700)"/><circle cx="86" cy="86" r="6" fill="var(--red-700)"/><circle cx="14" cy="86" r="6" fill="var(--red-700)"/></svg>
+          <div class="nm">Square</div>
+          <div class="info">4 equal sides · 4 vertices</div>
+        </div>
+        <div class="shape-tile" data-speak="A pentagon has 5 sides and 5 vertices">
+          <svg viewBox="0 0 100 100" aria-hidden="true"><polygon points="50,8 93,40 76,92 24,92 7,40" fill="var(--math-soft)" stroke="var(--math)" stroke-width="5" stroke-linejoin="round"/><circle cx="50" cy="8" r="6" fill="var(--red-700)"/><circle cx="93" cy="40" r="6" fill="var(--red-700)"/><circle cx="76" cy="92" r="6" fill="var(--red-700)"/><circle cx="24" cy="92" r="6" fill="var(--red-700)"/><circle cx="7" cy="40" r="6" fill="var(--red-700)"/></svg>
+          <div class="nm">Pentagon</div>
+          <div class="info">5 sides · 5 vertices</div>
+        </div>
+        <div class="shape-tile" data-speak="A hexagon has 6 sides and 6 vertices">
+          <svg viewBox="0 0 100 100" aria-hidden="true"><polygon points="50,6 90,28 90,72 50,94 10,72 10,28" fill="var(--math-soft)" stroke="var(--math)" stroke-width="5" stroke-linejoin="round"/><circle cx="50" cy="6" r="6" fill="var(--red-700)"/><circle cx="90" cy="28" r="6" fill="var(--red-700)"/><circle cx="90" cy="72" r="6" fill="var(--red-700)"/><circle cx="50" cy="94" r="6" fill="var(--red-700)"/><circle cx="10" cy="72" r="6" fill="var(--red-700)"/><circle cx="10" cy="28" r="6" fill="var(--red-700)"/></svg>
+          <div class="nm">Hexagon</div>
+          <div class="info">6 sides · 6 vertices</div>
+        </div>
+      </div>
+      <p><strong>Remember the family:</strong> the name tells you the number! <em>Penta</em> means 5, <em>hexa</em> means 6, <em>octa</em> means 8. An octagon has 8 sides — you see one every day on the red STOP sign. And bees build their honeycombs from hexagons, because hexagons fit together with no gaps.</p>
+    </section>
+
+    <section class="card learn">
+      <h2 class="card-title">2 · Regular or not regular?</h2>
+      <p>A shape is <strong>regular</strong> when all its sides are the same length AND all its angles are the same. A square is a regular shape. But a rectangle is <em>not</em> regular — its sides are two different lengths, even though its angles are equal. Both are still quadrilaterals (4-sided shapes), just like you and your friend are both humans even if one of you is taller!</p>
+      <div class="compose-demo">
+        <svg viewBox="0 0 100 100" aria-hidden="true"><rect x="10" y="10" width="80" height="80" rx="3" fill="var(--math-soft)" stroke="var(--math)" stroke-width="5"/></svg>
+        <span style="text-align:left; font-size: var(--fs-sm);"><strong>Square — regular</strong><br/>4 equal sides, 4 equal angles</span>
+        <svg viewBox="0 0 100 100" aria-hidden="true"><rect x="6" y="22" width="88" height="56" rx="3" fill="var(--math-soft)" stroke="var(--math)" stroke-width="5"/></svg>
+        <span style="text-align:left; font-size: var(--fs-sm);"><strong>Rectangle — not regular</strong><br/>2 long sides, 2 short sides</span>
+      </div>
+    </section>
+
+    <section class="card learn">
+      <h2 class="card-title">3 · Build new shapes (compose!)</h2>
+      <p>Shapes are like building blocks. Put two triangles together and you can make a square. Put two squares side by side and you make a rectangle. Cutting a shape into smaller ones is called <strong>decomposing</strong>; putting pieces together is <strong>composing</strong>. Architects and designers use this every day — a floor made of wooden boards is just lots of rectangles composing a big shape!</p>
+      <div class="compose-demo" data-speak="Two triangles together make a square">
+        <svg viewBox="0 0 100 100" aria-hidden="true"><polygon points="50,10 50,90 10,90" fill="#FEE2E2" stroke="var(--red-700)" stroke-width="4" stroke-linejoin="round"/><polygon points="50,10 90,90 50,90" fill="var(--math-soft)" stroke="var(--math)" stroke-width="4" stroke-linejoin="round"/></svg>
+        <span class="op">=</span>
+        <svg viewBox="0 0 100 100" aria-hidden="true"><rect x="12" y="12" width="76" height="76" rx="3" fill="var(--math-soft)" stroke="var(--math)" stroke-width="5"/></svg>
+        <span style="text-align:left; font-size: var(--fs-sm);"><strong>2 triangles</strong><br/>make 1 square</span>
+      </div>
+    </section>
+
+    <section class="card learn">
+      <h2 class="card-title">4 · Symmetry: the fold test</h2>
+      <p>A shape has a <strong>line of symmetry</strong> when you can fold it in half and both halves match exactly, like a mirror. Try it with paper! A square has 4 lines of symmetry. A rectangle has only 2 — folding it corner-to-corner does <em>not</em> match. A circle is the champion: it has endless lines of symmetry, because every fold through the middle matches perfectly.</p>
+      <div class="sym-demo">
+        <figure data-speak="A square has 4 lines of symmetry">
+          <svg viewBox="0 0 100 100" aria-hidden="true"><rect x="14" y="14" width="72" height="72" rx="3" fill="var(--math-soft)" stroke="var(--math)" stroke-width="4"/><line x1="50" y1="8" x2="50" y2="92" stroke="var(--red-700)" stroke-width="3" stroke-dasharray="6 5"/><line x1="8" y1="50" x2="92" y2="50" stroke="var(--red-700)" stroke-width="3" stroke-dasharray="6 5"/><line x1="18" y1="18" x2="82" y2="82" stroke="var(--red-700)" stroke-width="2" stroke-dasharray="5 6" opacity=".55"/><line x1="82" y1="18" x2="18" y2="82" stroke="var(--red-700)" stroke-width="2" stroke-dasharray="5 6" opacity=".55"/></svg>
+          <figcaption>Square — 4 lines</figcaption>
+        </figure>
+        <figure data-speak="A rectangle has 2 lines of symmetry">
+          <svg viewBox="0 0 100 100" aria-hidden="true"><rect x="8" y="24" width="84" height="52" rx="3" fill="var(--math-soft)" stroke="var(--math)" stroke-width="4"/><line x1="50" y1="18" x2="50" y2="82" stroke="var(--red-700)" stroke-width="3" stroke-dasharray="6 5"/><line x1="2" y1="50" x2="98" y2="50" stroke="var(--red-700)" stroke-width="3" stroke-dasharray="6 5"/></svg>
+          <figcaption>Rectangle — 2 lines</figcaption>
+        </figure>
+        <figure data-speak="A circle has endless lines of symmetry">
+          <svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="40" fill="var(--math-soft)" stroke="var(--math)" stroke-width="4"/><line x1="50" y1="4" x2="50" y2="96" stroke="var(--red-700)" stroke-width="3" stroke-dasharray="6 5"/><line x1="4" y1="50" x2="96" y2="50" stroke="var(--red-700)" stroke-width="3" stroke-dasharray="6 5"/><line x1="17" y1="17" x2="83" y2="83" stroke="var(--red-700)" stroke-width="2" stroke-dasharray="5 6" opacity=".55"/><line x1="83" y1="17" x2="17" y2="83" stroke="var(--red-700)" stroke-width="2" stroke-dasharray="5 6" opacity=".55"/></svg>
+          <figcaption>Circle — endless lines!</figcaption>
+        </figure>
+      </div>
+    </section>
+
     <section class="card">
-      <h2 class="card-title">📚 <span data-i18n="lessons_title">Lessons</span></h2>
-      <div class="lesson-block">
-        <div class="emoji">⭕</div>
-        <div class="content">
-          <p class="text" data-en="A circle is perfectly round. It has no corners and no straight sides. A ball looks like a circle." data-id="Lingkaran adalah bulat sempurna. Tidak punya sudut dan sisi lurus. Bola terlihat seperti lingkaran.">A circle is perfectly round. It has no corners and no straight sides. A ball looks like a circle.</p>
-          <div class="speak-row">
-            <button class="btn btn-ghost btn-sm" data-speak-idx="0" data-i18n-label="listen">🔊 <span data-i18n="listen">Listen</span></button>
-          </div>
-        </div>
+      <h2 class="card-title" style="margin-bottom:0.4rem;">Quick check</h2>
+      <div class="score-row">
+        <span class="score">Score : <span id="sc">0</span> / 6</span>
+        <span class="text-sm text-mute" id="qNum">Question 1 of 6</span>
       </div>
-      <div class="lesson-block">
-        <div class="emoji">⬜</div>
-        <div class="content">
-          <p class="text" data-en="A square has 4 equal sides and 4 corners. All four sides are the same length." data-id="Persegi punya 4 sisi sama panjang dan 4 sudut. Keempa sisinya sama panjang.">A square has 4 equal sides and 4 corners. All four sides are the same length.</p>
-          <div class="speak-row">
-            <button class="btn btn-ghost btn-sm" data-speak-idx="1" data-i18n-label="listen">🔊 <span data-i18n="listen">Listen</span></button>
-          </div>
-        </div>
-      </div>
-      <div class="lesson-block">
-        <div class="emoji">🔺</div>
-        <div class="content">
-          <p class="text" data-en="A triangle has 3 sides and 3 corners. A slice of pizza is shaped like a triangle." data-id="Segitiga punya 3 sisi dan 3 sudut. Sepotong pizza berbentuk segitiga.">A triangle has 3 sides and 3 corners. A slice of pizza is shaped like a triangle.</p>
-          <div class="speak-row">
-            <button class="btn btn-ghost btn-sm" data-speak-idx="2" data-i18n-label="listen">🔊 <span data-i18n="listen">Listen</span></button>
-          </div>
-        </div>
-      </div>
-      <div class="lesson-block">
-        <div class="emoji">▭</div>
-        <div class="content">
-          <p class="text" data-en="A rectangle has 4 sides and 4 corners. The opposite sides are equal. A door is a rectangle." data-id="Persegi panjang punya 4 sisi dan 4 sudut. Sisi yang berhadapan sama panjang. Pintu adalah persegi panjang.">A rectangle has 4 sides and 4 corners. The opposite sides are equal. A door is a rectangle.</p>
-          <div class="speak-row">
-            <button class="btn btn-ghost btn-sm" data-speak-idx="3" data-i18n-label="listen">🔊 <span data-i18n="listen">Listen</span></button>
-          </div>
-        </div>
-      </div>
-      <div class="lesson-block">
-        <div class="emoji">⬡</div>
-        <div class="content">
-          <p class="text" data-en="A hexagon has 6 sides. A honeycomb cell is a hexagon. Bees love this shape!" data-id="Heksagon punya 6 sisi. Sarang lebah berbentuk heksagon. Lebah menyukai bentuk ini!">A hexagon has 6 sides. A honeycomb cell is a hexagon. Bees love this shape!</p>
-          <div class="speak-row">
-            <button class="btn btn-ghost btn-sm" data-speak-idx="4" data-i18n-label="listen">🔊 <span data-i18n="listen">Listen</span></button>
-          </div>
-        </div>
-      </div>
+      <p class="q-text" id="qText">Loading…</p>
+      <div class="quiz-choices" id="qChoices"></div>
+      <p class="fb" id="fb"></p>
     </section>
-
-    <section class="quiz-box">
-      <p class="q-text" id="qText"></p>
-      <div class="choices" id="choices"></div>
-      <p class="feedback" id="feedback"></p>
-      <p class="score-row">
-        <span data-i18n="score">Score</span>: <strong id="score">0</strong> ·
-        <span data-i18n="question">Question</span> <span id="qNum">1</span>
-      </p>
-      <button class="btn btn-primary next-btn" id="nextQ" style="display:none;" data-i18n="next_question">Next question</button>
-    </section>
-
-    <p style="text-align:center; margin-top:2rem;">
-      <button class="btn btn-ghost" id="listenAll" data-i18n="listen">Listen</button>
-      <button class="btn btn-ghost" id="stopAll" data-i18n="stop">Stop</button>
-    </p>
   </main>
 
+  <script src="/kids/assets/lessons.js?v=20260829a"></script>
+  <script src="/kids/assets/lesson-kit.js?v=20260829a"></script>
   <script>
-    // Lesson content for speak
-    var LESSON_CONTENT = [{"emoji": "\u2b55", "en": "A circle is perfectly round. It has no corners and no straight sides. A ball looks like a circle.", "id": "Lingkaran adalah bulat sempurna. Tidak punya sudut dan sisi lurus. Bola terlihat seperti lingkaran."}, {"emoji": "\u2b1c", "en": "A square has 4 equal sides and 4 corners. All four sides are the same length.", "id": "Persegi punya 4 sisi sama panjang dan 4 sudut. Keempa sisinya sama panjang."}, {"emoji": "\ud83d\udd3a", "en": "A triangle has 3 sides and 3 corners. A slice of pizza is shaped like a triangle.", "id": "Segitiga punya 3 sisi dan 3 sudut. Sepotong pizza berbentuk segitiga."}, {"emoji": "\u25ad", "en": "A rectangle has 4 sides and 4 corners. The opposite sides are equal. A door is a rectangle.", "id": "Persegi panjang punya 4 sisi dan 4 sudut. Sisi yang berhadapan sama panjang. Pintu adalah persegi panjang."}, {"emoji": "\u2b21", "en": "A hexagon has 6 sides. A honeycomb cell is a hexagon. Bees love this shape!", "id": "Heksagon punya 6 sisi. Sarang lebah berbentuk heksagon. Lebah menyukai bentuk ini!"}];
-
-    // Quiz
-    var QUIZ = [{"q_en": "How many sides does a triangle have?", "q_id": "Berapa sisi segitiga?", "choices": ["2", "3", "4", "5"], "answer_idx": 1}, {"q_en": "Which shape has no corners?", "q_id": "Bentuk apa yang tidak punya sudut?", "choices": ["Square", "Circle", "Triangle", "Rectangle"], "answer_idx": 1}, {"q_en": "How many sides does a square have?", "q_id": "Berapa sisi persegi?", "choices": ["3", "4", "5", "6"], "answer_idx": 1}, {"q_en": "A hexagon has how many sides?", "q_id": "Heksagon punya berapa sisi?", "choices": ["5", "6", "7", "8"], "answer_idx": 1}];
-    var qIdx = 0, score = 0;
+  (function () {
+    'use strict';
+    var QS = [
+      { q: 'How many vertices does a hexagon have?', a: ['5', '6', '7'], c: 1,
+        why: 'Hexa means 6 — a hexagon has 6 sides and 6 vertices.' },
+      { q: 'Which shape has 5 sides?', a: ['Square', 'Pentagon', 'Octagon'], c: 1,
+        why: 'Penta means 5 — a pentagon has 5 sides.' },
+      { q: 'The STOP sign is shaped like a…', a: ['Hexagon', 'Pentagon', 'Octagon'], c: 2,
+        why: 'An octagon has 8 sides — just like the STOP sign.' },
+      { q: 'A square is a regular shape because…', a: ['All sides and angles are equal', 'It has 4 corners', 'It is big'], c: 0,
+        why: 'Regular = all sides equal AND all angles equal.' },
+      { q: 'Two triangles can compose a…', a: ['Circle', 'Square', 'Hexagon'], c: 1,
+        why: 'Put two right triangles together and they form a square.' },
+      { q: 'Which shape has NO line of symmetry here?', a: ['Square', 'Rectangle', 'Squiggly blob'], c: 2,
+        why: 'A squiggly blob cannot be folded into two matching halves.' }
+    ];
+    var qi = 0, score = 0, locked = false;
     var qText = document.getElementById('qText');
-    var choicesEl = document.getElementById('choices');
-    var feedback = document.getElementById('feedback');
-    var scoreEl = document.getElementById('score');
-    var qNumEl = document.getElementById('qNum');
-    var nextBtn = document.getElementById('nextQ');
+    var qCh = document.getElementById('qChoices');
+    var fb = document.getElementById('fb');
+    var sc = document.getElementById('sc');
+    var qNum = document.getElementById('qNum');
 
-    function loadQ() {
-      feedback.textContent = '';
-      feedback.style.color = '';
-      nextBtn.style.display = 'none';
-      var q = QUIZ[qIdx];
-      var lang = window.getLang ? window.getLang() : 'en';
-      qText.textContent = lang === 'id' ? q.q_id : q.q_en;
-      choicesEl.innerHTML = '';
-      q.choices.forEach(function (c, i) {
-        var btn = document.createElement('button');
-        btn.className = 'choice';
-        btn.textContent = c;
-        btn.addEventListener('click', function () {
-          if (i === q.answer_idx) {
-            btn.classList.add('correct');
-            feedback.textContent = window.t ? window.t('correct') : 'Correct!';
-            feedback.style.color = '#16a34a';
-            score++;
-            scoreEl.textContent = score;
+    function render() {
+      locked = false;
+      var q = QS[qi];
+      qText.textContent = q.q;
+      qNum.textContent = 'Question ' + (qi + 1) + ' of ' + QS.length;
+      fb.textContent = '';
+      fb.className = 'fb';
+      qCh.innerHTML = '';
+      q.a.forEach(function (label, i) {
+        var b = document.createElement('button');
+        b.type = 'button';
+        b.textContent = label;
+        b.addEventListener('click', function () {
+          if (locked) return;
+          locked = true;
+          var good = i === q.c;
+          if (good) {
+            score += 1;
+            b.classList.add('ok');
+            fb.textContent = '✅ Correct! ' + q.why;
+            fb.className = 'fb good';
+            if (window.speak) window.speak('Correct! ' + q.why, { grade: '2' });
           } else {
-            btn.classList.add('wrong');
-            feedback.textContent = window.t ? window.t('incorrect') : 'Try again!';
-            feedback.style.color = '#dc2626';
-            choicesEl.querySelectorAll('.choice').forEach(function (b, j) {
-              if (j === q.answer_idx) b.classList.add('correct');
-            });
+            b.classList.add('no');
+            qCh.children[q.c].classList.add('ok');
+            fb.textContent = '💡 ' + q.why;
+            fb.className = 'fb bad';
+            if (window.speak) window.speak('Not yet. ' + q.why, { grade: '2' });
           }
-          choicesEl.querySelectorAll('.choice').forEach(function (b) { b.style.pointerEvents = 'none'; });
-          nextBtn.style.display = 'block';
+          sc.textContent = score;
+          setTimeout(function () {
+            qi += 1;
+            if (qi < QS.length) render();
+            else {
+              qText.textContent = score === QS.length ? '🏆 Perfect! You know your shapes!' : (score >= 4 ? '👏 Well done! Try again for a perfect score.' : '💪 Keep practicing — try the lesson again!');
+              qCh.innerHTML = '';
+              qNum.textContent = 'Finished';
+              if (window.speak) window.speak(score === QS.length ? 'Perfect! You know your shapes!' : 'Well done! Practice makes better.', { grade: '2' });
+              if (window.BK) { window.BK.markPracticed(); if (score === QS.length) window.BK.complete(); }
+            }
+          }, 1400);
         });
-        choicesEl.appendChild(btn);
+        qCh.appendChild(b);
       });
     }
-
-    nextBtn.addEventListener('click', function () {
-      qIdx = (qIdx + 1) % QUIZ.length;
-      qNumEl.textContent = qIdx + 1;
-      loadQ();
-    });
-    loadQ();
-
-    // Listen all button
-    document.getElementById('listenAll').addEventListener('click', function () {
-      var lang = window.getLang ? window.getLang() : 'en';
-      var text = LESSON_CONTENT.map(function (b) { return lang === 'id' ? b.id : b.en; }).join(' ');
-      if (window.speak) window.speak(text);
-    });
-    document.getElementById('stopAll').addEventListener('click', function () {
-      if (window.stopSpeaking) window.stopSpeaking();
-    });
-
-    // Per-block speak buttons
-    document.querySelectorAll('[data-speak-idx]').forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        var idx = parseInt(btn.getAttribute('data-speak-idx'));
-        var lang = window.getLang ? window.getLang() : 'en';
-        var text = lang === 'id' ? LESSON_CONTENT[idx].id : LESSON_CONTENT[idx].en;
-        if (window.speak) window.speak(text);
-      });
-    });
-
-    // Update quiz language on lang change
-    document.addEventListener('langchange', function () {
-      loadQ();
-    });
+    render();
+  })();
   </script>
 </body>
 </html>
