@@ -258,17 +258,30 @@ window.TYPE_LABEL = function (t) {
   return map[t] || t;
 };
 
+function bkStarsFor(subject, slug) {
+  try {
+    var all = JSON.parse(localStorage.getItem('bk-progress-v1') || '{}');
+    var e = all[subject + '/' + slug];
+    return e ? (e.s || 0) : 0;
+  } catch (e) { return 0; }
+}
+
 window.renderLessons = function (container, subject, gradeFilter, curriculumFilter) {
   if (!container) return;
   var lang = window.getLang ? window.getLang() : 'en';
   var list = window.LESSONS[subject] || [];
   var html = '';
+  var n = 0;
   list.forEach(function (l) {
     if (gradeFilter && gradeFilter !== 'all' && l.grade !== gradeFilter) return;
     // curriculumFilter is ignored in v3 (curriculum removed from category per user request)
+    n += 1;
     var tr = l[lang] || l.en;
+    var stars = bkStarsFor(subject, l.slug);
+    var done = stars >= 3 ? '<span class="bk-done" title="' + (lang === 'id' ? 'Selesai' : 'Completed') + '">⭐</span>' : '';
     html += '<a class="lesson-card" href="/kids/' + subject + '/' + l.slug + '/" data-grade="' + l.grade + '" data-type="' + l.type + '">' +
-              '<span class="level">' + window.GRADE_LABEL(l.grade) + ' · ' + window.TYPE_LABEL(l.type) + '</span>' +
+              done +
+              '<span class="level"><span class="bk-order">' + n + '</span>' + window.GRADE_LABEL(l.grade) + ' · ' + window.TYPE_LABEL(l.type) + '</span>' +
               '<h4>' + tr.title + '</h4>' +
               '<p class="desc">' + tr.desc + '</p>' +
             '</a>';
