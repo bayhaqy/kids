@@ -45,6 +45,7 @@
   /* ================= SMP 1: LAB LONTARAN ================= */
   BS.GAMES['lab-lontaran'] = {
     name: 'Lab Fisika: Lontaran', icon: '🎯', world: 'smp', worldName: 'Dunia SMP', sticker: 'sky',
+    topics: ['smp8-ipa-gaya'], tags: ['fisika', 'ipa'],
     desc: 'Atur sudut & kecepatan untuk mengenai target. Belajar gerak parabola ala PhET!',
     render(el) {
       let angle = 45, speed = 22, targetX = ri(30, 80), tries = 0, hits = 0;
@@ -125,6 +126,7 @@
   /* ================= SMP 2: LAB pH ================= */
   BS.GAMES['lab-ph'] = {
     name: 'Lab Kimia: pH', icon: '🧪', world: 'smp', worldName: 'Dunia SMP', sticker: 'leaf',
+    topics: ['smp7-ipa-zat'], tags: ['kimia', 'ipa'],
     desc: 'Campurkan larutan, amati warna indikator, tebak nilai pH-nya!',
     render(el) {
       const liquids = [
@@ -182,6 +184,7 @@
   /* ================= SMP 3: KUIS KILAT ================= */
   BS.GAMES['kuis-kilat'] = {
     name: 'Kuis Kilat 60 Detik', icon: '⚡', world: 'smp', worldName: 'Dunia SMP', sticker: 'sun',
+    topics: [], tags: ['lintas'],
     desc: 'Sebanyak mungkin soal benar dalam 60 detik. Adrenalin + otak!',
     render(el) {
       const pool = BS.questionsOfGrade('smp-7', 'smp-8', 'smp-9');
@@ -226,6 +229,7 @@
   /* ================= SMA 1: SIMULATOR UTBK ================= */
   BS.GAMES['utbk-sim'] = {
     name: 'Simulator UTBK', icon: '🎓', world: 'sma', worldName: 'Dunia SMA', sticker: 'grape',
+    topics: ['utbk-pu', 'utbk-ppu', 'utbk-pmm', 'utbk-lbi', 'utbk-lbing'], tags: ['lintas', 'tps'],
     desc: '25 soal • 25 menit • analisis kelemahan per subtes. Siapkan dirimu!',
     render(el) {
       const subs = [
@@ -327,6 +331,7 @@
   /* ================= SMA 2: FLASHCARD 3D ================= */
   BS.GAMES['flashcard-3d'] = {
     name: 'Kartu Hafalan 3D', icon: '🃏', world: 'sma', worldName: 'Dunia SMA', sticker: 'pink',
+    topics: [], tags: ['lintas'],
     desc: 'Kartu putar 3D: ide inti di depan, jawaban & tips di belakang!',
     render(el) {
       const topics = BS.allTopics().filter((t) => ['sma-10', 'sma-11', 'sma-12'].includes(t.grade) && t.materi && t.materi.core);
@@ -362,6 +367,7 @@
   /* ================= SMA 3: GRAFIK FUNGSI ================= */
   BS.GAMES['grafik-fungsi'] = {
     name: 'Laboratorium Grafik', icon: '📈', world: 'sma', worldName: 'Dunia SMA', sticker: 'grape',
+    topics: ['smp8-mtk-fungsi'], tags: ['mtk'],
     desc: 'Geser koefisien a, b, c — lihat perubahannya pada parabola secara langsung!',
     render(el) {
       let a = 1, b = 0, c = -2;
@@ -429,6 +435,7 @@
   /* ================= SMA 4: PENJELAJAH KARIER ================= */
   BS.GAMES['karier'] = {
     name: 'Penjelajah Karier', icon: '🧭', world: 'sma', worldName: 'Dunia SMA', sticker: 'sky',
+    topics: [], tags: ['lintas'],
     desc: 'Jawab 5 pertanyaan minat — temukan arah jurusan & karier yang cocok!',
     render(el) {
       const QUIZ = [

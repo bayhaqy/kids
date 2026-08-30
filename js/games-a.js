@@ -47,6 +47,7 @@
   BS.GAMES = BS.GAMES || {};
   BS.GAMES['tebak-huruf'] = {
     name: 'Tebak Huruf Berbunyi', icon: '🔤', world: 'tk', worldName: 'Dunia TK', sticker: 'pink',
+    topics: ['tk-huruf'], tags: ['umum'],
     desc: 'Dengarkan suara Pipo, temukan huruf yang benar di antara balon-balon huruf!',
     render(el) {
       const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
@@ -80,6 +81,7 @@
   /* ================= TK 2: HITUNG MAINAN ================= */
   BS.GAMES['hitung-mainan'] = {
     name: 'Hitung Mainan', icon: '🧮', world: 'tk', worldName: 'Dunia TK', sticker: 'sun',
+    topics: ['tk-angka'], tags: ['umum'],
     desc: 'Hitung mainan kesukaanmu, lalu pilih jumlah yang benar!',
     render(el) {
       const toys = ['🧸', '🚗', '🎈', '⚽', '🪀', '🧩', '🎨', '🚂'];
@@ -113,6 +115,7 @@
   /* ================= TK 3: WARNA & BENTUK ================= */
   BS.GAMES['warna-bentuk'] = {
     name: 'Warna & Bentuk', icon: '🎨', world: 'tk', worldName: 'Dunia TK', sticker: 'sky',
+    topics: ['tk-warna'], tags: ['umum'],
     desc: 'Temukan bentuk dengan warna yang diminta Pipo!',
     render(el) {
       const colors = { merah: '#FF6B5E', biru: '#38A9F5', kuning: '#FFC53D', hijau: '#2EC77E', ungu: '#9B5CF6', pink: '#FF8FAB' };
@@ -155,6 +158,7 @@
   /* ================= TK 4: MEMORY HEWAN ================= */
   BS.GAMES['memory-hewan'] = {
     name: 'Memory Hewan', icon: '🐾', world: 'tk', worldName: 'Dunia TK', sticker: 'leaf',
+    topics: ['tk-hewan'], tags: ['umum'],
     desc: 'Balik kartu dan temukan pasangan hewan yang sama!',
     render(el) {
       const animals = ['🐶', '🐱', '🐮', '🐔', '🦆', '🐸', '🦋', '🐝'];
@@ -201,6 +205,7 @@
   /* ================= SD 1: MTK PETUALANGAN ================= */
   BS.GAMES['mtk-petualangan'] = {
     name: 'Matematika Petualangan', icon: '🗺️', world: 'sd', worldName: 'Dunia SD', sticker: 'leaf',
+    topics: ['sd1-mtk-tambah', 'sd2-mtk-kali', 'sd3-mtk-pecahan', 'sd6-mtk-bulat'], tags: ['mtk'],
     desc: '10 pulau berisi tantangan hitung. Kumpulkan bintang di tiap pulau!',
     render(el) {
       const levels = [
@@ -211,8 +216,8 @@
         { name: 'Samudra Campuran', f: () => { const a = ri(2, 9), b = ri(2, 9), c = ri(2, 9); return { q: `${a} + ${b} × ${c} = ?`, ans: a + b * c }; } },
         { name: 'Hutan Pecahan', f: () => { const d = pick([2, 3, 4, 5]); return { q: `1/${d} + 1/${d} = ?`, ans: '2/' + d, text: true }; } },
         { name: 'Gunung Ratusan', f: () => { const a = ri(2, 9) * 100 + ri(1, 9) * 10 + ri(1, 9), b = ri(1, 9) * 100; return { q: `${a} + ${b} = ?`, ans: a + b }; } },
-        { name: 'Danau Waktu', f: () => { const h = ri(1, 5), m = ri(1, 5) * 15; return { q: `Film mulai 18:00, durasi ${h} jam ${m} menit. Selesai pukul ...`, ans: `${18 + h}:${String(m).padStart(2, '0')}`, text: true }; } },
-        { name: 'Kastil Uang', f: () => { const a = pick([5000, 10000, 20000]), b = pick([1000, 2000, 5000]); return { q: `Rp${a.toLocaleString('id')} + Rp${b.toLocaleString('id')} = ?`, ans: 'Rp' + (a + b).toLocaleString('id'), text: true }; } },
+        { name: 'Pulau Pecahan Berlapis', f: () => { const d1 = pick([2, 3, 4]), d2 = pick([6, 8, 9]); return { q: `1/${d1} + 1/${d2} = ?  (sederhanakan)`, ans: `${d1 + d2}/${d1 * d2}`, text: true }; } },
+        { name: 'Pulau Seratusan', f: () => { const a = ri(11, 99) * 10, b = pick([100, 200, 300, 400]); return { q: `${a} + ${b} = ?`, ans: a + b }; } },
         { name: 'Vulkanus Tantangan', f: () => { const a = ri(11, 19), b = ri(2, 9), c = ri(2, 9); return { q: `${a} × ${b} − ${c} = ?`, ans: a * b - c }; } },
       ];
       let lv = 0, lives = 3, stars = 0;
@@ -265,6 +270,7 @@
   /* ================= SD 2: ROBOT KODING ================= */
   BS.GAMES['robot-koding'] = {
     name: 'Robot Koding', icon: '🤖', world: 'sd', worldName: 'Dunia SD', sticker: 'sky',
+    topics: ['sd1-mtk-bangun'], tags: ['logika', 'lintas'],
     desc: 'Susun perintah panah untuk mengantarkan robot ke bendera. Belajar logika pemrograman!',
     render(el) {
       const levels = [
@@ -352,6 +358,7 @@
   /* ================= SD 3: TEBAK KATA ================= */
   BS.GAMES['tebak-kata'] = {
     name: 'Tebak Kata', icon: '🔤', world: 'sd', worldName: 'Dunia SD', sticker: 'grape',
+    topics: ['sd2-bindo-sinonim', 'sd3-bindo-pokok'], tags: ['bindo'],
     desc: 'Tebak kata misteri huruf demi huruf. Bahasa Indonesia jadi seru!',
     render(el) {
       const words = [

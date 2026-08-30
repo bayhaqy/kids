@@ -62,20 +62,46 @@
     BS.WORLDS = [
       { id: 'tk', name: 'Dunia TK', icon: '🎈', color: '#FF8FAB', tagline: 'Bermain sambil mengenal huruf, angka, warna & hewan', fase: 'Fase Fondasi',
         grades: gradesOf(['tk'], [{ name: 'TK A & B', icon: '🧸', fase: 'Fondasi' }]),
-        games: ['tebak-huruf', 'hitung-mainan', 'warna-bentuk', 'memory-hewan'] },
+        games: ['tebak-huruf', 'tk-trace', 'hitung-mainan', 'tk-pattern', 'warna-bentuk', 'tk-shape3d', 'memory-hewan', 'tk-pasang'],
+        regions: [
+          { name: 'Hutan Kata 🔤', games: ['tebak-huruf', 'tk-trace'] },
+          { name: 'Taman Angka 🔢', games: ['hitung-mainan', 'tk-pattern'] },
+          { name: 'Pulau Bentuk 🔺', games: ['warna-bentuk', 'tk-shape3d'] },
+          { name: 'Sawah Sahabat 🐾', games: ['memory-hewan', 'tk-pasang'] },
+        ] },
       { id: 'sd', name: 'Dunia SD', icon: '🏝️', color: '#2EC77E', tagline: 'Petualangan pulau: MTK, baca-tulis, IPAS & bahasa Inggris', fase: 'Fase A–C',
         grades: gradesOf(['sd-1', 'sd-2', 'sd-3', 'sd-4', 'sd-5', 'sd-6'], [
           { name: 'Kelas 1', icon: '🌱', fase: 'Fase A' }, { name: 'Kelas 2', icon: '🌿', fase: 'Fase A' }, { name: 'Kelas 3', icon: '🌳', fase: 'Fase B' },
           { name: 'Kelas 4', icon: '⛰️', fase: 'Fase B' }, { name: 'Kelas 5', icon: '🌊', fase: 'Fase C' }, { name: 'Kelas 6', icon: '🚀', fase: 'Fase C' }]),
-        games: ['mtk-petualangan', 'robot-koding', 'tebak-kata'] },
+        games: ['mtk-petualangan', 'sd-money', 'sd-clock', 'tebak-kata', 'sd-word', 'sd-plant', 'robot-koding', 'sd-type', 'sd-geo'],
+        regions: [
+          { name: 'Teluk Hitung 🧮', games: ['mtk-petualangan', 'sd-money', 'sd-clock'] },
+          { name: 'Hutan Kata 📖', games: ['tebak-kata', 'sd-word'] },
+          { name: 'Kebun IPAS 🌱', games: ['sd-plant'] },
+          { name: 'Bengkel Petualang 🔧', games: ['robot-koding', 'sd-type', 'sd-geo'] },
+        ] },
       { id: 'smp', name: 'Dunia SMP', icon: '🔬', color: '#38A9F5', tagline: 'Lab maya, eksperimen & tantangan logika', fase: 'Fase D',
         grades: gradesOf(['smp-7', 'smp-8', 'smp-9'], [
           { name: 'Kelas 7', icon: '🔎', fase: 'Fase D' }, { name: 'Kelas 8', icon: '⚗️', fase: 'Fase D' }, { name: 'Kelas 9', icon: '🧲', fase: 'Fase D' }]),
-        games: ['lab-lontaran', 'lab-ph', 'kuis-kilat'] },
+        games: ['lab-lontaran', 'smp-circuit', 'lab-ph', 'smp-molecule', 'smp-cell', 'smp-timeline', 'smp-solid', 'kuis-kilat'],
+        regions: [
+          { name: 'Lab Gerak & Daya ⚡', games: ['lab-lontaran', 'smp-circuit'] },
+          { name: 'Lab Hayati & Kimia 🧪', games: ['lab-ph', 'smp-molecule', 'smp-cell'] },
+          { name: 'Studio Waktu 🏛️', games: ['smp-timeline'] },
+          { name: 'Menara Angka 📐', games: ['smp-solid'] },
+          { name: 'Arena Kilat 🎯', games: ['kuis-kilat'] },
+        ] },
       { id: 'sma', name: 'Dunia SMA', icon: '🪐', color: '#9B5CF6', tagline: 'Jurusan pilihan, UTBK & persiapan masa depan', fase: 'Fase E–F',
         grades: gradesOf(['sma-10', 'sma-11', 'sma-12', 'utbk'], [
           { name: 'Kelas 10', icon: '✨', fase: 'Fase E' }, { name: 'Kelas 11', icon: '🌟', fase: 'Fase F' }, { name: 'Kelas 12', icon: '💫', fase: 'Fase F' }, { name: 'UTBK', icon: '🎓', fase: 'Simulasi' }]),
-        games: ['utbk-sim', 'flashcard-3d', 'grafik-fungsi', 'karier'] },
+        games: ['grafik-fungsi', 'sma-calc', 'sma-vector', 'sma-chem', 'sma-gene', 'sma-econ', 'utbk-sim', 'flashcard-3d', 'karier'],
+        regions: [
+          { name: 'Observatorium Matematika 🔭', games: ['grafik-fungsi', 'sma-calc'] },
+          { name: 'Lab Sains Rupa 🧬', games: ['sma-vector', 'sma-chem', 'sma-gene'] },
+          { name: 'Bank & Bursa 💰', games: ['sma-econ'] },
+          { name: 'Menara UTBK 🎓', games: ['utbk-sim', 'flashcard-3d'] },
+          { name: 'Jalan Karier 🧭', games: ['karier'] },
+        ] },
     ];
     BS.WORLDS.forEach((w) => {
       w.topicCount = 0; w.qCount = 0;
@@ -119,7 +145,7 @@
   const today = () => new Date().toISOString().slice(0, 10);
   const defState = () => ({
     name: '', avatar: '🦊', xp: 0, coins: 0, streak: 0, lastDay: '',
-    badges: [], seenMateri: [],
+    badges: [], seenMateri: [], playLog: {}, typingBest: 0,
     missions: { date: '', list: [], progress: {} },
     stats: { answered: 0, correct: 0, quizzes: 0, games: 0, byTopic: {}, utbk: { history: [] } },
     screenDays: {},
@@ -267,8 +293,11 @@
   BS.gameDone = function (gameId, pct) {
     BS.stats('game');
     BS.checkMissions('game');
+    if (BS.S.playLog) BS.S.playLog[gameId] = today();
     BS.addXP(Math.round(10 + (pct || 0) / 2), 5, null);
   };
+  /* kemiringan deterministik per-id utk bento playful (ui-spec 3-C) */
+  BS.tiltVar = function (id) { let h = 0; for (const c of String(id)) h = (h * 31 + c.charCodeAt(0)) % 997; return (((h % 9) - 4) / 2).toFixed(1); };
   BS.checkWorldMasters = function () {
     const worlds = { tk: 'tk-master', sd: 'sd-master', smp: 'smp-master' };
     Object.entries(worlds).forEach(([wid, badge]) => {
@@ -340,7 +369,8 @@
     const app = document.getElementById('app');
     g.render(app);
     const ex = app.querySelector('[data-exit]');
-    if (ex) ex.onclick = () => { location.hash = '#/petualangan'; };
+    if (ex && !ex.dataset.bound) ex.onclick = () => { location.hash = '#/petualangan'; };
+    app.dataset.world = g.world || '';
   };
 
   /* ============================================================
@@ -462,8 +492,8 @@
     const app = document.getElementById('app');
     const parts = (hash.replace(/^#\/?/, '') || 'home').split('/');
     const nav = document.querySelectorAll('.bottomnav a');
-    nav.forEach((a) => a.classList.remove('on'));
-    const setNav = (k) => { const a = document.querySelector(`.bottomnav a[data-nav="${k}"]`); if (a) a.classList.add('on'); };
+    nav.forEach((a) => { a.classList.remove('on'); a.removeAttribute('aria-current'); });
+    const setNav = (k) => { const a = document.querySelector(`.bottomnav a[data-nav="${k}"]`); if (a) { a.classList.add('on'); a.setAttribute('aria-current', 'page'); } };
 
     let fn = null, bind = null, navKey = 'home';
     try {
@@ -474,7 +504,7 @@
       else if (parts[0] === 'm' && parts[1]) { fn = () => BS.views.materi(parts[1]); bind = () => BS.bind.materi(parts[1]); navKey = 'belajar'; }
       else if (parts[0] === 'game' && parts[1]) {
         const g = BS.GAMES[parts[1]];
-        if (g) { app.innerHTML = ''; g.render(app); const ex = app.querySelector('[data-exit]'); if (ex) ex.onclick = () => { location.hash = '#/petualangan'; }; setNav('petualangan'); BS.scrollTop(); return; }
+        if (g) { app.innerHTML = ''; g.render(app); const ex = app.querySelector('[data-exit]'); if (ex && !ex.dataset.bound) ex.onclick = () => { location.hash = '#/petualangan'; }; app.dataset.world = g.world || ''; setNav('petualangan'); BS.scrollTop(); return; }
         fn = BS.views.petualangan; bind = BS.bind.petualangan;
       }
       else if (parts[0] === 'profil') { fn = BS.views.profil; bind = BS.bind.profil; navKey = 'profil'; }
@@ -482,6 +512,7 @@
       if (!fn) { fn = BS.views.home; bind = BS.bind.home; }
       app.innerHTML = fn();
       if (bind) bind(parts[1], parts[2], parts[3]);
+      app.dataset.world = parts[0] === 'w' ? (parts[1] || '') : '';
       setNav(navKey);
       BS.scrollTop();
       BS.refreshTop();

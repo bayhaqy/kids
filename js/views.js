@@ -28,23 +28,25 @@
             <a class="btn btn-coral btn-big" href="#/petualangan">🚀 Mulai Petualangan</a>
             <a class="btn btn-sky btn-big" href="#/belajar">📚 Baca Materi</a>
           </div>
+          <div class="hero-cta" style="margin-top:8px">
+            <button class="btn btn-surprise btn-big" id="btn-surprise">🎲 Kejutkan Aku!</button>
+            <button class="btn btn-grape btn-big" id="btn-custom-quiz">🧩 Bikin Kuis Sendiri</button>
+          </div>
         </div>
       </section>
 
       <div class="section-title"><span class="emoji">🗺️</span><h2>Pilih Duniamu</h2><span class="sub">4 dunia, 1 petualangan</span></div>
-      <div class="world-grid">
-        ${BS.WORLDS.map((w) => {
-          const p = BS.worldProgress(w.id);
-          return `
-          <a class="world-card ${w.id}c" href="#/w/${w.id}">
+      ${(() => {
+        const ranked = BS.WORLDS.map((w) => ({ w, p: BS.worldProgress(w.id) })).sort((a, b) => b.p - a.p);
+        return `<div class="bento world-bento">${ranked.map(({ w, p }, i) => `
+          <a class="b-card world b-${i === 0 ? 'hero' : 'mini'} ${w.id}c" href="#/w/${w.id}" style="--i:${i};--tilt:${BS.tiltVar('w-' + w.id)}deg">
             <span class="wc-ico">${w.icon}</span>
             <h3>${w.name}</h3>
-            <p>${w.tagline}</p>
-            <div class="wc-meta"><span class="sticker">${w.topicCount} topik</span><span class="sticker sun">${w.qCount}+ soal</span></div>
+            ${i === 0 ? `<p>${w.tagline}</p>` : ''}
+            <div class="wc-meta"><span class="sticker">${w.topicCount} topik</span><span class="sticker sun">${w.games.length} game</span></div>
             <div class="wc-progress" style="width:${p}%"></div>
-          </a>`;
-        }).join('')}
-      </div>
+          </a>`).join('')}</div>`;
+      })()}
 
       <div class="section-title"><span class="emoji">🎯</span><h2>Misi Hari Ini</h2><span class="sub">reset tiap pagi</span></div>
       <div class="missions">
@@ -89,6 +91,10 @@
     const ok = BS.buildHeroScene(document.getElementById('hero-canvas'));
     if (!ok) document.getElementById('hero-box').style.background = 'linear-gradient(#8ED8FF,#DFF8E8)';
     document.querySelectorAll('[data-quiz]').forEach((b) => { b.onclick = () => BS.startTopicQuiz(b.dataset.quiz); });
+    const sb = document.getElementById('btn-surprise');
+    if (sb) sb.onclick = () => BS.surprise();
+    const cq = document.getElementById('btn-custom-quiz');
+    if (cq) cq.onclick = () => BS.customQuiz();
   };
 
   /* ============ PETUALANGAN (hub) ============ */
@@ -97,11 +103,11 @@
     <div class="view">
       <h1 style="margin-top:18px">🗺️ Peta Petualangan</h1>
       <p style="font-weight:700;color:var(--ink-soft)">Jelajahi 4 dunia. Selesaikan materi & latihan untuk membuka semua bintang!</p>
-      <div class="hub-grid">
-        ${BS.WORLDS.map((w) => {
+      <div class="bento hub-bento">
+        ${BS.WORLDS.map((w, i) => {
           const p = BS.worldProgress(w.id);
           return `
-          <a class="hub-card" href="#/w/${w.id}">
+          <a class="b-card b-${i === 0 ? 'hero' : 'mini'} hub" href="#/w/${w.id}" style="--i:${i};--tilt:${BS.tiltVar('h-' + w.id)}deg">
             <span class="h-ico" style="background:${w.color}22">${w.icon}</span>
             <h3>${w.name} <span class="sticker sky">${w.fase}</span></h3>
             <p>${w.tagline}</p>
@@ -110,19 +116,70 @@
           </a>`;
         }).join('')}
       </div>
-      <div class="section-title"><span class="emoji">🕹️</span><h2>Semua Game Edukatif</h2><span class="sub">${Object.keys(BS.GAMES).length} game</span></div>
-      <div class="topic-grid">
-        ${Object.entries(BS.GAMES).map(([id, g]) => `
-          <div class="topic-card">
-            <div class="t-head"><span class="t-ico">${g.icon}</span><div><h3>${g.name}</h3><span class="sticker ${g.sticker || 'sun'}">${g.worldName}</span></div></div>
+      <div class="section-title"><span class="emoji">🕹️</span><h2>Semua Game Edukatif</h2><span class="sub">${Object.keys(BS.GAMES).length} game — bebas pilih, tanpa urutan!</span></div>
+      <div class="game-toolbar">
+        <div class="chip-filter" role="group" aria-label="Filter game" id="game-filter"></div>
+        <div class="btn-row">
+          <button class="btn btn-surprise" id="btn-surprise">🎲 Kejutkan Aku!</button>
+          <button class="btn btn-grape" id="btn-custom-quiz">🧩 Bikin Kuis</button>
+        </div>
+      </div>
+      <div class="bento games-bento" id="games-bento">
+        ${Object.entries(BS.GAMES).map(([id, g], i) => {
+          const SIZES = ['hero', 'wide', 'mini', 'mini', 'tall', 'mini', 'wide', 'mini', 'mini'];
+          const size = SIZES[i % SIZES.length];
+          return `
+          <article class="b-card b-${size} game-card" data-tags="${(g.tags || []).join(' ')}" style="--i:${Math.min(i, 12)};--tilt:${BS.tiltVar(id)}deg">
+            ${id === 'utbk-sim' || id === 'smp-cell' ? '<span class="stick-badge">🔥 Favorit</span>' : ''}
+            <span class="h-ico gico">${g.icon}</span>
+            <h3>${g.name}</h3>
+            <span class="sticker ${g.sticker || 'sun'}">${g.worldName}</span>
             <p class="t-obj">${g.desc}</p>
             <div class="t-actions"><button class="btn btn-leaf" data-game="${id}">🎮 Main</button></div>
-          </div>`).join('')}
+          </article>`;
+        }).join('')}
       </div>
     </div>`;
   };
   BS.bind.petualangan = function () {
     document.querySelectorAll('[data-game]').forEach((b) => { b.onclick = () => BS.openGame(b.dataset.game); });
+    const sb = document.getElementById('btn-surprise');
+    if (sb) sb.onclick = () => BS.surprise();
+    const cq = document.getElementById('btn-custom-quiz');
+    if (cq) cq.onclick = () => BS.customQuiz();
+    /* filter mapel bebas multi-pilih */
+    const TAGS = [['semua', '🌈 Semua'], ['umum', '🧸 TK'], ['mtk', '🔢 MTK'], ['bindo', '📖 B.Indo'], ['bing', '🌍 B.Ing'], ['ipas', '🌱 IPAS'], ['ipa', '🔬 IPA'], ['fisika', '⚛️ Fisika'], ['kimia', '🧪 Kimia'], ['biologi', '🧬 Biologi'], ['ips', '🌏 IPS'], ['logika', '🧩 Logika'], ['lintas', '🎯 Lintas']];
+    const cards = [...document.querySelectorAll('#games-bento .game-card')];
+    const active = new Set(['semua']);
+    const wrap = document.getElementById('game-filter');
+    if (wrap) {
+      wrap.innerHTML = TAGS.map(([k, label]) => {
+        const n = k === 'semua' ? cards.length : cards.filter((c) => (c.dataset.tags || '').split(/\s+/).includes(k)).length;
+        if (k !== 'semua' && n === 0) return '';
+        return `<button class="chip ${k === 'semua' ? 'on' : ''}" aria-pressed="${k === 'semua' ? 'true' : 'false'}" data-tag="${k}">${label} <span class="cnt">${n}</span></button>`;
+      }).join('');
+      wrap.addEventListener('click', (e) => {
+        const btn = e.target.closest('[data-tag]');
+        if (!btn) return;
+        const tag = btn.dataset.tag;
+        BS.sound('pop');
+        if (tag === 'semua') { active.clear(); active.add('semua'); }
+        else { active.delete('semua'); active.has(tag) ? active.delete(tag) : active.add(tag); if (!active.size) active.add('semua'); }
+        wrap.querySelectorAll('.chip').forEach((c) => {
+          const on = active.has(c.dataset.tag);
+          c.classList.toggle('on', on);
+          c.setAttribute('aria-pressed', on ? 'true' : 'false');
+        });
+        let shown = 0;
+        cards.forEach((c) => {
+          const tags = (c.dataset.tags || '').split(/\s+/);
+          const hide = !active.has('semua') && !tags.some((t) => active.has(t));
+          c.classList.toggle('hide', hide);
+          if (!hide) shown++;
+        });
+        BS.toast(`${shown} game siap dimainkan 🕹️`);
+      });
+    }
   };
 
   /* ============ DUNIA ============ */
@@ -181,23 +238,31 @@
         }).join('')}
       </div>
 
-      ${topics.length === 0 ? `<div class="card" style="margin-top:14px"><p style="font-weight:700">Belum ada topik di mapel ini untuk kelas ini. Coba mapel lain ya! 😊</p></div>` : ''}
+      ${topics.length === 0 ? `<div class="empty-state" role="status" style="margin-top:14px">
+        <span class="empty-owl" aria-hidden="true">🦉</span>
+        <p class="empty-bubble">Mapel ini masih kosong di kelas ini. Coba mapel lain, atau mainkan game dulu yuk!</p>
+        <a class="btn btn-coral" href="#/petualangan">🕹️ Lihat Galeri Game</a>
+      </div>` : ''}
 
-      <div class="section-title"><span class="emoji">🎮</span><h2>Game ${w.name}</h2><span class="sub">belajar sambil bermain</span></div>
-      <div class="topic-grid">
-        ${w.games.map((gid) => {
+      <div class="section-title"><span class="emoji">🎮</span><h2>Game ${w.name}</h2><span class="sub">${w.games.length} game · mulai yang mana saja!</span></div>
+      ${(w.regions || [{ name: 'Semua Game 🕹️', games: w.games }]).map((rg, ri) => `
+      <div class="region-title"><span class="sticker sun">${rg.name}</span><span class="region-line"></span></div>
+      <div class="bento region-bento">
+        ${rg.games.map((gid, i) => {
           const g = BS.GAMES[gid]; if (!g) return '';
           return `
-          <div class="topic-card">
-            <div class="t-head"><span class="t-ico">${g.icon}</span><div><h3>${g.name}</h3></div></div>
+          <article class="b-card b-${i === 0 && rg.games.length > 1 ? 'wide' : 'mini'} game-card" style="--i:${i};--tilt:${BS.tiltVar(gid)}deg">
+            <span class="h-ico gico">${g.icon}</span>
+            <h3>${g.name}</h3>
             <p class="t-obj">${g.desc}</p>
             <div class="t-actions"><button class="btn btn-coral" data-game="${gid}">🎮 Main Sekarang</button></div>
-          </div>`;
+          </article>`;
         }).join('')}
-      </div>
+      </div>`).join('')}
 
       <div class="btn-row" style="margin-top:22px;justify-content:center">
         <button class="btn btn-grape btn-big" data-mixed="1">🎲 Latihan Campuran ${esc(grade.name)}</button>
+        <button class="btn btn-surprise btn-big" id="btn-surprise">🎲 Kejutkan Aku!</button>
         ${worldId === 'sma' ? `<a class="btn btn-ink btn-big" style="background:var(--ink);color:#fff" href="#/game/utbk-sim">🎓 Simulator UTBK</a>` : ''}
       </div>
     </div>`;
@@ -214,6 +279,8 @@
     document.querySelectorAll('[data-gen]').forEach((b) => { b.onclick = () => BS.startGenQuiz(b.dataset.gen); });
     document.querySelectorAll('[data-game]').forEach((b) => { b.onclick = () => BS.openGame(b.dataset.game); });
     document.querySelectorAll('[data-mixed]').forEach((b) => { b.onclick = () => BS.startMixedQuiz(worldId, gradeId); });
+    const sb = document.getElementById('btn-surprise');
+    if (sb) sb.onclick = () => BS.surprise(worldId);
   };
 
   /* ============ MATERI ============ */
@@ -361,7 +428,11 @@
               <a class="btn btn-sun" href="#/m/${t.id}">📚</a>
               <button class="btn btn-pink" data-quiz="${t.id}">✏️</button>
             </div>`).join('')}
-        </div>` : `<div class="card"><p style="font-weight:700">Belum ada catatan kelemahan. Kerjakan latihan supaya Pipo bisa menganalisis ya! 💪</p></div>`}
+        </div>` : `<div class="empty-state" role="status">
+          <span class="empty-owl" aria-hidden="true">🦉</span>
+          <p class="empty-bubble">Belum ada catatan kelemahan. Kerjakan latihan supaya Pipo bisa menganalisis ya! 💪</p>
+          <a class="btn btn-coral" href="#/petualangan">🕹️ Mulai dari Galeri Game</a>
+        </div>`}
 
       <div class="section-title"><span class="emoji">🎭</span><h2>Kostum Avatar</h2></div>
       <div class="card">
