@@ -1,50 +1,78 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>BelajarSeru! — Petualangan Belajar TK sampai SMA</title>
-  <meta name="description" content="BelajarSeru! — portal belajar interaktif untuk anak TK, SD, SMP, dan SMA. 4 dunia belajar, game edukatif, kuis seru, lab fisika mini, dan hadiah XP & lencana. Gratis!" />
-  <meta name="keywords" content="belajar anak, game edukasi, TK, SD, SMP, SMA, kuis, matematika, bahasa, IPA, UTBK, coding anak, Indonesia" />
-  <meta name="author" content="Achmad Bayhaqy" />
-  <meta name="robots" content="index, follow" />
-  <meta name="theme-color" content="#7C3AED" />
-  <link rel="canonical" href="https://bayhaqy.my.id/kids/" />
-
-  <meta property="og:type" content="website" />
-  <meta property="og:title" content="BelajarSeru! — Petualangan Belajar TK sampai SMA" />
-  <meta property="og:description" content="4 dunia belajar dalam satu portal: TK, SD, SMP, SMA. Game edukatif, kuis, lab mini, XP & lencana. Gratis dan tanpa iklan!" />
-  <meta property="og:url" content="https://bayhaqy.my.id/kids/" />
-  <meta property="og:locale" content="id_ID" />
-
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚀</text></svg>" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/styles.css" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="description" content="BelajarSeru! — petualangan belajar 3D untuk TK, SD, SMP & SMA sesuai Kurikulum Merdeka. Materi lengkap, latihan, game edukatif, simulator UTBK, gratis!">
+<meta name="theme-color" content="#FFF6E5">
+<title>BelajarSeru! 3D — Petualangan Belajar TK sampai SMA</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🦉</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css?v=20260830b">
 </head>
-<body data-world="home">
-  <div id="app" class="app-shell">
-    <div class="boot-loading">
-      <div class="boot-emoji">🚀</div>
-      <p>Menyiapkan petualangan…</p>
-    </div>
-  </div>
+<body>
+<div id="bg-doodles" aria-hidden="true"></div>
 
-  <div id="toast-layer" aria-live="polite"></div>
-  <div id="confetti-layer"></div>
+<!-- ===== TOP BAR ===== -->
+<header id="topbar" class="topbar">
+  <a class="brand" href="#/home" aria-label="Beranda BelajarSeru">
+    <span class="brand-owl" aria-hidden="true">🦉</span>
+    <span class="brand-txt">Belajar<b>Seru!</b></span>
+  </a>
+  <nav class="topstats" aria-label="Statistik">
+    <span class="pill pill-fire" id="stat-streak" title="Streak harian">🔥 <b>0</b></span>
+    <span class="pill pill-coin" id="stat-coins" title="Koin">🪙 <b>0</b></span>
+    <span class="pill pill-xp" id="stat-xp" title="Poin XP">⭐ <b>0</b></span>
+    <button class="iconbtn" id="btn-sound" title="Suara" aria-label="Suara">🔊</button>
+  </nav>
+</header>
 
-  <noscript>
-    <div style="padding:2rem;text-align:center;font-family:sans-serif">
-      <h1>🚀 BelajarSeru!</h1>
-      <p>Aplikasi ini membutuhkan JavaScript. Aktifkan JavaScript di peramban kamu ya!</p>
-    </div>
-  </noscript>
+<!-- ===== APP VIEW ===== -->
+<main id="app" class="app" tabindex="-1"></main>
 
-  <script src="js/data.js"></script>
-  <script src="js/core.js"></script>
-  <script src="js/games-td.js"></script>
-  <script src="js/games-sms.js"></script>
-  <script>document.addEventListener('DOMContentLoaded', () => Core.init());</script>
+<!-- ===== NAV BAWAH ===== -->
+<nav id="bottomnav" class="bottomnav" aria-label="Navigasi utama">
+  <a href="#/home" data-nav="home"><span class="nav-ico">🏠</span><span>Beranda</span></a>
+  <a href="#/petualangan" data-nav="petualangan"><span class="nav-ico">🗺️</span><span>Petualangan</span></a>
+  <a href="#/belajar" data-nav="belajar"><span class="nav-ico">📚</span><span>Materi</span></a>
+  <a href="#/profil" data-nav="profil"><span class="nav-ico">🦸</span><span>Profil</span></a>
+  <a href="#/ortu" data-nav="ortu"><span class="nav-ico">👨‍👩‍👧</span><span>Ortu</span></a>
+</nav>
+
+<div id="confetti-layer" aria-hidden="true"></div>
+<div id="toast-layer" aria-live="polite"></div>
+
+<script src="js/vendor/three.min.js?v=150.1"></script>
+<script src="js/data/tk.js?v=20260830b"></script>
+<script src="js/data/sd13-t1.js?v=20260830b"></script>
+<script src="js/data/sd13-t2.js?v=20260830b"></script>
+<script src="js/data/sd13-q1.js?v=20260830b"></script>
+<script src="js/data/sd13-q2.js?v=20260830b"></script>
+<script src="js/data/sd13-q3.js?v=20260830b"></script>
+<script src="js/data/sd46-t1.js?v=20260830b"></script>
+<script src="js/data/sd46-t2.js?v=20260830b"></script>
+<script src="js/data/sd46-q1.js?v=20260830b"></script>
+<script src="js/data/sd46-q2.js?v=20260830b"></script>
+<script src="js/data/sd46-q3.js?v=20260830b"></script>
+<script src="js/data/smp-t1.js?v=20260830b"></script>
+<script src="js/data/smp-t2.js?v=20260830b"></script>
+<script src="js/data/smp-q1.js?v=20260830b"></script>
+<script src="js/data/smp-q2.js?v=20260830b"></script>
+<script src="js/data/smp-q3.js?v=20260830b"></script>
+<script src="js/data/sma-t1.js?v=20260830b"></script>
+<script src="js/data/sma-t2.js?v=20260830b"></script>
+<script src="js/data/sma-t3.js?v=20260830b"></script>
+<script src="js/data/sma-q1.js?v=20260830b"></script>
+<script src="js/data/sma-q2.js?v=20260830b"></script>
+<script src="js/data/sma-q3.js?v=20260830b"></script>
+<script src="js/data/sma-q4.js?v=20260830b"></script>
+<script src="js/scene.js?v=20260830b"></script>
+<script src="js/quiz.js?v=20260830b"></script>
+<script src="js/views.js?v=20260830b"></script>
+<script src="js/games-a.js?v=20260830b"></script>
+<script src="js/games-b.js?v=20260830b"></script>
+<script src="js/app.js?v=20260830b"></script>
 </body>
 </html>
